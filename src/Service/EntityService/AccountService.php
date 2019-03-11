@@ -3,6 +3,7 @@
 namespace App\Service\EntityService;
 
 use App\Entity\Account;
+use App\Exceptions\NotFound\AccountNotFoundException;
 use App\Repository\AccountRepository;
 use App\Service\Abstracts\AbstractValidationService;
 use App\Tools\RandomStringGenerator;

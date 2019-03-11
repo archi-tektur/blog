@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\EntityService;
+namespace App\Exceptions\NotFound;
 
 use Doctrine\ORM\EntityNotFoundException;
 
