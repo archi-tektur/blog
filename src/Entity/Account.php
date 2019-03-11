@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -66,15 +67,15 @@ class Account extends AbstractLifecycleEntity implements UserInterface
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="likedBy")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Comment", mappedBy="likedBy")
      */
-    private $likedComments;
+    private $commentsLiked;
 
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->likedComments = new ArrayCollection();
+        $this->commentsLiked = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -260,44 +261,41 @@ class Account extends AbstractLifecycleEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Comment[]
-     */
-    public function getLikedComments(): Collection
-    {
-        return $this->likedComments;
-    }
-
-    public function addLikedComment(Comment $likedComment): self
-    {
-        if (!$this->likedComments->contains($likedComment)) {
-            $this->likedComments[] = $likedComment;
-            $likedComment->setLikedBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLikedComment(Comment $likedComment): self
-    {
-        if ($this->likedComments->contains($likedComment)) {
-            $this->likedComments->removeElement($likedComment);
-            // set the owning side to null (unless already changed)
-            if ($likedComment->getLikedBy() === $this) {
-                $likedComment->setLikedBy(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getCommentsLiked(): Collection
+    {
+        return $this->commentsLiked;
+    }
+
+    public function addCommentsLiked(Comment $commentsLiked): self
+    {
+        if (!$this->commentsLiked->contains($commentsLiked)) {
+            $this->commentsLiked[] = $commentsLiked;
+            $commentsLiked->addLikedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentsLiked(Comment $commentsLiked): self
+    {
+        if ($this->commentsLiked->contains($commentsLiked)) {
+            $this->commentsLiked->removeElement($commentsLiked);
+            $commentsLiked->removeLikedBy($this);
+        }
+
+        return $this;
     }
 }

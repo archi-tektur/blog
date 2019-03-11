@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,15 +32,20 @@ class Comment extends AbstractLifecycleEntity
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Account", inversedBy="likedComments")
-     */
-    private $likedBy;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $article;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Account", inversedBy="commentsLiked")
+     */
+    private $likedBy;
+
+    public function __construct()
+    {
+        $this->likedBy = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -70,18 +77,6 @@ class Comment extends AbstractLifecycleEntity
         return $this;
     }
 
-    public function getLikedBy(): ?Account
-    {
-        return $this->likedBy;
-    }
-
-    public function setLikedBy(?Account $likedBy): self
-    {
-        $this->likedBy = $likedBy;
-
-        return $this;
-    }
-
     public function getArticle(): ?Article
     {
         return $this->article;
@@ -102,5 +97,31 @@ class Comment extends AbstractLifecycleEntity
     public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return Collection|Account[]
+     */
+    public function getLikedBy(): Collection
+    {
+        return $this->likedBy;
+    }
+
+    public function addLikedBy(Account $likedBy): self
+    {
+        if (!$this->likedBy->contains($likedBy)) {
+            $this->likedBy[] = $likedBy;
+        }
+
+        return $this;
+    }
+
+    public function removeLikedBy(Account $likedBy): self
+    {
+        if ($this->likedBy->contains($likedBy)) {
+            $this->likedBy->removeElement($likedBy);
+        }
+
+        return $this;
     }
 }
