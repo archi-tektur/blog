@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    {{article.title}}
-    <br/>
-    {{article.content|raw|nl2br}}
-    <a href="{{path('gui__admin_article_add')}}">Add new</a>
-    <a href="{{path('gui__admin_article_edit', {'slug': article.slug})}}">Edit</a>
-    <a href="{{path('gui__admin_article_delete', {'slug': article.slug})}}">Delete</a>
-    <a href="{{path('gui__admin_account_list')}}">Back to article list</a>
+    <h1>{{article.title}}</h1>
+    <article>{{article.content|raw}}</article>
+    <div style="border: 3px dotted red; padding: 20px; width: 300px;">
+        <a href="{{path('gui__admin_article_add')}}">Add new</a>
+        <a href="{{path('gui__admin_article_edit', {'slug': article.slug})}}">Edit</a>
+        <a href="{{path('gui__admin_article_delete', {'slug': article.slug})}}">Delete</a>
+        <a href="{{path('gui__admin_article_list')}}">Back to article list</a>
+    </div>
+
 {% endblock %}
