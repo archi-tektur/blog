@@ -190,4 +190,9 @@ class Article extends AbstractLifecycleEntity
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->title;
+    }
 }
