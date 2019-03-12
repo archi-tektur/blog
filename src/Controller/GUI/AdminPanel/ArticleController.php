@@ -3,9 +3,11 @@
 namespace App\Controller\GUI\AdminPanel;
 
 use App\Entity\Article;
+use App\Exceptions\NotFound\ArticleNotFoundException;
 use App\Form\ArticleFormType;
 use App\Service\EntityService\ArticleService;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,6 +54,30 @@ class ArticleController extends AbstractController
 
         }
         return $this->render('admin/article/article_add.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/admin/article/{slug}/edit", name="gui__admin_article_edit")
+     * @param string $slug
+     * @return RedirectResponse
+     */
+    public function edit(string $slug): RedirectResponse
+    {
+        return $this->redirectToRoute('gui__admin_article_list');
+
+    }
+
+    /**
+     * @Route("/admin/article/{slug}/delete", name="gui__admin_article_delete")
+     * @param string $slug
+     * @return RedirectResponse
+     * @throws ArticleNotFoundException
+     * @throws ORMException
+     */
+    public function delete(string $slug): RedirectResponse
+    {
+        $this->articleService->delete($slug);
+        return $this->redirectToRoute('gui__admin_article_list');
     }
 
     /**

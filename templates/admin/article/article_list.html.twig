@@ -1,12 +1,19 @@
 {% extends 'base.html.twig' %}
-
-<h2>Article list</h2>
-
-<table>
-    {% for article in articles if articles %}
-        <tr>
-            <td>{{article.title}}</td>
-            <td>{{article.content}}</td>
-        </tr>
-    {% endfor %}
-</table>
+{% block body %}
+    <h2>Article list</h2>
+    <table>
+        {% for article in articles if articles %}
+            <tr>
+                <td>{{article.id}}</td>
+                <td>|</td>
+                <td>{{article.title}}</td>
+                <td>|</td>
+                <td>{{article.slug}}</td>
+                <td>|</td>
+                <td><a href="{{path('gui__admin_article_edit', {'slug': article.slug})}}">Edit</a></td>
+                <td>|</td>
+                <td><a href="{{path('gui__admin_article_delete', {'slug': article.slug})}}">Delete</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
