@@ -1,7 +1,15 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h2>Article list</h2>
+    <h1>Article list</h1>
     <table>
+        <tr style="font-weight: bold">
+            <td>UUID</td>
+            <td>|</td>
+            <td>Title</td>
+            <td>|</td>
+            <td>URL slug</td>
+            <td>|</td>
+        </tr>
         {% for article in articles if articles %}
             <tr>
                 <td>{{article.id}}</td>

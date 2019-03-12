@@ -146,6 +146,21 @@ class AccountService extends AbstractValidationService
     }
 
     /**
+     * @param Account $account
+     * @return Account
+     * @throws ORMException
+     */
+    public function grantUser(Account $account): Account
+    {
+        $account->setRoles(['ROLE_ADMIN']);
+
+        $this->entityManager->persist($account);
+        $this->entityManager->flush();
+
+        return $account;
+    }
+
+    /**
      * @param string $email
      * @return Account
      * @throws AccountNotFoundException
