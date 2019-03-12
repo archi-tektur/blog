@@ -45,7 +45,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="gui_admin_login")
+     * @Route("/admin/login", name="gui_admin_login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
@@ -56,7 +56,11 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('admin/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('admin/security/login.html.twig', [
+                'email' => $lastUsername,
+                'error' => $error,
+            ]
+        );
     }
 
     /**

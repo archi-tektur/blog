@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
@@ -22,6 +23,25 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
+
+    /**
+     * POST key names
+     */
+    private const EMAIL_FIELD_NAME = '_email';
+    private const PSWD_FIELD_NAME = '_password';
+    private const CSRF_FIELD_NAME = '_csrf';
+    /**
+     * Internal key names
+     */
+    private const INTERNAL_EMAIL = 'mail';
+    private const INTERNAL_PSWD = 'password';
+    private const INTERNAL_CSRF = 'csrf';
+    /**
+     * Error messages
+     */
+    private const ENTITY_NOT_FOUND = 'User with this e-mail not found.';
+    private const PSWD_WRONG = 'Password is incorrect.';
+    private const CSRF_FAILURE = 'Invalid CSRF token provided.';
 
     private $entityManager;
     private $urlGenerator;
@@ -58,13 +78,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public function getCredentials(Request $request)
     {
         $credentials = [
-            'email'      => $request->request->get('email'),
-            'password'   => $request->request->get('password'),
-            'csrf_token' => $request->request->get('_csrf_token'),
+            self::INTERNAL_EMAIL => $request->request->get(self::EMAIL_FIELD_NAME),
+            self::INTERNAL_PSWD  => $request->request->get(self::PSWD_FIELD_NAME),
+            self::INTERNAL_CSRF  => $request->request->get(self::CSRF_FIELD_NAME),
         ];
         $request->getSession()->set(
             Security::LAST_USERNAME,
-            $credentials['email']
+            $credentials[self::INTERNAL_EMAIL]
         );
 
         return $credentials;
@@ -75,18 +95,16 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $token = new CsrfToken('authenticate', $credentials['csrf_token']);
+        $token = new CsrfToken('authenticate', $credentials[self::INTERNAL_CSRF]);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
-            throw new InvalidCsrfTokenException('');
+            throw new InvalidCsrfTokenException(self::CSRF_FAILURE);
         }
-
-        $user = $this->entityManager->getRepository(Account::class)->findOneBy(['email' => $credentials['email']]);
-
+        $user = $this->entityManager->getRepository(Account::class)
+                                    ->findOneBy(['email' => $credentials[self::INTERNAL_EMAIL]]);
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+            throw new CustomUserMessageAuthenticationException(self::ENTITY_NOT_FOUND);
         }
-
         return $user;
     }
 
@@ -95,7 +113,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function checkCredentials($credentials, UserInterface $user): bool
     {
-        return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+        $boolean = $this->passwordEncoder->isPasswordValid($user, $credentials[self::INTERNAL_PSWD]);
+        if ($boolean) {
+            return $boolean;
+        }
+        throw new AuthenticationException(self::PSWD_WRONG);
     }
 
     /**
@@ -103,12 +125,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
+        $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
+        if ($targetPath) {
             return new RedirectResponse($targetPath);
         }
-
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside ' . __FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('gui__admin_article_list'));
     }
 
     /**
