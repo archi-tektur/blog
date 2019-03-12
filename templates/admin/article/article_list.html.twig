@@ -7,6 +7,8 @@
             <td>|</td>
             <td>Title</td>
             <td>|</td>
+            <td>Content</td>
+            <td>|</td>
             <td>URL slug</td>
             <td>|</td>
             <td>Author(s)</td>
@@ -19,6 +21,10 @@
                 <td>{{article.id}}</td>
                 <td>|</td>
                 <td>{{article.title}}</td>
+                <td>|</td>
+                <td>
+                    <span title="{{article.content|striptags}}">Text</span>
+                    <span title="{{article.content|raw|nl2br}}">HTML</span></td>
                 <td>|</td>
                 <td>{{article.slug}}</td>
                 <td>|</td>
