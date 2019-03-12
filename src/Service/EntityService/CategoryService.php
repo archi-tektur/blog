@@ -3,8 +3,8 @@
 namespace App\Service\EntityService;
 
 use App\Entity\Category;
-use App\Exceptions\NotFound\CategoryAlreadyExistsException;
 use App\Exceptions\NotFound\CategoryNotFoundException;
+use App\Exceptions\StructureViolation\CategoryAlreadyExistsException;
 use App\Repository\CategoryRepository;
 use App\Service\Abstracts\AbstractValidationService;
 use Doctrine\ORM\EntityManagerInterface;
