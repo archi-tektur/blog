@@ -1,15 +1,73 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: archi-tektur
- * Date: 3/12/19
- * Time: 12:44 AM
- */
+<?php declare(strict_types=1);
 
 namespace App\Service\EntityService;
 
+use App\Entity\Account;
+use App\Entity\Article;
+use App\Entity\Comment;
+use App\Exceptions\NotFound\CommentNotFoundException;
+use App\Repository\CommentRepository;
+use App\Service\Abstracts\AbstractValidationService;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class CommentService
+/**
+ * Comment-related actions
+ *
+ * @package App\Service\EntityService
+ */
+class CommentService extends AbstractValidationService
 {
+    private const ERR_NOT_FOUND = 'Comment with that ID wasn\'t found.';
 
+    /**
+     * @var CommentRepository
+     */
+    protected $commentRepository;
+
+    public function __construct(
+        ValidatorInterface $validator,
+        EntityManagerInterface $entity,
+        CommentRepository $commentRepository
+    ) {
+        parent::__construct($validator, $entity);
+        $this->commentRepository = $commentRepository;
+    }
+
+    public function add(string $content, Account $author, Article $article): Comment
+    {
+    }
+
+    /**
+     * @param int $identifier
+     * @return Comment
+     * @throws CommentNotFoundException
+     */
+    public function get(int $identifier): Comment
+    {
+        $comment = $this->commentRepository->find($identifier);
+        if (!$comment instanceof Comment) {
+            throw new CommentNotFoundException(self::ERR_NOT_FOUND);
+        }
+
+        return $comment;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAll(): array
+    {
+        return $this->commentRepository->findAll();
+    }
+
+    public function edit(int $identifier, string $content): Comment
+    {
+        $comment = $this->get($identifier);
+        $this->edit()
+    }
+
+    public function delete(): void
+    {
+    }
 }

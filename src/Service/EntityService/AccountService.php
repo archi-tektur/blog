@@ -8,7 +8,7 @@ use App\Exceptions\StructureViolation\AccountAlreadyExistsException;
 use App\Repository\AccountRepository;
 use App\Service\Abstracts\AbstractValidationService;
 use App\Tools\RandomStringGenerator;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
 use Exception;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
@@ -38,7 +38,7 @@ class AccountService extends AbstractValidationService
         AccountRepository $accountRepository,
         UserPasswordEncoderInterface $encoder,
         ValidatorInterface $validator,
-        EntityManager $entityManager
+        EntityManagerInterface $entityManager
     ) {
         parent::__construct($validator, $entityManager);
         $this->accountRepository = $accountRepository;
@@ -100,6 +100,14 @@ class AccountService extends AbstractValidationService
         }
 
         return $account;
+    }
+
+    /**
+     * @return Account[]
+     */
+    public function getAll(): array
+    {
+        return $this->accountRepository->findAll();
     }
 
     /**

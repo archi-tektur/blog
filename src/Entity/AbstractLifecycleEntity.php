@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class AbstractLifecycleEntity
  *
+ *
+ * @ORM\HasLifecycleCallbacks()
  * @package App\Entity
  */
 class AbstractLifecycleEntity
