@@ -4,6 +4,7 @@ namespace App\Service\EntityService;
 
 use App\Entity\Account;
 use App\Exceptions\NotFound\AccountNotFoundException;
+use App\Exceptions\StructureViolation\AccountAlreadyExistsException;
 use App\Repository\AccountRepository;
 use App\Service\Abstracts\AbstractValidationService;
 use App\Tools\RandomStringGenerator;
@@ -31,6 +32,7 @@ class AccountService extends AbstractValidationService
     protected $encoder;
 
     private const ERR_NOT_FOUND = 'Account wasn\'t found.';
+    private const ERR_ALREADY_EXISTS = 'Account with this e-mail already exists.';
 
     public function __construct(
         AccountRepository $accountRepository,
@@ -48,14 +50,20 @@ class AccountService extends AbstractValidationService
      *
      * @param string $name
      * @param string $surname
+     * @param string $email
      * @param string $profilePath
      * @param string $password
      * @return Account
+     * @throws ORMException
      * @throws Exception
      */
-    public function add(string $name, string $surname, string $profilePath, string $password): Account
+    public function add(string $name, string $surname, string $email, string $profilePath, string $password): Account
     {
         $account = new Account();
+
+        if ($this->accountRepository->count(['email' => $email]) !== 0) {
+            throw new AccountAlreadyExistsException(self::ERR_ALREADY_EXISTS);
+        }
 
         $encodedPassword = $this->encoder->encodePassword($account, $password);
         $apiKey = $this->generateApiPartialKey();
@@ -65,6 +73,7 @@ class AccountService extends AbstractValidationService
         $account->setName($name)
                 ->setSurname($surname)
                 ->setProfilePicturePath($profilePath)
+                ->setEmail($email)
                 ->setPassword($encodedPassword)
                 ->setApiPartialKey($apiKey);
 
