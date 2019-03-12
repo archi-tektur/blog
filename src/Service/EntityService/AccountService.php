@@ -4,7 +4,6 @@ namespace App\Service\EntityService;
 
 use App\Entity\Account;
 use App\Exceptions\NotFound\AccountNotFoundException;
-use App\Exceptions\StructureViolation\AccountAlreadyExistsException;
 use App\Repository\AccountRepository;
 use App\Service\Abstracts\AbstractValidationService;
 use App\Tools\RandomStringGenerator;
@@ -60,10 +59,6 @@ class AccountService extends AbstractValidationService
     public function add(string $name, string $surname, string $email, string $profilePath, string $password): Account
     {
         $account = new Account();
-
-        if ($this->accountRepository->count(['email' => $email]) !== 0) {
-            throw new AccountAlreadyExistsException(self::ERR_ALREADY_EXISTS);
-        }
 
         $encodedPassword = $this->encoder->encodePassword($account, $password);
         $apiKey = $this->generateApiPartialKey();
@@ -133,6 +128,23 @@ class AccountService extends AbstractValidationService
                 ->setPassword($encodedPassword)
                 ->setProfilePicturePath($profilePath);
 
+        $this->entityManager->persist($account);
+        $this->entityManager->flush();
+
+        return $account;
+    }
+
+    /**
+     * @param string $email
+     * @return Account
+     * @throws AccountNotFoundException
+     * @throws ORMException
+     * @throws Exception
+     */
+    public function regenerateApiKey(string $email): Account
+    {
+        $account = $this->get($email);
+        $account->setApiPartialKey($this->generateApiPartialKey());
         $this->entityManager->persist($account);
         $this->entityManager->flush();
 

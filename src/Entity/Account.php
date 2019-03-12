@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Tools\RandomStringGenerator;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -75,6 +76,11 @@ class Account extends AbstractLifecycleEntity implements UserInterface
      * @ORM\ManyToMany(targetEntity="App\Entity\Comment", mappedBy="likedBy")
      */
     private $commentsLiked;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $agreedTermsAt;
 
     public function __construct()
     {
@@ -316,5 +322,22 @@ class Account extends AbstractLifecycleEntity implements UserInterface
     public function __toString(): string
     {
         return $this->name . ' ' . $this->surname;
+    }
+
+    public function getAgreedTermsAt(): ?DateTimeInterface
+    {
+        return $this->agreedTermsAt;
+    }
+
+    public function setAgreedTermsAt(DateTimeInterface $agreedTermsAt): self
+    {
+        $this->agreedTermsAt = $agreedTermsAt;
+
+        return $this;
+    }
+
+    public function agreeToTerms()
+    {
+        $this->agreedTermsAt = new DateTime();
     }
 }
