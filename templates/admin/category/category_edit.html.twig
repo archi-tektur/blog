@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h2>Edit category</h2>
+    {% include '_form.html.twig' with {buttonText:'Edit!'} %}
+    <a href="{{path('gui__admin_category_list')}}">Go back to all categories</a>
+{% endblock %}

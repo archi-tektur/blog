@@ -2,7 +2,9 @@
 
 namespace App\Controller\GUI\AdminPanel;
 
+use App\Entity\Category;
 use App\Exceptions\NotFound\CategoryNotFoundException;
+use App\Form\CategoryFormType;
 use App\Service\EntityService\CategoryService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
@@ -37,19 +39,43 @@ class CategoryController extends AbstractController
     /**
      * @Route("/admin/category/add", name="gui__admin_category_add")
      * @param Request $request
-     * @return Request
+     * @return Response
      */
-    public function add(Request $request): Request
+    public function add(Request $request): Response
     {
+        $form = $this->createForm(CategoryFormType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Category $category */
+            $category = $form->getData();
+            $this->entityManager->persist($category);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('gui__admin_category_list');
+        }
+        return $this->render('admin/category/category_add.html.twig', ['form' => $form->createView()]);
     }
 
     /**
      * @Route("/admin/category/{name}/edit", name="gui__admin_category_edit")
-     * @param string $name
-     * @return Request
+     * @param Request $request
+     * @param string  $name
+     * @return Response
+     * @throws CategoryNotFoundException
      */
-    public function edit(string $name): Request
+    public function edit(Request $request, string $name): Response
     {
+        $category = $this->categoryService->get($name);
+        $form = $this->createForm(CategoryFormType::class, $category);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Category $category */
+            $category = $form->getData();
+            $this->entityManager->persist($category);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('gui__admin_category_list');
+        }
+        return $this->render('admin/category/category_edit.html.twig', ['form' => $form->createView()]);
+
     }
 
     /**
@@ -59,8 +85,9 @@ class CategoryController extends AbstractController
      * @throws CategoryNotFoundException
      * @throws ORMException
      */
-    public function delete(string $name): RedirectResponse
-    {
+    public function delete(
+        string $name
+    ): RedirectResponse {
         $this->categoryService->delete($name);
         return $this->redirectToRoute('gui__admin_category_list');
     }

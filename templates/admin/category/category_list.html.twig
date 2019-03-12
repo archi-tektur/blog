@@ -11,13 +11,13 @@
             <tr>
                 <td>{{category.id}}</td>
                 <td>|</td>
-                <td>{{category.name}}</td>
+                <td>{{category}}</td>
                 <td>|</td>
-                <td><a href="{{path('gui__admin_article_edit', {'slug': article.slug})}}">Edit</a></td>
+                <td><a href="{{path('gui__admin_category_edit', {'name': category})}}">Edit</a></td>
                 <td>|</td>
-                <td><a href="{{path('gui__admin_article_delete', {'slug': article.slug})}}">Delete</a></td>
+                <td><a href="{{path('gui__admin_category_delete', {'name': category})}}">Delete</a></td>
             </tr>
         {% endfor %}
     </table>
-    <a href="{{path('gui__admin_article_add')}}">Add article</a>
+    <a href="{{path('gui__admin_category_add')}}">Add category</a>
 {% endblock %}
