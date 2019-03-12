@@ -4,8 +4,11 @@ namespace App\Form;
 
 use App\Entity\Account;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegisterFormType extends AbstractType
 {
@@ -18,7 +21,18 @@ class RegisterFormType extends AbstractType
             ->add('name')
             ->add('surname')
             ->add('email')
-            ->add('password');
+            ->add('plainPassword', PasswordType::class, [
+                'mapped'      => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Choose a password!',
+                    ]),
+                    new Length([
+                        'min'        => 8,
+                        'minMessage' => 'Come on, you can think of a password longer than that!',
+                    ]),
+                ],
+            ]);
     }
 
     /**

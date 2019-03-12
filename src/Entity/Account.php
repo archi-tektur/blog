@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use App\Tools\RandomStringGenerator;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -300,6 +302,15 @@ class Account extends AbstractLifecycleEntity implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @throws Exception
+     */
+    public function setApiKey()
+    {
+        $this->apiPartialKey = RandomStringGenerator::generate(64);
     }
 
     public function __toString(): string
