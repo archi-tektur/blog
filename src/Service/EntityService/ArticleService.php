@@ -10,6 +10,7 @@ use App\Exceptions\StructureViolation\ArticleAlreadyExistsException;
 use App\Repository\ArticleRepository;
 use App\Service\Abstracts\AbstractValidationService;
 use Cocur\Slugify\Slugify;
+use Cocur\Slugify\SlugifyInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -36,7 +37,7 @@ class ArticleService extends AbstractValidationService
         ValidatorInterface $validator,
         EntityManagerInterface $entity,
         ArticleRepository $articleRepository,
-        Slugify $slugify
+        SlugifyInterface $slugify
     ) {
         parent::__construct($validator, $entity);
         $this->articleRepository = $articleRepository;
@@ -46,14 +47,13 @@ class ArticleService extends AbstractValidationService
     /**
      * Add article
      *
-     * @param string   $title
-     * @param string   $content
-     * @param Category $category
-     * @param Account  $author
+     * @param string  $title
+     * @param string  $content
+     * @param Account $author
      * @return Article
      * @throws ORMException
      */
-    public function add(string $title, string $content, Category $category, Account $author): Article
+    public function add(string $title, string $content, Account $author): Article
     {
         $article = new Article();
 
@@ -62,7 +62,6 @@ class ArticleService extends AbstractValidationService
         $article->setTitle($title)
                 ->setContent($content)
                 ->addAuthor($author)
-                ->addCategory($category)
                 ->setSlug($slug);
 
         if ($this->articleRepository->count(['slug' => $slug]) !== 0) {

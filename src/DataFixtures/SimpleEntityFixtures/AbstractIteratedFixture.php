@@ -12,7 +12,9 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 abstract class AbstractIteratedFixture extends Fixture
 {
-    protected const ITERATION_COUNT = 20;
+    protected $iterationsCount = 20;
+
+    protected $iterator;
 
     /**
      * Function loaded each time fixtures are loaded
@@ -21,11 +23,22 @@ abstract class AbstractIteratedFixture extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        $i = 0;
-        while ($i < self::ITERATION_COUNT) {
-            $this->eachIter($i);
-            $i++;
+        $this->iterator = 0;
+        while ($this->iterator < $this->iterationsCount) {
+            $this->eachIter($this->iterator);
+            $this->iterator++;
         }
+    }
+
+    /**
+     * Replace each %s in text to current iterator index
+     *
+     * @param $text
+     * @return string
+     */
+    public function iterReplace($text): string
+    {
+        return sprintf($text, $this->iterator);
     }
 
     /**
@@ -34,5 +47,5 @@ abstract class AbstractIteratedFixture extends Fixture
      * @param int $iterator
      * @return mixed
      */
-    abstract protected function eachIter(int $iterator);
+    abstract protected function eachIter(int $iterator): void;
 }

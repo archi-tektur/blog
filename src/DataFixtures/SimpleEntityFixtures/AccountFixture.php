@@ -23,6 +23,8 @@ class AccountFixture extends AbstractIteratedFixture
      */
     protected $accountService;
 
+    protected $iterationsCount = 5;
+
     /**
      * AccountFixture constructor.
      *
