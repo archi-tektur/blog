@@ -89,4 +89,9 @@ class Category extends AbstractLifecycleEntity
     {
         return $this->updatedAt;
     }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }

@@ -4,7 +4,6 @@ namespace App\DataFixtures\SimpleEntityFixtures;
 
 use App\Service\EntityService\AccountService;
 use Exception;
-use function sprintf;
 
 /**
  * Class AccountFixture
@@ -44,8 +43,8 @@ class AccountFixture extends AbstractIteratedFixture
      */
     protected function eachIter(int $iterator): void
     {
-        $mail = sprintf(self::ACCOUNT_EMAIL, $iterator);
-        $profPath = sprintf(self::ACCOUNT_PROF_PATH, $iterator);
+        $mail = $this->iterReplace(self::ACCOUNT_EMAIL);
+        $profPath = $this->iterReplace(self::ACCOUNT_PROF_PATH);
 
         $this->accountService->add(
             self::ACCOUNT_NAME . $iterator,
