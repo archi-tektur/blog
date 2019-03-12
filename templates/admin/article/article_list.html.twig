@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+<h2>Article list</h2>
+
+<table>
+    {% for article in articles if articles %}
+        <tr>
+            <td>{{article.title}}</td>
+            <td>{{article.content}}</td>
+        </tr>
+    {% endfor %}
+</table>
