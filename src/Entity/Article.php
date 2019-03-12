@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Cocur\Slugify\Slugify;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -196,5 +197,15 @@ class Article extends AbstractLifecycleEntity
     public function __toString(): string
     {
         return $this->title;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function generateSlug(): void
+    {
+        $slugify = new Slugify();
+        $this->slug = $slugify->slugify($this->title);
     }
 }

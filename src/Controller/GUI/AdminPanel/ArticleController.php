@@ -47,23 +47,35 @@ class ArticleController extends AbstractController
         $form = $this->createForm(ArticleFormType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             /** @var Article $article */
             $article = $form->getData();
+            $this->entityManager->persist($article);
+            $this->entityManager->flush();
             return $this->redirectToRoute('gui__admin_article_list');
-
         }
         return $this->render('admin/article/article_add.html.twig', ['form' => $form->createView()]);
     }
 
     /**
      * @Route("/admin/article/{slug}/edit", name="gui__admin_article_edit")
-     * @param string $slug
-     * @return RedirectResponse
+     * @param Request $request
+     * @param string  $slug
+     * @return Response
+     * @throws ArticleNotFoundException
      */
-    public function edit(string $slug): RedirectResponse
+    public function edit(Request $request, string $slug): Response
     {
-        return $this->redirectToRoute('gui__admin_article_list');
+        $article = $this->articleService->get($slug);
+        $form = $this->createForm(ArticleFormType::class, $article);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Article $article */
+            $article = $form->getData();
+            $this->entityManager->persist($article);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('gui__admin_article_list');
+        }
+        return $this->render('admin/article/article_edit.html.twig', ['form' => $form->createView()]);
 
     }
 
