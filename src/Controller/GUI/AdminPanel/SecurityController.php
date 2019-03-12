@@ -2,7 +2,7 @@
 
 namespace App\Controller\GUI\AdminPanel;
 
-use App\Form\RegisterFormType;
+use App\Entity\Account;
 use App\Service\EntityService\AccountService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,6 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * Class SecurityController
@@ -39,28 +42,70 @@ class SecurityController extends AbstractController
         $this->accountService = $accountService;
     }
 
-    public function login()
+    /**
+     * @Route("/login", name="gui_admin_login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
+     */
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('admin/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
+    /**
+     *
+     */
     public function logoff()
     {
     }
 
     /**
      * @Route("/admin/register/", name="gui__admin_register")
-     * @param Request $request
+     * @param Request                      $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param GuardAuthenticatorHandler    $guardHandler
      * @return Response
      */
-    public function register(Request $request): Response
+    public function register(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        GuardAuthenticatorHandler $guardHandler
+//        LoginFormAuthenticator $formAuthenticator
+    ): Response
     {
         $form = $this->createForm(RegisterFormType::class);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Account $account */
+            $account = $form->getData();
+            $account->setPassword($passwordEncoder->encodePassword(
+                $account,
+                $account->getPassword()
+            ));
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($account);
+            $em->flush();
+
+            return $guardHandler->authenticateUserAndHandleSuccess(
+                $account,
+                $request,
+                $form,//TODO,
+                'main'
+            );
+
+        }
+
         return $this->render('admin/security/register.html.twig', ['form' => $form->createView()]);
     }
 
-    public function details()
+    public
+    function details()
     {
     }
 }
