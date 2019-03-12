@@ -21,7 +21,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ArticleService extends AbstractValidationService
 {
-
     private const ERR_NOT_FOUND = 'Article wasn\'t found.';
     private const ERR_ALREADY_EXISTS = 'Account with this slug already exists.';
     /**

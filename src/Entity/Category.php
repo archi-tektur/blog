@@ -24,11 +24,6 @@ class Category
     private $name;
 
     /**
-     * @ORM\Column(type="json_array", nullable=true)
-     */
-    private $tags;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="categories")
      */
     private $articles;
@@ -51,18 +46,6 @@ class Category
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    public function setTags($tags): self
-    {
-        $this->tags = $tags;
 
         return $this;
     }
