@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    {% include '_nav.html.twig' %}
     <h2>Add new user</h2>
     {% include '_form.html.twig' %}
     <a href="{{path('gui__admin_article_list')}}">Go back to all articles</a>
