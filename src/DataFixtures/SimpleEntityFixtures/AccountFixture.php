@@ -51,7 +51,8 @@ class AccountFixture extends AbstractIteratedFixture
             self::ACCOUNT_SURNAME . $iterator,
             $mail,
             $profPath,
-            self::ACCOUNT_PASSWORD
+            self::ACCOUNT_PASSWORD,
+            true
         );
     }
 }

@@ -52,12 +52,19 @@ class AccountService extends AbstractValidationService
      * @param string $email
      * @param string $profilePath
      * @param string $password
+     * @param bool   $agreedTerms
      * @return Account
      * @throws ORMException
      * @throws Exception
      */
-    public function add(string $name, string $surname, string $email, string $profilePath, string $password): Account
-    {
+    public function add(
+        string $name,
+        string $surname,
+        string $email,
+        string $profilePath,
+        string $password,
+        bool $agreedTerms
+    ): Account {
         $account = new Account();
 
         $encodedPassword = $this->encoder->encodePassword($account, $password);
@@ -71,6 +78,10 @@ class AccountService extends AbstractValidationService
                 ->setEmail($email)
                 ->setPassword($encodedPassword)
                 ->setApiPartialKey($apiKey);
+
+        if ($agreedTerms) {
+            $account->agreeToTerms();
+        }
 
         $this->validate($account);
 

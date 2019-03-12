@@ -329,13 +329,6 @@ class Account extends AbstractLifecycleEntity implements UserInterface
         return $this->agreedTermsAt;
     }
 
-    public function setAgreedTermsAt(DateTimeInterface $agreedTermsAt): self
-    {
-        $this->agreedTermsAt = $agreedTermsAt;
-
-        return $this;
-    }
-
     public function agreeToTerms()
     {
         $this->agreedTermsAt = new DateTime();
