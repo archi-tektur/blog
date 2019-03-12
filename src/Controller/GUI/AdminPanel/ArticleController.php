@@ -49,6 +49,7 @@ class ArticleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Article $article */
             $article = $form->getData();
+            $article->addAuthor($this->getUser());
             $this->entityManager->persist($article);
             $this->entityManager->flush();
             return $this->redirectToRoute('gui__admin_article_list');
@@ -71,6 +72,7 @@ class ArticleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Article $article */
             $article = $form->getData();
+            $article->addAuthor($this->getUser());
             $this->entityManager->persist($article);
             $this->entityManager->flush();
             return $this->redirectToRoute('gui__admin_article_list');

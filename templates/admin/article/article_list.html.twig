@@ -3,11 +3,15 @@
     <h1>Article list</h1>
     <table>
         <tr style="font-weight: bold">
-            <td>UUID</td>
+            <td>UID</td>
             <td>|</td>
             <td>Title</td>
             <td>|</td>
             <td>URL slug</td>
+            <td>|</td>
+            <td>Author(s)</td>
+            <td>|</td>
+            <td>Categories</td>
             <td>|</td>
         </tr>
         {% for article in articles if articles %}
@@ -17,6 +21,10 @@
                 <td>{{article.title}}</td>
                 <td>|</td>
                 <td>{{article.slug}}</td>
+                <td>|</td>
+                <td>{{article.authors|join(', ')}}</td>
+                <td>|</td>
+                <td>{{article.categories|join(', ')}}</td>
                 <td>|</td>
                 <td><a href="{{path('gui__article_show', {'slug': article.slug})}}">Show</a></td>
                 <td>|</td>
