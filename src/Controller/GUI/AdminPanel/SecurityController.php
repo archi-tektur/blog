@@ -3,6 +3,8 @@
 namespace App\Controller\GUI\AdminPanel;
 
 use App\Entity\Account;
+use App\Form\RegisterFormType;
+use App\Security\LoginFormAuthenticator;
 use App\Service\EntityService\AccountService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -69,15 +71,15 @@ class SecurityController extends AbstractController
      * @param Request                      $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler    $guardHandler
+     * @param LoginFormAuthenticator       $formAuthenticator
      * @return Response
      */
     public function register(
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
-        GuardAuthenticatorHandler $guardHandler
-//        LoginFormAuthenticator $formAuthenticator
-    ): Response
-    {
+        GuardAuthenticatorHandler $guardHandler,
+        LoginFormAuthenticator $formAuthenticator
+    ): Response {
         $form = $this->createForm(RegisterFormType::class);
         $form->handleRequest($request);
 
@@ -95,7 +97,7 @@ class SecurityController extends AbstractController
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $account,
                 $request,
-                $form,//TODO,
+                $formAuthenticator,
                 'main'
             );
 
@@ -104,8 +106,7 @@ class SecurityController extends AbstractController
         return $this->render('admin/security/register.html.twig', ['form' => $form->createView()]);
     }
 
-    public
-    function details()
+    public function details()
     {
     }
 }
