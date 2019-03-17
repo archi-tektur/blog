@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Service\FunctionalService;
+namespace App\Service\UploaderService;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -19,7 +19,7 @@ interface UploaderInterface
      * @param string       $fileName
      * @return string
      */
-    public function upload(UploadedFile $file, string $fileName): string;
+    public function upload(UploadedFile $file, $fileName): string;
 
     /**
      * @return string

@@ -3,14 +3,14 @@
 namespace App\Controller\GUI\AdminPanel;
 
 use App\Entity\Article;
+use App\EventListener\ArticleShowreelUploadListener;
 use App\Exceptions\NotFound\ArticleNotFoundException;
 use App\Form\ArticleFormType;
 use App\Service\EntityService\ArticleService;
+use App\Service\UploaderService\ArticleShowreelUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,11 +32,19 @@ class ArticleController extends AbstractController
      * @var ArticleService
      */
     protected $articleService;
+    /**
+     * @var ArticleShowreelUploader
+     */
+    protected $articleShowreelUploader;
 
-    public function __construct(EntityManagerInterface $entityManager, ArticleService $articleService)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        ArticleService $articleService,
+        ArticleShowreelUploader $articleShowreelUploader
+    ) {
         $this->entityManager = $entityManager;
         $this->articleService = $articleService;
+        $this->articleShowreelUploader = $articleShowreelUploader;
     }
 
     /**
@@ -52,21 +60,12 @@ class ArticleController extends AbstractController
             /** @var Article $article */
             $article = $form->getData();
             $article->addAuthor($this->getUser());
-
-            // Move the file to the directory where brochures are stored
-            try {
-                /** @var UploadedFile $file */
-                $file = $article->getShowreelImage();
-                // new file name is articles' slug
-                $fileName = $article->getSlug() . '.' . $file->guessExtension();
-                $file->move(
-                    $this->getParameter('article_showreel_dir'),
-                    $fileName
-                );
-                $article->setShowreelImage($fileName);
-            } catch (FileException $e) {
-            }
-
+            /**
+             * While analysing this code don't forget to check
+             *
+             * @see ArticleShowreelUploader
+             * @see ArticleShowreelUploadListener
+             */
             $this->entityManager->persist($article);
             $this->entityManager->flush();
             return $this->redirectToRoute('gui__admin_article_list');
