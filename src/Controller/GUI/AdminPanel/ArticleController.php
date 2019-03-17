@@ -9,6 +9,7 @@ use App\Service\EntityService\ArticleService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,6 +51,21 @@ class ArticleController extends AbstractController
             /** @var Article $article */
             $article = $form->getData();
             $article->addAuthor($this->getUser());
+
+            // Move the file to the directory where brochures are stored
+            try {
+                $file = $article->getShowreelImage();
+
+                $fileName = $article->getSlug() . '.' . $file->guessExtension();
+                $file->move(
+                    $this->getParameter('article_showreel_dir'),
+                    $fileName
+                );
+                $article->setShowreelImage($fileName);
+            } catch (FileException $e) {
+                // ... handle exception if something happens during file upload
+            }
+
             $this->entityManager->persist($article);
             $this->entityManager->flush();
             return $this->redirectToRoute('gui__admin_article_list');

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\HasLifecycleCallbacks()
@@ -52,6 +53,13 @@ class Article extends AbstractLifecycleEntity
      * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="articles")
      */
     private $categories;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
+     */
+    private $showreelImage;
 
     public function __construct()
     {
@@ -158,6 +166,10 @@ class Article extends AbstractLifecycleEntity
 
     public function getSlug(): ?string
     {
+        if ($this->slug === null) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->title);
+        }
         return $this->slug;
     }
 
@@ -205,7 +217,21 @@ class Article extends AbstractLifecycleEntity
      */
     public function generateSlug(): void
     {
-        $slugify = new Slugify();
-        $this->slug = $slugify->slugify($this->title);
+        if ($this->slug === null) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->title);
+        }
+    }
+
+    public function getShowreelImage()
+    {
+        return $this->showreelImage;
+    }
+
+    public function setShowreelImage($showreelImage): self
+    {
+        $this->showreelImage = $showreelImage;
+
+        return $this;
     }
 }

@@ -7,6 +7,7 @@ use App\Entity\Category;
 use App\Service\EntityService\CategoryService;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -38,7 +39,8 @@ class ArticleFormType extends AbstractType
                 ->add('categories', EntityType::class, [
                     'multiple' => true,
                     'class'    => Category::class,
-                ]);
+                ])
+                ->add('showreelImage', FileType::class);
     }
 
     /**
