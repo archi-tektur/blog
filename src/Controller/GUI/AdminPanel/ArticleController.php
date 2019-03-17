@@ -116,7 +116,7 @@ class ArticleController extends AbstractController
     public function expose(): Response
     {
         return $this->render('admin/article/article_list.html.twig', [
-            'articles' => $this->articleService->getAll(),
+            'articles' => ($this->articleService)->getAll(),
         ]);
     }
 }

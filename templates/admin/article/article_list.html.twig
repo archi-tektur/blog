@@ -27,7 +27,8 @@
                 <td>|</td>
                 <td>
                     <span title="{{article.content|striptags}}">Text</span>
-                    <span title="{{article.content|nl2br|raw}}">HTML</span></td>
+                    <span title="{{article.content|nl2br|raw}}">HTML</span>
+                </td>
                 <td>|</td>
                 <td>{{article.slug}}</td>
                 <td>|</td>
@@ -39,7 +40,6 @@
                     {% else %}
                         <span>Not added</span>
                     {% endif %}
-
                 </td>
                 <td>|</td>
                 <td>{{article.authors|join(', ')}}</td>

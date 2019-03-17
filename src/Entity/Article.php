@@ -166,10 +166,6 @@ class Article extends AbstractLifecycleEntity
 
     public function getSlug(): ?string
     {
-        if ($this->slug === null) {
-            $slugify = new Slugify();
-            $this->slug = $slugify->slugify($this->title);
-        }
         return $this->slug;
     }
 
