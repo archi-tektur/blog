@@ -81,7 +81,7 @@ class ArticleService extends AbstractValidationService
      */
     public function getAll(): array
     {
-        return ($this->articleRepository)->findAll();
+        return $this->articleRepository->findAll();
     }
 
     /**
