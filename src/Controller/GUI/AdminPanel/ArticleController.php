@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,8 +55,9 @@ class ArticleController extends AbstractController
 
             // Move the file to the directory where brochures are stored
             try {
+                /** @var UploadedFile $file */
                 $file = $article->getShowreelImage();
-
+                // new file name is articles' slug
                 $fileName = $article->getSlug() . '.' . $file->guessExtension();
                 $file->move(
                     $this->getParameter('article_showreel_dir'),
@@ -63,7 +65,6 @@ class ArticleController extends AbstractController
                 );
                 $article->setShowreelImage($fileName);
             } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
             }
 
             $this->entityManager->persist($article);
