@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\EventListener;
+namespace App\EventListener\Doctrine;
 
-use App\Entity\Article;
+use App\Entity\Account;
 use App\Service\UploaderService\ArticleShowreelUploader as Uploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -10,11 +10,11 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Listens when Article entity is uploaded
+ * Listens when Account entity is uploaded
  *
  * @package App\EventListener
  */
-class ArticleShowreelUploadListener
+class AccountListener
 {
     private $uploader;
 
@@ -32,11 +32,36 @@ class ArticleShowreelUploadListener
     {
         $entity = $args->getEntity();
 
-        if (!$entity instanceof Article) {
+        if (!$entity instanceof Account) {
             return;
         }
 
         $this->uploadFile($entity);
+    }
+
+    /**
+     * Uploads file automatically
+     *
+     * @param $entity
+     */
+    private function uploadFile($entity): void
+    {
+        // upload only works for Product entities
+        if (!$entity instanceof Account) {
+            return;
+        }
+
+        $file = $entity->getProfileImage();
+
+        // only upload new files
+        if ($file instanceof UploadedFile) {
+            $fileName = $this->uploader->upload($file, $entity);
+            $entity->setProfileImage($fileName);
+        } elseif ($file instanceof File) {
+            // prevents the full file path being saved on updates
+            // as the path is set on the postLoad listener
+            $entity->setProfileImage($file->getFilename());
+        }
     }
 
     /**
@@ -48,7 +73,7 @@ class ArticleShowreelUploadListener
     {
         $entity = $args->getEntity();
 
-        if (!$entity instanceof Article) {
+        if (!$entity instanceof Account) {
             return;
         }
 
@@ -65,38 +90,13 @@ class ArticleShowreelUploadListener
     {
         $entity = $args->getEntity();
 
-        if (!$entity instanceof Article) {
+        if (!$entity instanceof Account) {
             return;
         }
 
-        if ($fileName = $entity->getShowreelImage()) {
+        if ($fileName = $entity->getProfileImage()) {
             $file = new File($this->uploader->getTargetDirectory() . '/' . $fileName);
-            $entity->setShowreelImage($file);
-        }
-    }
-
-    /**
-     * Uploads file automatically
-     *
-     * @param $entity
-     */
-    private function uploadFile($entity): void
-    {
-        // upload only works for Product entities
-        if (!$entity instanceof Article) {
-            return;
-        }
-
-        $file = $entity->getShowreelImage();
-
-        // only upload new files
-        if ($file instanceof UploadedFile) {
-            $fileName = $this->uploader->upload($file, $entity);
-            $entity->setShowreelImage($fileName);
-        } elseif ($file instanceof File) {
-            // prevents the full file path being saved on updates
-            // as the path is set on the postLoad listener
-            $entity->setShowreelImage($file->getFilename());
+            $entity->setProfileImage($file);
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Controller\GUI\AdminPanel;
 
 use App\Entity\Article;
-use App\EventListener\ArticleShowreelUploadListener;
+use App\EventListener\ArticleListener;
 use App\Exceptions\NotFound\ArticleNotFoundException;
 use App\Form\ArticleFormType;
 use App\Service\EntityService\ArticleService;
@@ -64,7 +64,7 @@ class ArticleController extends AbstractController
              * While analysing this code don't forget to check
              *
              * @see ArticleShowreelUploader
-             * @see ArticleShowreelUploadListener
+             * @see ArticleListener
              */
             $this->entityManager->persist($article);
             $this->entityManager->flush();

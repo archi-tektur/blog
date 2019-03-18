@@ -34,7 +34,7 @@ services:
     arguments:
       $targetDirectory: '%profile_pic_dir%'
 
-  App\EventListener\AccountProfilePictureUploadListener:
+  App\EventListener\Doctrine\AccountListener:
     tags:
       - { name: doctrine.event_listener, event: prePersist }
       - { name: doctrine.event_listener, event: preUpdate }
@@ -44,7 +44,7 @@ services:
     arguments:
       $targetDirectory: '%article_showreel_dir%'
 
-  App\EventListener\ArticleShowreelUploadListener:
+  App\EventListener\Doctrine\ArticleListener:
     tags:
       - { name: doctrine.event_listener, event: prePersist }
       - { name: doctrine.event_listener, event: preUpdate }
