@@ -9,6 +9,11 @@ use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * Listens when Article entity is uploaded
+ *
+ * @package App\EventListener
+ */
 class ArticleShowreelUploadListener
 {
     private $uploader;
@@ -19,6 +24,8 @@ class ArticleShowreelUploadListener
     }
 
     /**
+     * Ran each time before entity is being inserted to database
+     *
      * @param LifecycleEventArgs $args
      */
     public function prePersist(LifecycleEventArgs $args): void
@@ -29,6 +36,8 @@ class ArticleShowreelUploadListener
     }
 
     /**
+     * Ran each time before entity is being updated in database
+     *
      * @param PreUpdateEventArgs $args
      */
     public function preUpdate(PreUpdateEventArgs $args): void
@@ -36,6 +45,26 @@ class ArticleShowreelUploadListener
         $entity = $args->getEntity();
 
         $this->uploadFile($entity);
+    }
+
+    /**
+     * Ran each time after entity is loaded to memory, changes file path to file object
+     *
+     * @see File
+     * @param LifecycleEventArgs $args
+     */
+    public function postLoad(LifecycleEventArgs $args): void
+    {
+        $entity = $args->getEntity();
+
+        if (!$entity instanceof Article) {
+            return;
+        }
+
+        if ($fileName = $entity->getShowreelImage()) {
+            $file = new File($this->uploader->getTargetDirectory() . '/' . $fileName);
+            $entity->setShowreelImage($file);
+        }
     }
 
     /**

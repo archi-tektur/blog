@@ -2,7 +2,7 @@
 {% block body %}
     {% if article.showreelImage %}
         <img style="width: 100px; height: auto;"
-             src="{{asset('/img/uploads/articles-showreel/' ~ article.showreelImage)}}"
+             src="{{asset('/img/uploads/articles-showreel/' ~ article.showreelImage.filename)}}"
              alt="imgsth"/>
         <span>This is article header image.</span>
     {% else %}
