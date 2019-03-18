@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -7,8 +7,7 @@ use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class AbstractLifecycleEntity
- *
+ * Abstract class with automatic create and last update date
  *
  * @ORM\HasLifecycleCallbacks()
  * @package App\Entity
@@ -43,11 +42,17 @@ abstract class AbstractLifecycleEntity
         $this->updatedAt = new DateTime('now');
     }
 
+    /**
+     * @return DateTimeInterface|null the date when entity were createe
+     */
     public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
+    /**
+     * @return DateTimeInterface|null the date when entity was last time edited
+     */
     public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;

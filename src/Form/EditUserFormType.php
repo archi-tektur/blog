@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EditUserFormType extends AbstractType
 {
+    /** @inheritdoc */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('email')
@@ -31,6 +32,7 @@ class EditUserFormType extends AbstractType
                 ->add('profileImage', FileType::class);
     }
 
+    /** @inheritdoc */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

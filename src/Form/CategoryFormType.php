@@ -9,17 +9,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CategoryFormType extends AbstractType
 {
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('name');
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

@@ -7,10 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @UniqueEntity(fields={"title"})
  * @UniqueEntity(fields={"slug"})
  */
 class Article extends AbstractLifecycleEntity
@@ -48,6 +50,7 @@ class Article extends AbstractLifecycleEntity
     private $categories;
 
     /**
+     * @var File|string File when downloaded, string when in abstract context
      * @ORM\Column(type="string", nullable=true)
      */
     private $showreelImage;

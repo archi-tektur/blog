@@ -23,29 +23,27 @@ class ArticleFormType extends AbstractType
      */
     protected $categoryService;
 
+    /**
+     * @param CategoryService $categoryService
+     */
     public function __construct(CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
     }
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     */
+    /** @inheritdoc */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('title')
                 ->add('content')
+                ->add('showreelImage', FileType::class, ['required' => false])
                 ->add('categories', EntityType::class, [
                     'multiple' => true,
                     'class'    => Category::class,
-                ])
-                ->add('showreelImage', FileType::class);
+                ]);
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
+    /** @inheritdoc */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
