@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Tools\RandomStringGenerator;
-use DateTime;
-use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -73,11 +71,6 @@ class Account extends AbstractLifecycleEntity implements UserInterface
      * @ORM\Column(type="string", length=64, unique=true)
      */
     private $apiPartialKey;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $agreedTermsAt;
 
     public function __construct()
     {
@@ -236,16 +229,6 @@ class Account extends AbstractLifecycleEntity implements UserInterface
         return $this;
     }
 
-    public function getCreatedAt(): ?DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt(): ?DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
     /**
      * @ORM\PrePersist()
      * @throws Exception
@@ -261,18 +244,5 @@ class Account extends AbstractLifecycleEntity implements UserInterface
     public function __toString(): string
     {
         return $this->name . ' ' . $this->surname;
-    }
-
-    public function getAgreedTermsAt(): ?DateTimeInterface
-    {
-        return $this->agreedTermsAt;
-    }
-
-    public function agreeToTerms()
-    {
-        try {
-            $this->agreedTermsAt = new DateTime();
-        } catch (Exception $e) {
-        }
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\HasLifecycleCallbacks()
  * @package App\Entity
  */
-class AbstractLifecycleEntity
+abstract class AbstractLifecycleEntity
 {
     /**
      * @ORM\Column(type="datetime")
@@ -40,5 +41,15 @@ class AbstractLifecycleEntity
     public function preUpdate(): void
     {
         $this->updatedAt = new DateTime('now');
+    }
+
+    public function getCreatedAt(): ?DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
     }
 }
