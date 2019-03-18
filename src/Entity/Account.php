@@ -9,15 +9,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="App\Repository\AccountRepository")
  * @UniqueEntity(fields={"email"})
  */
-class Account extends AbstractLifecycleEntity implements UserInterface
+class Account extends AbstractLifecycleEntity implements UserInterface, Serializable
 {
     public const PROFILE_PIC_PREFIX = 'profilepic-';
     /**
@@ -55,6 +57,12 @@ class Account extends AbstractLifecycleEntity implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
+     * @Assert\File(
+     *     maxSize="2048k",
+     *     mimeTypes={"image/jpeg", "image/bmp", "image/png"},
+     *     mimeTypesMessage="error.mimeTypesMessage",
+     *     maxSizeMessage="error.maxSiseMessage",
+     * )
      */
     private $profileImage;
 
@@ -333,5 +341,16 @@ class Account extends AbstractLifecycleEntity implements UserInterface
     public function agreeToTerms()
     {
         $this->agreedTermsAt = new DateTime();
+    }
+
+    public function serialize()
+    {
+        $this->profileImage = base64_encode($this->profileImage);
+    }
+
+    public function unserialize($serialized)
+    {
+        $this->profileImage = base64_decode($this->profileImage);
+
     }
 }
