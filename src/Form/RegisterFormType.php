@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Account;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,7 +38,8 @@ class RegisterFormType extends AbstractType
                 ->add('agreeTerms', CheckboxType::class, [
                     'mapped'      => false,
                     'constraints' => [new IsTrue(['message' => self::MESSAGE_TERMS])],
-                ]);
+                ])
+                ->add('profileImage', FileType::class);
     }
 
     /**

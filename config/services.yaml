@@ -6,6 +6,7 @@
 parameters:
   locale: 'en'
   article_showreel_dir: '%kernel.project_dir%/public/img/uploads/articles-showreel'
+  profile_pic_dir: '%kernel.project_dir%/public/img/uploads/profile-pics'
 
 services:
   # default configuration for services in *this* file
@@ -25,8 +26,19 @@ services:
     resource: '../src/Controller'
     tags: ['controller.service_arguments']
 
-  # add more service definitions when explicit configuration is needed
-  # please note that last definitions always *replace* previous ones
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+  # HANDLING USER PICTURE UPLOAD
+  App\Service\UploaderService\AccountProfilePictureUploader:
+    arguments:
+      $targetDirectory: '%profile_pic_dir%'
+
+  App\EventListener\AccountProfilePictureUploadListener:
+    tags:
+      - { name: doctrine.event_listener, event: prePersist }
+      - { name: doctrine.event_listener, event: preUpdate }
+      - { name: doctrine.event_listener, event: postLoad }
 
   App\Service\UploaderService\ArticleShowreelUploader:
     arguments:

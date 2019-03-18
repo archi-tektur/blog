@@ -19,7 +19,7 @@ interface UploaderInterface
      * @param string       $fileName
      * @return string
      */
-    public function upload(UploadedFile $file, $fileName): string;
+    public function upload(UploadedFile $file, $fileName): ?string;
 
     /**
      * @return string

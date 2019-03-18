@@ -33,7 +33,8 @@ class AccountController extends AbstractController
     /**
      * AccountController constructor.
      *
-     * @param AccountService $accountService
+     * @param AccountService         $accountService
+     * @param EntityManagerInterface $entityManager
      */
     public function __construct(AccountService $accountService, EntityManagerInterface $entityManager)
     {
@@ -45,7 +46,7 @@ class AccountController extends AbstractController
      * @Route("/admin/account/add", name="gui__admin_account_add")
      * @param Request $request
      */
-    public function add(Request $request, string $email)
+    public function add(Request $request)
     {
 
     }

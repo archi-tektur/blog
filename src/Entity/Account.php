@@ -19,6 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class Account extends AbstractLifecycleEntity implements UserInterface
 {
+    public const PROFILE_PIC_PREFIX = 'profilepic-';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -55,7 +56,7 @@ class Account extends AbstractLifecycleEntity implements UserInterface
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
      */
-    private $profilePicturePath;
+    private $profileImage;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="authors")
@@ -189,14 +190,14 @@ class Account extends AbstractLifecycleEntity implements UserInterface
         return $this;
     }
 
-    public function getProfilePicturePath(): ?string
+    public function getProfileImage()
     {
-        return $this->profilePicturePath;
+        return $this->profileImage;
     }
 
-    public function setProfilePicturePath(?string $profilePicturePath): self
+    public function setProfileImage($profileImage): self
     {
-        $this->profilePicturePath = $profilePicturePath;
+        $this->profileImage = $profileImage;
 
         return $this;
     }

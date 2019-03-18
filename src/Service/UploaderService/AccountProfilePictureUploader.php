@@ -2,11 +2,11 @@
 
 namespace App\Service\UploaderService;
 
-use App\Entity\Article;
+use App\Entity\Account;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class ArticleShowreelUploader implements UploaderInterface
+class AccountProfilePictureUploader implements UploaderInterface
 {
     private $targetDirectory;
 
@@ -17,21 +17,19 @@ class ArticleShowreelUploader implements UploaderInterface
     }
 
     /** @inheritdoc */
-    public function upload(UploadedFile $file, $article): ?string
+    public function upload(UploadedFile $file, $account): ?string
     {
-        if (!$article instanceof Article) {
+        if (!$account instanceof Account) {
             return null;
         }
 
-        /** @var Article $article */
-        $fileName = Article::SHOWREEL_PREFIX . $article->getSlug() . '.' . $file->guessExtension();
-
+        /** @var Account $account */
+        $fileName = Account::PROFILE_PIC_PREFIX . $account->getEmail() . '.' . $file->guessExtension();
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
             // ... handle exception if something happens during file upload
         }
-
         return $fileName;
     }
 

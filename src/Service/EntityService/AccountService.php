@@ -74,7 +74,7 @@ class AccountService extends AbstractValidationService
 
         $account->setName($name)
                 ->setSurname($surname)
-                ->setProfilePicturePath($profilePath)
+                ->setProfileImage($profilePath)
                 ->setEmail($email)
                 ->setPassword($encodedPassword)
                 ->setApiPartialKey($apiKey);
@@ -137,7 +137,7 @@ class AccountService extends AbstractValidationService
 
         $account->setApiPartialKey($apiKey)
                 ->setPassword($encodedPassword)
-                ->setProfilePicturePath($profilePath);
+                ->setProfileImage($profilePath);
 
         $this->entityManager->persist($account);
         $this->entityManager->flush();
