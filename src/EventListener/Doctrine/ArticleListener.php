@@ -76,13 +76,34 @@ class ArticleListener
     }
 
     /**
+     * Ran each time an article is deleted, delete related image then
+     *
+     * @see File
+     * @param LifecycleEventArgs $args
+     */
+    public function postRemove(LifecycleEventArgs $args): void
+    {
+        $article = $args->getEntity();
+        // upload only works for Article entities
+        if (!$article instanceof Article) {
+            return;
+        }
+
+        // if showreel image exists, delete it
+        if ($article instanceof UploadedFile || $article->getShowreelImage() instanceof File) {
+            $filepath = $article->getShowreelImage()->getRealPath();
+            unlink($filepath);
+        }
+    }
+
+    /**
      * Uploads file automatically
      *
      * @param $entity
      */
     private function uploadFile($entity): void
     {
-        // upload only works for Product entities
+        // upload only works for Article entities
         if (!$entity instanceof Article) {
             return;
         }

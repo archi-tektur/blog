@@ -48,3 +48,4 @@ services:
       - { name: doctrine.event_listener, event: prePersist }
       - { name: doctrine.event_listener, event: preUpdate }
       - { name: doctrine.event_listener, event: postLoad }
+      - { name: doctrine.event_listener, event: postRemove }
