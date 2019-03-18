@@ -79,24 +79,4 @@ class AccountListener
 
         $this->uploadFile($entity);
     }
-
-    /**
-     * Ran each time after entity is loaded to memory, changes file path to file object
-     *
-     * @see File
-     * @param LifecycleEventArgs $args
-     */
-    public function postLoad(LifecycleEventArgs $args): void
-    {
-        $entity = $args->getEntity();
-
-        if (!$entity instanceof Account) {
-            return;
-        }
-
-        if ($fileName = $entity->getProfileImage()) {
-            $file = new File($this->uploader->getTargetDirectory() . '/' . $fileName);
-            $entity->setProfileImage($file);
-        }
-    }
 }

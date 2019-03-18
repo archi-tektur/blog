@@ -10,6 +10,7 @@ use App\Service\EntityService\ArticleService;
 use App\Service\UploaderService\ArticleShowreelUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,6 +38,11 @@ class ArticleController extends AbstractController
      */
     protected $articleShowreelUploader;
 
+    /**
+     * @param EntityManagerInterface  $entityManager
+     * @param ArticleService          $articleService
+     * @param ArticleShowreelUploader $articleShowreelUploader
+     */
     public function __construct(
         EntityManagerInterface $entityManager,
         ArticleService $articleService,
@@ -48,6 +54,7 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/admin/article/add", name="gui__admin_article_add")
      * @param Request $request
      * @return RedirectResponse|Response
@@ -74,6 +81,7 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/admin/article/{slug}/edit", name="gui__admin_article_edit")
      * @param Request $request
      * @param string  $slug
@@ -98,6 +106,7 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/admin/article/{slug}/delete", name="gui__admin_article_delete")
      * @param string $slug
      * @return RedirectResponse
@@ -111,6 +120,7 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/admin/article/list", name="gui__admin_article_list")
      */
     public function expose(): Response
