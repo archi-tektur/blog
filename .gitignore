@@ -13,3 +13,6 @@
 
 # IDE Settings and config
 /.idea/
+
+# Node
+/node_modules/
