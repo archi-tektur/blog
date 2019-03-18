@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <form method="POST">
-        <input value="{{email}}" name="_email" type="email" required>
-        <input name="_password" required type="password">
-        <input type="checkbox" name="_remember_me">
+        <input id="email" value="{{email}}" name="_email" type="email" required>
+        <input id="password" name="_password" required type="password">
+        <input id="rememberme" type="checkbox" name="_remember_me">
         <input type="hidden" name="_target_path" value="{{path('gui__admin_article_list')}}"/>
         <input type="hidden" name="_csrf" value="{{csrf_token('authenticate')}}">
         <button type="submit">Log in</button>
