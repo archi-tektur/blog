@@ -10,15 +10,17 @@ class ArticleShowreelUploader implements UploaderInterface
 {
     private $targetDirectory;
 
+    /** @inheritdoc */
     public function __construct(string $targetDirectory)
     {
         $this->targetDirectory = $targetDirectory;
     }
 
+    /** @inheritdoc */
     public function upload(UploadedFile $file, $article): string
     {
         /** @var Article $article */
-        $fileName = $article->getSlug() . '.' . $file->guessExtension();
+        $fileName = Article::SHOWREEL_PREFIX . $article->getSlug() . '.' . $file->guessExtension();
 
         try {
             $file->move($this->getTargetDirectory(), $fileName);
@@ -29,6 +31,7 @@ class ArticleShowreelUploader implements UploaderInterface
         return $fileName;
     }
 
+    /** @inheritdoc */
     public function getTargetDirectory(): string
     {
         return $this->targetDirectory;

@@ -16,6 +16,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Article extends AbstractLifecycleEntity
 {
+    public const SHOWREEL_PREFIX = 'showreel-';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
