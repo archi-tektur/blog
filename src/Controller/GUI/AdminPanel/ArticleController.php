@@ -91,12 +91,23 @@ class ArticleController extends AbstractController
     public function edit(Request $request, string $slug): Response
     {
         $article = $this->articleService->get($slug);
+        $oldPicture = $article->getShowreelImage();
         $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
+        /**
+         * While analysing this code don't forget to check
+         *
+         * @see ArticleShowreelUploader
+         * @see ArticleListener
+         */
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Article $article */
             $article = $form->getData();
             $article->addAuthor($this->getUser());
+            // don't reset image if new weren't set
+            if (!$article->getShowreelImage()) {
+                $article->setShowreelImage($oldPicture);
+            }
             $this->entityManager->persist($article);
             $this->entityManager->flush();
             return $this->redirectToRoute('gui__admin_article_list');

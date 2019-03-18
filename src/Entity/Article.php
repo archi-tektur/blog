@@ -167,10 +167,9 @@ class Article extends AbstractLifecycleEntity
     }
 
     /**
-     * Genarate new slug on each change
+     * Genarate new slug on creatiom
      *
      * @ORM\PrePersist()
-     * @ORM\PreUpdate()
      */
     public function generateSlug(): void
     {
