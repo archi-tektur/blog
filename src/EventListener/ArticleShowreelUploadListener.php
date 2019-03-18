@@ -32,6 +32,10 @@ class ArticleShowreelUploadListener
     {
         $entity = $args->getEntity();
 
+        if (!$entity instanceof Article) {
+            return;
+        }
+
         $this->uploadFile($entity);
     }
 
@@ -43,6 +47,10 @@ class ArticleShowreelUploadListener
     public function preUpdate(PreUpdateEventArgs $args): void
     {
         $entity = $args->getEntity();
+
+        if (!$entity instanceof Article) {
+            return;
+        }
 
         $this->uploadFile($entity);
     }

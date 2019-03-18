@@ -32,6 +32,10 @@ class AccountProfilePictureUploadListener
     {
         $entity = $args->getEntity();
 
+        if (!$entity instanceof Account) {
+            return;
+        }
+
         $this->uploadFile($entity);
     }
 
@@ -68,6 +72,10 @@ class AccountProfilePictureUploadListener
     public function preUpdate(PreUpdateEventArgs $args): void
     {
         $entity = $args->getEntity();
+
+        if (!$entity instanceof Account) {
+            return;
+        }
 
         $this->uploadFile($entity);
     }
