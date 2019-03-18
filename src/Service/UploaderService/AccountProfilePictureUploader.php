@@ -20,7 +20,7 @@ class AccountProfilePictureUploader implements UploaderInterface
     public function upload(UploadedFile $file, $account): ?string
     {
         /** @var Account $account */
-        $fileName = Account::PROFILE_PIC_PREFIX . $account->getEmail() . '.' . $file->guessExtension();
+        $fileName = getenv('ACCOUNT_IMG_PREFIX') . $account->getEmail() . '.' . $file->guessExtension();
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {

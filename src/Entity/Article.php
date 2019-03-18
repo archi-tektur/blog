@@ -16,8 +16,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Article extends AbstractLifecycleEntity
 {
-    public const SHOWREEL_PREFIX = 'showreel-';
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -41,11 +39,6 @@ class Article extends AbstractLifecycleEntity
     private $authors;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article", orphanRemoval=true)
-     */
-    private $comments;
-
-    /**
      * @ORM\Column(type="string", length=128, unique=true)
      */
     private $slug;
@@ -63,7 +56,6 @@ class Article extends AbstractLifecycleEntity
     public function __construct()
     {
         $this->authors = new ArrayCollection();
-        $this->comments = new ArrayCollection();
         $this->categories = new ArrayCollection();
     }
 
@@ -132,37 +124,6 @@ class Article extends AbstractLifecycleEntity
         return $this->updatedAt;
     }
 
-    /**
-     * @return Collection|Comment[]
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setArticle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getArticle() === $this) {
-                $comment->setArticle(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -201,12 +162,21 @@ class Article extends AbstractLifecycleEntity
         return $this;
     }
 
-    public function __toString(): string
+    public function getShowreelImage()
     {
-        return $this->title;
+        return $this->showreelImage;
+    }
+
+    public function setShowreelImage($showreelImage): self
+    {
+        $this->showreelImage = $showreelImage;
+
+        return $this;
     }
 
     /**
+     * Genarate new slug on each change
+     *
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
@@ -218,15 +188,11 @@ class Article extends AbstractLifecycleEntity
         }
     }
 
-    public function getShowreelImage()
+    /**
+     * @return string article's title
+     */
+    public function __toString(): string
     {
-        return $this->showreelImage;
-    }
-
-    public function setShowreelImage($showreelImage): self
-    {
-        $this->showreelImage = $showreelImage;
-
-        return $this;
+        return $this->title;
     }
 }

@@ -20,7 +20,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Account extends AbstractLifecycleEntity implements UserInterface
 {
-    public const PROFILE_PIC_PREFIX = 'profilepic-';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -76,16 +75,6 @@ class Account extends AbstractLifecycleEntity implements UserInterface
     private $apiPartialKey;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="author", orphanRemoval=true)
-     */
-    private $comments;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Comment", mappedBy="likedBy")
-     */
-    private $commentsLiked;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $agreedTermsAt;
@@ -93,8 +82,6 @@ class Account extends AbstractLifecycleEntity implements UserInterface
     public function __construct()
     {
         $this->articles = new ArrayCollection();
-        $this->comments = new ArrayCollection();
-        $this->commentsLiked = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -249,37 +236,6 @@ class Account extends AbstractLifecycleEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Comment[]
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getAuthor() === $this) {
-                $comment->setAuthor(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
@@ -291,34 +247,6 @@ class Account extends AbstractLifecycleEntity implements UserInterface
     }
 
     /**
-     * @return Collection|Comment[]
-     */
-    public function getCommentsLiked(): Collection
-    {
-        return $this->commentsLiked;
-    }
-
-    public function addCommentsLiked(Comment $commentsLiked): self
-    {
-        if (!$this->commentsLiked->contains($commentsLiked)) {
-            $this->commentsLiked[] = $commentsLiked;
-            $commentsLiked->addLikedBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommentsLiked(Comment $commentsLiked): self
-    {
-        if ($this->commentsLiked->contains($commentsLiked)) {
-            $this->commentsLiked->removeElement($commentsLiked);
-            $commentsLiked->removeLikedBy($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @ORM\PrePersist()
      * @throws Exception
      */
@@ -327,6 +255,9 @@ class Account extends AbstractLifecycleEntity implements UserInterface
         $this->apiPartialKey = RandomStringGenerator::generate(64);
     }
 
+    /**
+     * @return string user name and surname
+     */
     public function __toString(): string
     {
         return $this->name . ' ' . $this->surname;

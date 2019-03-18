@@ -20,7 +20,7 @@ class ArticleShowreelUploader implements UploaderInterface
     public function upload(UploadedFile $file, $article): ?string
     {
         /** @var Article $article */
-        $fileName = Article::SHOWREEL_PREFIX . $article->getSlug() . '.' . $file->guessExtension();
+        $fileName = getenv('ARTICLE_IMG_PREFIX') . $article->getSlug() . '.' . $file->guessExtension();
 
         try {
             $file->move($this->getTargetDirectory(), $fileName);
