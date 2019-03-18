@@ -10,6 +10,8 @@
             <td>|</td>
             <td>Name and surname</td>
             <td>|</td>
+            <td>Prof. Pic</td>
+            <td>|</td>
             <td>Roles</td>
             <td>|</td>
         </tr>
@@ -20,6 +22,17 @@
                 <td>{{account.email}}</td>
                 <td>|</td>
                 <td>{{account}}</td>
+                <td>|</td>
+                <td>
+                    {% if account.profileImage %}
+                        <a href="{{asset('/img/uploads/profile-pics/' ~ account.profileImage.filename)}}"
+                           target="_blank">
+                            View
+                        </a>
+                    {% else %}
+                        <span>Not added</span>
+                    {% endif %}
+                </td>
                 <td>|</td>
                 <td>{{account.roles|join(',')}}</td>
                 <td>|</td>

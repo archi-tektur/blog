@@ -3,7 +3,7 @@
 namespace App\EventListener\Doctrine;
 
 use App\Entity\Account;
-use App\Service\UploaderService\ArticleShowreelUploader as Uploader;
+use App\Service\UploaderService\AccountProfilePictureUploader as Uploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Symfony\Component\HttpFoundation\File\File;
@@ -51,8 +51,8 @@ class AccountListener
             return;
         }
 
+        /** @var UploadedFile $file */
         $file = $entity->getProfileImage();
-
         // only upload new files
         if ($file instanceof UploadedFile) {
             $fileName = $this->uploader->upload($file, $entity);

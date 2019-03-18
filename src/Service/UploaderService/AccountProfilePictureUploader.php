@@ -19,10 +19,6 @@ class AccountProfilePictureUploader implements UploaderInterface
     /** @inheritdoc */
     public function upload(UploadedFile $file, $account): ?string
     {
-        if (!$account instanceof Account) {
-            return null;
-        }
-
         /** @var Account $account */
         $fileName = Account::PROFILE_PIC_PREFIX . $account->getEmail() . '.' . $file->guessExtension();
         try {

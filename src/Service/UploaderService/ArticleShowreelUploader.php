@@ -19,10 +19,6 @@ class ArticleShowreelUploader implements UploaderInterface
     /** @inheritdoc */
     public function upload(UploadedFile $file, $article): ?string
     {
-        if (!$article instanceof Article) {
-            return null;
-        }
-
         /** @var Article $article */
         $fileName = Article::SHOWREEL_PREFIX . $article->getSlug() . '.' . $file->guessExtension();
 
