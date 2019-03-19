@@ -1,0 +1,62 @@
+.category
+  background: #F0F0F0
+  width: 400px
+  @include shadow(1)
+
+  &__header
+    padding: 5px
+    text-align: center
+    @include shadow(1)
+
+  &__heading
+    display: block
+    margin: 5px auto
+    font-weight: normal
+    font-size: 2em
+    color: #292929
+
+  &__element
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: 5px 15px
+    list-style-type: none
+    width: 100%
+
+    &:hover
+      background: darken(#F0F0F0, 5)
+
+  &__name
+    text-decoration: none
+    color: #292929
+    font-size: 1.5em
+
+  &__link
+    text-decoration: none
+    color: #ff2800
+    padding: 5px
+
+    &--bigger
+      font-size: 1.2em
+
+    &:hover
+      color: darken(#FF2800, 20)
+
+  &__amount
+    color: #FFFFFF
+    font-size: 1.2em
+    background: #444
+    padding: 2px 10px
+    border-radius: 10px
+
+  &__limiter
+    width: 70%
+    margin: 2px auto
+
+  &__footing
+    display: block
+    padding: 10px
+    text-align: center
+    text-decoration: none
+    color: #ff2800
+    font-size: 1.2em

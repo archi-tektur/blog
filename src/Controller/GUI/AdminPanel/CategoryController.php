@@ -2,9 +2,10 @@
 
 namespace App\Controller\GUI\AdminPanel;
 
-use App\Form\CategoryFormType;
+use App\Exceptions\NotFound\CategoryNotFoundException;
 use App\Service\EntityService\CategoryService;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,15 +33,33 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/admin/categories", name="gui__categories_index")
+     * @Route("/admin/categories", name="gui__admin_categories_index")
      * @return Response
      */
     public function index(): Response
     {
-        $newCategoryForm = $this->createForm(CategoryFormType::class);
-
+        $categories = $this->categoryService->getAll();
         return $this->render('admin/panels/categories.html.twig', [
-            'newCategoryForm' => $newCategoryForm->createView(),
+            'categories' => $categories,
         ]);
+    }
+
+    /**
+     * @Route("/admin/categories/{name}/delete", name="gui__admin_categories_delete")
+     * @param string $name
+     * @return Response
+     */
+    public function delete(string $name): Response
+    {
+        try {
+            $this->categoryService->delete($name);
+        } catch (CategoryNotFoundException $e) {
+            $this->addFlash('error', 'Category not found!');
+        } catch (ORMException $e) {
+            $this->addFlash('error', 'Database problem occured');
+        } finally {
+            $this->redirectToRoute('gui__admin_categories_index');
+        }
+
     }
 }
