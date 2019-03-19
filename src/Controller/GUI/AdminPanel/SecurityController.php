@@ -45,7 +45,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/admin/login", name="gui_admin_login")
+     * @Route("/login", name="gui_admin_login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
@@ -71,7 +71,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/admin/register/", name="gui__admin_register")
+     * @Route("/register/", name="gui__admin_register")
      * @param Request                      $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler    $guardHandler
