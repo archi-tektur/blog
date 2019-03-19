@@ -20,6 +20,6 @@ class SummaryController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('admin/main.html.twig');
+        return $this->render('admin/panels/summary.html.twig');
     }
 }
