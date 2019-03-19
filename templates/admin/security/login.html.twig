@@ -1,12 +1,44 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <form method="POST">
-        <input id="email" value="{{email}}" name="_email" type="email" required>
-        <input id="password" name="_password" required type="password">
-        <input id="rememberme" type="checkbox" name="_remember_me">
-        <input type="hidden" name="_target_path" value="{{path('gui__admin_article_list')}}"/>
-        <input type="hidden" name="_csrf" value="{{csrf_token('authenticate')}}">
-        <button type="submit">Log in</button>
-    </form>
-
+    <div class="login">
+        <section class="login__container">
+            <img class="login__logo" src="{{asset('img/interface/archi_tektur-logo.svg')}}" alt="archi_tektur logo">
+            <h1 class="login__heading">{% trans from 'login' %}login.login{% endtrans %}</h1>
+            <form class="login__form" method="POST">
+                <label class="login__label" for="email">Enter your e-mail</label>
+                <input class="login__input"
+                       id="email"
+                       value="{{email}}"
+                       name="_email"
+                       type="email"
+                       required>
+                <label class="login__label" for="password">and your password</label>
+                <input class="login__input"
+                       id="password"
+                       name="_password"
+                       required
+                       type="password">
+                <label class="checkbox login__checkbox">Remember me
+                    <input class="checkbox__input"
+                           type="checkbox"
+                           name="_remember_me">
+                    <span class="checkbox__checkmark"></span>
+                </label>
+                <input type="hidden"
+                       name="_target_path"
+                       value="{{path('gui__admin_article_list')}}"/>
+                <input type="hidden"
+                       name="_csrf"
+                       value="{{csrf_token('authenticate')}}">
+                <button class="login__input login__input--submit" type="submit">
+                    Log in
+                    <span class="login__input-icon fas fa-chevron-right"></span>
+                </button>
+            </form>
+            <a href="{{path('gui__admin_article_list')}}" class="link">
+                <span class="fas fa-chevron-circle-left"></span>
+                Back to blog
+            </a>
+        </section>
+    </div>
 {% endblock %}
