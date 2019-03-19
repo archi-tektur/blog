@@ -28,7 +28,7 @@ security:
         path:     /
 
       logout:
-        path: /admin/logout
+        path: /logout
 
       guard:
         authenticators:
