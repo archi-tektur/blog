@@ -20,7 +20,7 @@
             </a>
         </li>
         <li class="nav__link">
-            <a class="nav__a" href="">
+            <a class="nav__a" href="{{path('gui__categories_index')}}">
                 <span class="nav__link-icon fas fa-boxes fa-fw"></span>
                 {% trans from 'admin-general' %}nav.categories{% endtrans %}
             </a>
@@ -35,6 +35,12 @@
             <a class="nav__a" href="">
                 <span class="nav__link-icon fas fa-comments fa-fw"></span>
                 {% trans from 'admin-general' %}nav.comments{% endtrans %}
+            </a>
+        </li>
+        <li class="nav__link">
+            <a class="nav__a" href="https://www.analytics.google.com">
+                <span class="nav__link-icon fab fa-google fa-fw"></span>
+                {% trans from 'admin-general' %}nav.google-analytics{% endtrans %}
             </a>
         </li>
         <li class="nav__link">

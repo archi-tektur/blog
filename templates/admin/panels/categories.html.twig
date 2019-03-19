@@ -1,0 +1,33 @@
+{% extends 'admin/main.html.twig' %}
+{% block panel_class %}categories{% endblock %}
+{% block panel %}
+    <h1 class="categories__heading">Kategorie</h1>
+    <div class="categories__container">
+        <div class="category">
+            <div class="category__header">
+                <h2>Wszystkie kategorie</h2>
+            </div>
+            <ul class="category__list">
+                <li class="category__element">
+                    <a class="category__link" href="">Kategoria 1</a>
+                    <span class="category__amount">2</span>
+                </li>
+                <li class="category__element">
+                    <a class="category__link" href="">Kategoria 2</a>
+                    <span class="category__amount">2</span>
+                </li>
+                <li class="category__element">
+                    <a class="category__link" href="">Kategoria 3</a>
+                    <span class="category__amount">2</span>
+                </li>
+                <li class="category__element">
+                    <a class="category__link" href="">Kategoria 4</a>
+                    <span class="category__amount">2</span>
+                </li>
+            </ul>
+            <div class="category__form">
+                {{form(newCategoryForm)}}
+            </div>
+        </div>
+    </div>
+{% endblock %}
