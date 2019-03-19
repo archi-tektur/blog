@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="panel__container">
-        {% include 'admin/_nav.html.twig' %}
+        {% include 'admin/elements/_nav.html.twig' %}
         <div class="panel__right">
-            {% include 'admin/_status-nav.twig' %}
-            <main class="{% block panel_class %}{% endblock %}">
+            {% include 'admin/elements/_status-nav.twig' %}
+            <main class="panel__main {% block panel_class %}{% endblock %}">
                 {% block panel %}{% endblock %}
             </main>
         </div>
