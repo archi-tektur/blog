@@ -58,7 +58,7 @@ class CategoryController extends AbstractController
         } catch (ORMException $e) {
             $this->addFlash('error', 'Database problem occured');
         } finally {
-            $this->redirectToRoute('gui__admin_categories_index');
+            return $this->redirectToRoute('gui__admin_categories_index');
         }
 
     }

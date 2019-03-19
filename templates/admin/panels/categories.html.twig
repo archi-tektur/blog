@@ -15,7 +15,10 @@
                             <div class="category__details">
                                 <a class="category__link" href="">Pokaż artykuły</a>
                                 <a class="category__link" href="">Edytuj</a>
-                                <a class="category__link" href="">Usuń</a>
+                                <a class="category__link"
+                                   href="{{path('gui__admin_categories_delete',{'name': category.name})}}">
+                                    Usuń
+                                </a>
                                 <span class="category__amount" title="Ilość artykułów w tej kategorii">
                                     {{category.articles|length}}
                                 </span>
