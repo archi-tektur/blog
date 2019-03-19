@@ -1,0 +1,10 @@
+<nav class="status-nav">
+    <ul class="status-nav__links">
+        <li class="status-nav__link">{{app.user}}</li>
+        <li class="status-nav__link">
+            <a class="status-nav__a" href="{{path('gui__app-logout')}}">
+                {% trans from 'admin-general' %}status-nav.logout{% endtrans %}
+            </a>
+        </li>
+    </ul>
+</nav>
