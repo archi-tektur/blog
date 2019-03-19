@@ -5,20 +5,25 @@
             <img class="login__logo" src="{{asset('img/interface/archi_tektur-logo.svg')}}" alt="archi_tektur logo">
             <h1 class="login__heading">{% trans from 'login' %}login.login{% endtrans %}</h1>
             <form class="login__form" method="POST">
-                <label class="login__label" for="email">Enter your e-mail</label>
+                <label class="login__label" for="email">
+                    {% trans from 'login' %}login.label.email{% endtrans %}
+                </label>
                 <input class="login__input"
                        id="email"
                        value="{{email}}"
                        name="_email"
                        type="email"
                        required>
-                <label class="login__label" for="password">and your password</label>
+                <label class="login__label" for="password">
+                    {% trans from 'login' %}login.label.password{% endtrans %}
+                </label>
                 <input class="login__input"
                        id="password"
                        name="_password"
                        required
                        type="password">
-                <label class="checkbox login__checkbox">Remember me
+                <label class="checkbox login__checkbox">
+                    {% trans from 'login' %}login.label.rememberme{% endtrans %}
                     <input class="checkbox__input"
                            type="checkbox"
                            name="_remember_me">
@@ -31,13 +36,13 @@
                        name="_csrf"
                        value="{{csrf_token('authenticate')}}">
                 <button class="login__input login__input--submit" type="submit">
-                    Log in
+                    {% trans from 'login' %}login.input.submittext{% endtrans %}
                     <span class="login__input-icon fas fa-chevron-right"></span>
                 </button>
             </form>
             <a href="{{path('gui__admin_article_list')}}" class="link">
                 <span class="fas fa-chevron-circle-left"></span>
-                Back to blog
+                {% trans from 'login' %}login.link.backtoblog{% endtrans %}
             </a>
         </section>
     </div>
