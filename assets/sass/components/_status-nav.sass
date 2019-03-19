@@ -26,3 +26,8 @@
   &__a
     color: #ff2800
     text-decoration: none
+    @include transition(0.1s)
+
+    &:hover
+      color: darken(#FF2800, 20)
+      text-decoration: underline

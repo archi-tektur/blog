@@ -4,6 +4,9 @@
         {% include 'admin/_nav.html.twig' %}
         <div class="panel__right">
             {% include 'admin/_status-nav.twig' %}
+            <main class="{% block panel_class %}{% endblock %}">
+                {% block panel %}{% endblock %}
+            </main>
         </div>
     </div>
 {% endblock %}
