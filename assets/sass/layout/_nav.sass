@@ -4,19 +4,22 @@
   height: 100%
   background: #F0F0F0
   z-index: 20
+  transition: width 0.2s ease-in-out
 
-  &__logo
+  .nav__logo
     width: auto
     height: 200px
     display: block
     margin: 0 auto
     padding-top: 20px
+    transition: width 0.2s ease-in-out
 
-  &__links
+
+  .nav__links
     width: 100%
     margin: 20px 0
 
-  &__link
+  .nav__link
     font-size: 1.5em
     color: #444
     @include transition(0.05s)
@@ -24,7 +27,7 @@
     &:hover
       background: darken(#f0f0f0, 5)
 
-  &__a
+  .nav__a
     color: inherit
     text-decoration: none
     display: block
@@ -35,7 +38,49 @@
       fill: currentColor
       color: darken(#ff2800, 5)
 
-  &__link-icon
+  .nav__link-icon
     transform: scale(0.8)
     margin-right: 10px
 
+.nav--small
+  width: 70px
+  @include shadow(1)
+  height: 100%
+  background: #F0F0F0
+  z-index: 20
+
+  .nav__logo
+    width: 80%
+    height: auto
+    display: block
+    margin: 0 auto
+    padding-top: 20px
+
+  .nav__links
+    width: 100%
+    margin: 20px 0
+
+  .nav__link
+    font-size: 1.5em
+    color: #444
+    @include transition(0.05s)
+
+    &:hover
+      background: darken(#f0f0f0, 5)
+
+  .nav__a
+    display: flex
+    align-items: center
+    color: inherit
+    text-decoration: none
+    padding: 20px
+    @include transition(0.2s)
+
+    &:hover .nav__link-icon
+      fill: currentColor
+      color: darken(#ff2800, 5)
+
+  .nav__link-text
+    display: none
+    width: 0
+    transition: width 0.2s ease-in-out

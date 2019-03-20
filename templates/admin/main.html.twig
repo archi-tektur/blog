@@ -10,3 +10,8 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{asset('scripts/panel.js')}}"></script>
+{% endblock %}
