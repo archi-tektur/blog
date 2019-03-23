@@ -3,6 +3,7 @@
 namespace App\Controller\GUI\AdminPanel;
 
 use App\Exceptions\NotFound\CategoryNotFoundException;
+use App\Form\CategoryFormType;
 use App\Service\EntityService\CategoryService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
@@ -39,8 +40,12 @@ class CategoryController extends AbstractController
     public function index(): Response
     {
         $categories = $this->categoryService->getAll();
+
+        $form = $this->createForm(CategoryFormType::class);
+
         return $this->render('admin/panels/categories.html.twig', [
-            'categories' => $categories,
+            'categories'      => $categories,
+            'addCategoryForm' => $form->createView(),
         ]);
     }
 
