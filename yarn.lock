@@ -601,6 +601,11 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@ckeditor/ckeditor5-build-classic@^12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-build-classic/-/ckeditor5-build-classic-12.0.0.tgz#0a738809ee5d45be7bf18a474b73cb15902ba871"
+  integrity sha512-BdD7+u3obrWuPC2kxG/JBXBrtohfPbCzLrNOYE0ITe7qokqmzvfY4WAMwPuI2wBwbuHzuPeGJCnWvjQZgtRZoQ==
+
 "@symfony/webpack-encore@^0.22.0":
   version "0.22.4"
   resolved "https://registry.yarnpkg.com/@symfony/webpack-encore/-/webpack-encore-0.22.4.tgz#249609c784706aa3dac9243c55ac4ec667a26d6e"
@@ -1504,11 +1509,6 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
-
-ckeditor@^4.0.0:
-  version "4.11.3"
-  resolved "https://registry.yarnpkg.com/ckeditor/-/ckeditor-4.11.3.tgz#91f66d7ddb5bff3874514fe539779686874ed655"
-  integrity sha512-v6G+v16WAcukKuQH6m+trA9RCOQntFM2nxPO/GFiLYsdD/5IbZAZ2n7GwMxQmxDXpx4AixpnMWF+yAE1t9wq6Q==
 
 class-utils@^0.3.5:
   version "0.3.6"

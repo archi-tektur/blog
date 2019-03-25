@@ -2,9 +2,13 @@
 
 {% block panel %}
     <h1 class="panel__page-title">Dodaj artykuł</h1>
-    {{form(form)}}
+    {{form_start(form)}}
+    {{form_widget(form.title)}}
+    {{form_widget(form.content, {'attr':{'id': 'ckeditor'}})}}
+    {{form_end(form)}}
 {% endblock %}
 {% block javascripts %}
     {{parent()}}
-    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/balloon/ckeditor.js"></script>
+    {{encore_entry_script_tags('panel')}}
+    {{encore_entry_script_tags('ckeditor')}}
 {% endblock %}

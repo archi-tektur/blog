@@ -37,7 +37,7 @@ class ArticleFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('title')
-                ->add('content', CKEditorType::class)
+                ->add('content')
                 ->add('showreelImage', FileType::class, ['required' => false])
                 ->add('categories', EntityType::class, [
                     'multiple' => true,
