@@ -1,7 +1,0 @@
-{% extends 'base.html.twig' %}
-{% block body %}
-    {% include '_nav.html.twig' %}
-    <h2>Edit comment</h2>
-    {% include '_form.html.twig' with {buttonText:'Edit!'} %}
-    <a href="{{path('gui__admin_article_list')}}">Go back to all comments</a>
-{% endblock %}
