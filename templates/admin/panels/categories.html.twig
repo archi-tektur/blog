@@ -36,7 +36,18 @@
 
         <section class="box symfony-form">
             <h2 class="box__title">Dodaj nową kategorię</h2>
-            {{form(addCategoryForm)}}
+            {{form(addCategoryForm, {
+                'attr': {
+                    'class': 'form-inline',
+                }
+            })}}
         </section>
+
+        {% for warning in app.flashes('warning') %}
+            <section class="box box--warning">{{warning}}</section>
+        {% endfor %}
+        {% for success in app.flashes('success') %}
+            <section class="box box--success">{{success}}</section>
+        {% endfor %}
     </div>
 {% endblock %}

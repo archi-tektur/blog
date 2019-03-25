@@ -37,10 +37,12 @@ class CategoryController extends AbstractController
 
     /**
      * @Route("/admin/categories", name="gui__admin_categories_index")
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request): Response
     {
+        // create form
         $form = $this->createForm(CategoryFormType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -48,10 +50,15 @@ class CategoryController extends AbstractController
             $category = $form->getData();
             $this->entityManager->persist($category);
             $this->entityManager->flush();
+            $this->addFlash('success', 'OK');
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            foreach ($form->getErrors(true) as $error) {
+                $this->addFlash('warning', $error->getMessage());
+            }
         }
 
+        // download after addition
         $categories = $this->categoryService->getAll();
-
         $form = $this->createForm(CategoryFormType::class);
 
         return $this->render('admin/panels/categories.html.twig', [
