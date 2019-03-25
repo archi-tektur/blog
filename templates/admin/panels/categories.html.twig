@@ -1,21 +1,25 @@
 {% extends 'admin/main.html.twig' %}
 {% block panel %}
-    <h1 class="panel__page-title">Kategorie</h1>
+    <h1 class="panel__page-title">{% trans from 'categories' %}category.title{% endtrans %}</h1>
     <div class="panel__container">
         <div class="box__container">
             <section class="box category">
-                <h2 class="box__title">Wszystkie kategorie</h2>
+                <h2 class="box__title">{% trans from 'categories' %}category.all-categories{% endtrans %}</h2>
                 {% if categories %}
                     <ul class="category__list">
                         {% for category in categories %}
                             <li class="category__element">
                                 <span class="category__name">{{category.name}}</span>
                                 <div class="category__details">
-                                    <a class="category__link" href="">Pokaż artykuły</a>
-                                    <a class="category__link" href="">Edytuj</a>
+                                    <a class="category__link" href="">
+                                        {% trans from 'categories' %}categorylist.show-articles{% endtrans %}
+                                    </a>
+                                    <a class="category__link" href="">
+                                        {% trans from 'categories' %}categorylist.edit{% endtrans %}
+                                    </a>
                                     <a class="category__link"
                                        href="{{path('gui__admin_categories_delete',{'name': category.name})}}">
-                                        Usuń
+                                        {% trans from 'categories' %}categorylist.delete{% endtrans %}
                                     </a>
                                     <span class="category__amount" title="Ilość artykułów w tej kategorii">
                                     {{category.articles|length}}
@@ -27,25 +31,47 @@
                 {% else %}
                     <div class="category__no-categories">
                     <span class="category__no-categories-text">
-                        Nie masz jeszcze żadnej kategorii, zacznij od dodania jej przyciskiem poniżej.
+                        {% trans from 'categories' %}categorylist.no-categories{% endtrans %}
                     </span>
                     </div>
                 {% endif %}
                 <hr class="category__limiter">
-                <a class="category__footing" href="">Dodaj nową kategorię</a>
+                <a class="category__footing" href="">
+                    {% trans from 'categories' %}category.new{% endtrans %}
+                </a>
             </section>
+
             <section class="box symfony-form">
-                <h2 class="box__title">Dodaj nową kategorię</h2>
-                {{form  (addCategoryForm, {
+                <h2 class="box__title">
+                    {% trans from 'categories' %}category.new{% endtrans %}
+                </h2>
+                {{form_start(addCategoryForm, {
                     'attr': {
                         'class': 'form-inline',
                     }
                 })}}
+                {{form_label(addCategoryForm.name, 'category.input.add-long', {
+                    'translation_domain':'categories'
+                })}}
+                {{form_widget(addCategoryForm.name)}}
+                {{form_widget(addCategoryForm.submit, {
+                    'translation_domain':'categories',
+                    'label': 'category.input.add',
+                    'attr': {
+                        'class': 'form__submit'
+                    }
+                })}}
+                {{form_end(addCategoryForm)}}
             </section>
-            {% for warning in app.flashes('warning') %}
-                <section class="box box--warning">{{warning}}</section>
+
+            {% for warning in app.flashes(
+                constant('App\\Controller\\GUI\\AdminPanel\\CategoryController::FLASH_PREFIX') ~ 'warning'
+                ) %}
+                <section class="box box--warning">{{warning|trans({}, 'messages')}}</section>
             {% endfor %}
-            {% for success in app.flashes('success') %}
+            {% for success in app.flashes(
+                constant('App\\Controller\\GUI\\AdminPanel\\CategoryController::FLASH_PREFIX') ~ 'success'
+                ) %}
                 <section class="box box--success">{{success}}</section>
             {% endfor %}
         </div>
