@@ -4,3 +4,7 @@
     <h1 class="panel__page-title">Dodaj artykuł</h1>
     {{form(form)}}
 {% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/balloon/ckeditor.js"></script>
+{% endblock %}

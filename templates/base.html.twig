@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% block styles %}
-        <link rel="stylesheet" href="{{asset('build/main.css')}}">
+        {{encore_entry_link_tags('app')}}
     {% endblock %}
     {% block graphQL %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
@@ -14,6 +14,7 @@
 <body>
 {% block body %}{% endblock %}
 {% block javascripts %}
+    {{encore_entry_script_tags('app')}}
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
             integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
             crossorigin="anonymous"></script>

@@ -1,11 +1,14 @@
 {
   "devDependencies": {
-    "autoprefixer": "^9.4.6",
-    "bootstrap": "^4.2.1",
-    "cssnano": "^4.1.8",
-    "gulp": "^4.0.0",
-    "gulp-postcss": "^8.0.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-sourcemaps": "^2.6.4"
+    "@symfony/webpack-encore": "^0.22.0",
+    "webpack-notifier": "^1.6.0"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
   }
 }
