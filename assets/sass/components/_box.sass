@@ -1,11 +1,14 @@
 .box
   background: #F0F0F0
-  width: 400px
-  height: auto
   @include shadow(1)
   margin: 15px
-  max-width: calc(100% - 200px)
-  min-height: 100px
+  padding-bottom: 5px
+
+  &__container
+    max-width: calc(100% - 200px)
+    min-height: 100px
+    width: 400px
+    height: auto
 
   &--warning, &--success
     background: #ff2800

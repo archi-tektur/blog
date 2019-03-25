@@ -36,6 +36,8 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * Main summary screen render
+     *
      * @Route("/admin/categories", name="gui__admin_categories_index")
      * @param Request $request
      * @return Response
@@ -68,6 +70,8 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * Renderless method to delete a cateogory
+     *
      * @Route("/admin/categories/{name}/delete", name="gui__admin_categories_delete")
      * @param string $name
      * @return Response
@@ -77,9 +81,9 @@ class CategoryController extends AbstractController
         try {
             $this->categoryService->delete($name);
         } catch (CategoryNotFoundException $e) {
-            $this->addFlash('error', 'Category not found!');
+            $this->addFlash('warning', 'Category not found!');
         } catch (ORMException $e) {
-            $this->addFlash('error', 'Database problem occured');
+            $this->addFlash('warning', 'Database problem occured');
         } finally {
             return $this->redirectToRoute('gui__admin_categories_index');
         }
