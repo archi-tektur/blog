@@ -42,6 +42,9 @@ class AccountController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('admin/panels/users.html.twig');
+        $users = $this->accountService->getAll();
+        return $this->render('admin/panels/users.html.twig', [
+            'users' => $users,
+        ]);
     }
 }
