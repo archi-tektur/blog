@@ -16,13 +16,13 @@ Encore
      * Add 1 entry for each "page" of your app
      * (including one that's included on every page - e.g. "app")
      *
-     * Each entry will result in one JavaScript file (e.g. app.js)
+     * Each entry will result in one JavaScript file (e.g. app.ts)
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     // general for each page
-    .addEntry('app', './assets/js/app.js')
+    .addEntry('app', './assets/js/app.ts')
     // panel screen
-    .addEntry('panel', './assets/js/panel.js')
+    .addEntry('panel', './assets/js/panel.ts')
     // CKEDITOR
     .addEntry('ckeditor', './assets/js/ckeditor.js')
     //.addEntry('page1', './assets/js/page1.js')

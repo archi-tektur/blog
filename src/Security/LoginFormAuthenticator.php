@@ -129,7 +129,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         if ($targetPath) {
             return new RedirectResponse($targetPath);
         }
-        return new RedirectResponse($this->urlGenerator->generate('gui__admin_article_list'));
+        return new RedirectResponse($this->urlGenerator->generate('gui__admin_summary'));
     }
 
     /**

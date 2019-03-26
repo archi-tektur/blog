@@ -31,7 +31,7 @@
                 </label>
                 <input type="hidden"
                        name="_target_path"
-                       value="{{path('gui__admin_article_list')}}"/>
+                       value="{{path('gui__admin_summary')}}"/>
                 <input type="hidden"
                        name="_csrf"
                        value="{{csrf_token('authenticate')}}">
@@ -40,7 +40,7 @@
                     <span class="login__input-icon fas fa-chevron-right"></span>
                 </button>
             </form>
-            <a href="{{path('gui__admin_article_list')}}" class="link">
+            <a href="{{path('gui__admin_summary')}}" class="link">
                 <span class="fas fa-chevron-circle-left"></span>
                 {% trans from 'login' %}login.link.backtoblog{% endtrans %}
             </a>
