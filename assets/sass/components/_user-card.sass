@@ -29,7 +29,7 @@
 
 
     &--back
-      background: blue
+      background: #f0f0f0
       transform: rotateY(180deg)
 
   &__image
@@ -83,8 +83,40 @@
     text-decoration: none
     border: none
     transition: transform 0.2s
+    user-select: none
+    outline: 0
 
     &:hover
       transform: rotate(180deg)
+
+    &--back:hover
+      transform: rotate(-180deg)
+
+  &__reverse-icons-grid
+    width: 100%
+    height: 197px
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    align-items: center
+    justify-content: center
+    justify-items: center
+    align-content: center
+
+  &__reverse-icons
+    width: 50%
+    height: 50%
+
+    &:hover
+      background: #E0E0E0
+
+  &__reverse-icon
+    display: block
+    margin: 20px auto 10px
+    font-size: 2em
+    color: #FF2800
+
+  &__reverse-text
+    font-weight: lighter
 
 

@@ -1,24 +1,34 @@
 /**
  * Handling user card reversion
  */
-class UserCard {
+export class UserCard {
 
-    /** @var _element Holds card element */
-    private _cards: NodeList;
+    /** @var _element Holds cards elements */
+    private readonly _cards: NodeList;
+    private readonly _className = 'user-card--flipped';
+
 
     /**
      * Assings element
-     * @param switcher
+     * @param cards
+     * @param initAtStart
      */
-    constructor(cards: NodeList) {
+    constructor(cards: NodeList, initAtStart: Boolean = true) {
         this._cards = cards;
+        if (initAtStart) {
+            this.initAll()
+        }
     }
 
-    public handle(element: HTMLElement) {
+    /**
+     * Init all fields
+     */
+    public initAll(): void {
+        this._cards.forEach((currentElement) => {
+            currentElement.addEventListener('click', () => {
+                currentElement.parentNode.parentElement.classList.toggle(this._className);
+            });
+        });
 
     }
-
-
 }
-
-module.exports(UserCard);
