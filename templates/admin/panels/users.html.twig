@@ -1,22 +1,41 @@
 {% extends 'admin/main.html.twig' %}
 {% block panel %}
     <h1 class="panel__page-title">Użytkownicy</h1>
-    <div class="users__container">
+    <div class="scene scene--card">
         <div class="user-card">
-            <img style="max-width: 100px" src="{{asset('img/uploads/profile-pics/profilepic-test0@domain.net.jpeg')}}"
-                 alt=""
-                 class="user-card__image">
-            <h2 class="user-card__data">Name Surname</h2>
-            <small class="user-card__undertitle">Imie i nazwisko</small>
-            <span class="user-card__data user-card__data--smaller">Administrator</span>
-            <small class="user-card__undertitle">Funkcja na stronie</small>
-            <a href="mailto:dupa@abs.pl" class="user-card__data user-card__data--smaller">kontakt@archi-tektur.pl</a>
-            <small class="user-card__undertitle">Adres e-mail</small>
-            <span class="user-card__data user-card__data--smaller">11. październik 2018</span>
-            <small class="user-card__undertitle">Data dołączenia</small>
-            <a href="" class="user-card__link">Artykuły użytkownika</a>
-            <button id="copyAPIKey" class="user-card__link">Kopiuj klucz API</button>
-            <button class="user-card__reverse-button"><span class="fas fa-redo"></span></button>
+            <section class="user-card__face user-card__face--front">
+                <img src="{{asset('img/uploads/profile-pics/profilepic-test0@domain.net.jpeg')}}" alt=""
+                     class="user-card__image">
+                <h2 class="user-card__data">Name Surname</h2>
+                <small class="user-card__undertitle">Imie i nazwisko</small>
+                <span class="user-card__data user-card__data--smaller">Administrator</span>
+                <small class="user-card__undertitle">Funkcja na stronie</small>
+                <a href="mailto:dupa@abs.pl"
+                   class="user-card__data user-card__data--smaller">kontakt@archi-tektur.pl</a>
+                <small class="user-card__undertitle">Adres e-mail</small>
+                <span class="user-card__data user-card__data--smaller">11. październik 2018</span>
+                <small class="user-card__undertitle">Data dołączenia</small>
+                <hr class="user-card__limiter">
+                <a href="" class="user-card__link">Artykuły użytkownika</a>
+                <button id="copyAPIKey" class="user-card__link">Kopiuj klucz API</button>
+                <button class="user-card__reverse-button"><span class="fas fa-redo"></span></button>
+            </section>
+            <section class="user-card__face user-card__face--back">
+                <img src="{{asset('img/uploads/profile-pics/profilepic-test0@domain.net.jpeg')}}" alt=""
+                     class="user-card__image">
+                <h2 class="user-card__data">Name Surname</h2>
+                <small class="user-card__undertitle">Imie i nazwisko</small>
+                <button class="user-card__reverse-button"><span class="fas fa-redo fa-fw"></span></button>
+            </section>
         </div>
     </div>
+
+
+    <script>
+
+    </script>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    {{encore_entry_script_tags('users')}}
 {% endblock %}

@@ -1,6 +1,4 @@
 const Encore = require('@symfony/webpack-encore');
-const path = require('path');
-console.log(path);
 
 Encore
 // directory where compiled assets will be stored
@@ -20,18 +18,19 @@ Encore
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     // general for each page
-    .addEntry('app', './assets/js/app.ts')
+    .addEntry('app', './assets/ts/entrypoints/app.ts')
     // panel screen
-    .addEntry('panel', './assets/js/panel.ts')
+    .addEntry('panel', './assets/ts/entrypoints/panel.ts')
     // CKEDITOR
-    .addEntry('ckeditor', './assets/js/ckeditor.js')
-    //.addEntry('page1', './assets/js/page1.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .addEntry('ckeditor', './assets/ts/entrypoints/ckeditor.js').
+    addEntry('users', './assets/ts/entrypoints/users.ts')
+    //.addEntry('page1', './assets/ts/page1.ts')
+    //.addEntry('page2', './assets/ts/page2.ts')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 
-    // will require an extra script tag for runtime.js
+    // will require an extra script tag for runtime.ts
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
 
@@ -53,7 +52,7 @@ Encore
     // enable post CSS loader
     .enablePostCssLoader(options => {
       options.config = {
-        // the directory where the postcss.config.js file is stored
+        // the directory where the postcss.config.ts file is stored
         path: './postcss.config.js',
       };
     })
@@ -66,7 +65,7 @@ Encore
 
 // uncomment if you use API Platform Admin (composer req api-admin)
 //.enableReactPreset()
-//.addEntry('admin', './assets/js/admin.js')
+//.addEntry('admin', './assets/ts/admin.ts')
 ;
 
 module.exports = Encore.getWebpackConfig();

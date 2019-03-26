@@ -2,16 +2,20 @@
  * Handling user card reversion
  */
 class UserCard {
-    
+
     /** @var _element Holds card element */
-    private _element: HTMLElement;
+    private _cards: NodeList;
 
     /**
      * Assings element
-     * @param element
+     * @param switcher
      */
-    constructor(element: HTMLElement) {
-        this._element = element;
+    constructor(cards: NodeList) {
+        this._cards = cards;
+    }
+
+    public handle(element: HTMLElement) {
+
     }
 
 

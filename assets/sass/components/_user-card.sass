@@ -1,14 +1,45 @@
-.user-card
+.scene
   width: 220px
-  background: #f0f0f0
+  height: 340px
+  margin: 10px
+  perspective: 600px
+
+.user-card
+  width: 100%
+  height: 100%
+  transition: transform 0.4s
+  transform-style: preserve-3d
+  cursor: pointer
+  position: relative
   @include shadow(1)
-  padding: 10px
-  text-align: center
+
+  &.user-card--flipped
+    transform: rotateY(180deg)
+    @include shadow(3)
+
+  &__face
+    position: absolute
+    width: 100%
+    height: 100%
+    text-align: center
+    backface-visibility: hidden
+
+    &--front
+      background: #f0f0f0
+
+
+    &--back
+      background: blue
+      transform: rotateY(180deg)
 
   &__image
+    width: 100px
+    height: auto
+    object-fit: cover
     clip-path: circle(50% at 50% 50%)
     margin: 10px auto
     display: block
+    @include shadow(1)
 
   &__data
     display: block
@@ -27,3 +58,33 @@
     text-transform: uppercase
     color: #292929
     font-size: 16px
+
+  &__limiter
+    margin: 5px auto
+    width: 75%
+
+  &__link
+    color: #FF2800
+    text-decoration: none
+    display: block
+    font-size: 18px
+    background: transparent
+    border: none
+    margin: 0 auto
+    padding: 3px
+    cursor: pointer
+
+  &__reverse-button
+    position: absolute
+    top: 10px
+    right: 10px
+    color: #FF2800
+    background: none
+    text-decoration: none
+    border: none
+    transition: transform 0.2s
+
+    &:hover
+      transform: rotate(180deg)
+
+

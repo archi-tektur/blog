@@ -1,4 +1,4 @@
-import {AdminMenuSizeSwitcher as MenuSwitch} from './GUI/AdminMenuSizeSwitcher';
+import {AdminMenuSizeSwitcher as MenuSwitch} from '../GUI/AdminMenuSizeSwitcher';
 
 // handle click
 new MenuSwitch(
