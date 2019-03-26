@@ -115,7 +115,11 @@ class SecurityController extends AbstractController
         return $this->render('admin/security/register.html.twig', ['form' => $form->createView()]);
     }
 
-    public function details()
+    /**
+     * @Route("/admin/summon")
+     */
+    public function summon()
     {
+        return $this->render('admin/summon_screens/summon.html.twig');
     }
 }
