@@ -1,0 +1,29 @@
+.user-card
+  width: 220px
+  background: #f0f0f0
+  @include shadow(1)
+  padding: 10px
+  text-align: center
+
+  &__image
+    clip-path: circle(50% at 50% 50%)
+    margin: 10px auto
+    display: block
+
+  &__data
+    display: block
+    margin: 0 auto
+    font-size: 32px
+    color: #FF2800
+    text-decoration: none
+
+    &--smaller
+      font-size: 20px
+
+  &__undertitle
+    display: block
+    margin: -2px auto 5px
+    font-weight: lighter
+    text-transform: uppercase
+    color: #292929
+    font-size: 16px
