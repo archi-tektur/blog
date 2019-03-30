@@ -1,0 +1,71 @@
+.article
+  width: 90%
+  max-width: 1200px
+  margin: 30px auto
+  color: #444444
+  font-size: 1.2em
+
+  h2
+    font-size: 2.5em
+
+  h3
+    font-size: 2em
+
+  h4
+    font-size: 1.7em
+
+  p
+    font-family: 'PT Sans Narrow', sans-serif
+    text-indent: 1em
+    font-size: 0.95em
+    line-height: 1.25
+    margin: 2px 0 5px
+    text-align: justify
+
+    strong, i
+      font-family: 'PT Sans Narrow', sans-serif
+
+  a
+    color: #FF2800
+    text-decoration: none
+
+    &:hover
+      color: darken(#FF2800, 20)
+      @include transition(0.1s)
+
+  .table, table
+    border-collapse: collapse
+
+    th, td
+      border: 1px solid #444444
+      padding: 4px
+
+    th
+      font-size: 1.2em
+
+    td
+      font-size: 1.1em
+
+
+  ul, ol
+    margin-left: 30px
+
+    li
+      font-family: 'PT Sans Narrow', sans-serif
+
+
+  blockquote
+    width: 100%
+    border-left: 4px #444444 solid
+    height: auto
+    padding: 5px
+    margin: 20px
+    background: #F0F0F0
+    font-style: italic
+
+    p
+      &::before
+        content: '"'
+
+      &::after
+        content: '"'
