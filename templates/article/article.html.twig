@@ -3,7 +3,8 @@
 {% block body %}
     <header class="showreel">
         <img class="showreel__image"
-             src="{{asset( 'img/uploads/articles-showreel/' ~ article.showreelImage.filename)}}" alt="">
+             src="{{asset( 'img/uploads/articles-showreel/' ~ article.showreelImage.filename)}}"
+             alt="{{article.title}}">
         <div class="showreel__text-container">
             <span class="showreel__title">{{article.title}}</span>
             <span class="showreel__details">
@@ -12,7 +13,24 @@
         </div>
     </header>
 
-    <article class="article">
+    <article class="article article--fixed">
         {{article.content|raw|nl2br}}
     </article>
+
+    <section class="related-articles">
+        <h2 class="related-articles__heading">Powiązane artykuły</h2>
+        <div class="related-articles__container">
+            {% for post in related %}
+                <a href="" class="related-articles__box">
+                    <img class="related-articles__image-layer"
+                         src="{{asset('img/uploads/articles-showreel/' ~ post.showreelImage.filename)}}"
+                         alt="{{post.title}}">
+                    <div class="related-articles__text-layer">
+                        <h3 class="related-articles__article-title">{{post.title}}</h3>
+                        <span class="related-articles__article-date">{{post.createdAt.format("d M Y")}}</span>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}

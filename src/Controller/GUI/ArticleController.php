@@ -41,7 +41,11 @@ class ArticleController extends AbstractController
     {
         try {
             $article = $this->articleService->get($slug);
-            return $this->render('article/article.html.twig', ['article' => $article]);
+            $related = $this->articleService->getAll();
+            return $this->render('article/article.html.twig', [
+                'article' => $article,
+                'related' => $related,
+            ]);
         } catch (ArticleNotFoundException $e) {
             return new Response(shell_exec('ls'));
         }
