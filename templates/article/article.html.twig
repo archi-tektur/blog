@@ -8,6 +8,10 @@
             <span class="showreel__title">{{article.title}}</span>
             <span class="showreel__details">
             <span class="showreel__create-time">{{article.createdAt.format("d M Y")}}</span>
+            <span class="showreel__authors">
+                {% for author in article.authors %}
+                {% endfor %}
+            </span>
         </span>
         </div>
     </header>
