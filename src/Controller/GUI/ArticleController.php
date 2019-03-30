@@ -31,17 +31,19 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * Simply shows the article screen
+     *
      * @Route("/article/{slug}", name="gui__article_show")
      * @param string $slug
      * @return Response
      */
-    public function show(string $slug): Response
+    public function index(string $slug): Response
     {
         try {
             $article = $this->articleService->get($slug);
             return $this->render('article/article.html.twig', ['article' => $article]);
         } catch (ArticleNotFoundException $e) {
-            echo shell_exec('ls');
+            return new Response(shell_exec('ls'));
         }
     }
 }

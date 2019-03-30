@@ -3,6 +3,7 @@
 {% block panel %}
     <h1 class="panel__page-title">Dodaj artykuł</h1>
     {{form_start(form)}}
+    {{form_label(form.title, "Podaj tytuł artykułu")}}
     {{form_widget(form.title)}}
     {{form_widget(form.content, {'attr':{'id': 'ckeditor'}})}}
     {{form_end(form)}}
