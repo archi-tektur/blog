@@ -1,20 +1,14 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-    {% if article.showreelImage %}
-        <img style="width: 100px; height: auto;"
-             src="{{asset('/img/uploads/articles-showreel/' ~ article.showreelImage.filename)}}"
-             alt="imgsth"/>
-        <span>This is article header image.</span>
-    {% else %}
-        <span>Article showreel were not added.</span>
-    {% endif %}
-    <h1>{{article.title}}</h1>
-    <article>{{article.content|raw|nl2br}}</article>
-    <div style="border: 3px dotted red; padding: 20px; width: 300px;">
-        <a href="{{path('gui__admin_article_add')}}">Add new</a>
-        <a href="{{path('gui__admin_article_edit', {'slug': article.slug})}}">Edit</a>
-        <a href="{{path('gui__admin_article_delete', {'slug': article.slug})}}">Delete</a>
-        <a href="{{path('gui__admin_article_list')}}">Back to article list</a>
-    </div>
 
+{% block body %}
+    <header class="showreel">
+        <img class="showreel__image"
+             src="{{asset( 'img/uploads/articles-showreel/' ~ article.showreelImage.filename)}}" alt="">
+        <div class="showreel__text-container">
+            <span class="showreel__title">{{article.title}}</span>
+            <span class="showreel__details">
+            <span class="showreel__create-time">{{article.createdAt.format("d M Y")}}</span>
+        </span>
+        </div>
+    </header>
 {% endblock %}

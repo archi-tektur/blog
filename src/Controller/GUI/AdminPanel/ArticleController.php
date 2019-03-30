@@ -2,6 +2,7 @@
 
 namespace App\Controller\GUI\AdminPanel;
 
+use App\Entity\Article;
 use App\Form\ArticleFormType;
 use App\Service\EntityService\ArticleService;
 use App\Service\UploaderService\ArticleShowreelUploader;
@@ -57,6 +58,18 @@ class ArticleController extends AbstractController
     public function add(Request $request): Response
     {
         $form = $this->createForm(ArticleFormType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Article $article */
+            $article = $form->getData();
+
+            // add actual user as author too
+            $article->addAuthor($this->getUser());
+
+            // perform on database
+            $this->entityManager->persist($article);
+            $this->entityManager->flush();
+        }
         return $this->render('admin/panels/addarticle.html.twig', [
             'form' => $form->createView(),
         ]);
