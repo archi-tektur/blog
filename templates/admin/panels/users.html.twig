@@ -17,11 +17,17 @@
                             {{user.email}}
                         </a>
                         <small class="user-card__undertitle">Adres e-mail</small>
-                        <span class="user-card__data user-card__data--smaller">{{user.createdAt.format("d M Y")}}</span>
+                        <span class="user-card__data user-card__data--smaller">
+                            {{user.createdAt.format("d M Y")}}
+                        </span>
                         <small class="user-card__undertitle">Data dołączenia</small>
                         <hr class="user-card__limiter">
                         <a href="" class="user-card__bottom-link">Artykuły użytkownika</a>
-                        <button id="copyAPIKey" class="user-card__bottom-link">Kopiuj klucz API</button>
+                        <button id="copyAPIKey"
+                                class="user-card__bottom-link"
+                                data-ApiKey="{{user.apiPartialKey}}">
+                            Kopiuj klucz API
+                        </button>
                         <button class="user-card__reverse-button"><span class="fas fa-redo"></span></button>
                     </section>
                     <section class="user-card__face user-card__face--back">
