@@ -1,6 +1,6 @@
 .scene
   width: 220px
-  height: 340px
+  height: 395px
   margin: 10px
   perspective: 600px
 
@@ -38,8 +38,8 @@
       transform: rotateY(180deg)
 
   &__image
-    height: 65px
-    width: auto
+    height: 120px
+    width: 120px
     max-width: 180px
     object-fit: cover
     clip-path: circle(50% at 50% 50%)
@@ -51,25 +51,30 @@
     display: block
     margin: 0 auto
     font-size: 32px
-    color: #FF2800
+    color: #444444
     text-decoration: none
 
     &--smaller
       font-size: 20px
+
+    &--clickable
+      &:hover
+        color: #FF2800
+        @include transition(0.1s)
 
   &__undertitle
     display: block
     margin: -2px auto 5px
     font-weight: lighter
     text-transform: uppercase
-    color: #292929
+    color: #FF2800
     font-size: 16px
 
   &__limiter
     margin: 5px auto
     width: 75%
 
-  &__link
+  &__bottom-link
     color: #FF2800
     text-decoration: none
     display: block
@@ -79,6 +84,10 @@
     margin: 0 auto
     padding: 3px
     cursor: pointer
+
+    &:hover
+      color: darken(#FF2800, 20)
+      @include transition(0.1s)
 
   &__reverse-button
     position: absolute
@@ -116,11 +125,15 @@
     &:hover
       background: #E0E0E0
 
+    &:hover .user-card__reverse-icon
+      color: #FF2800
+      @include transition(0.1s)
+
   &__reverse-icon
     display: block
     margin: 20px auto 10px
     font-size: 2em
-    color: #FF2800
+    color: #444444
 
   &__reverse-text
     font-weight: lighter
