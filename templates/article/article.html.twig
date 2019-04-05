@@ -24,7 +24,9 @@
         <h2 class="related-articles__heading">Powiązane artykuły</h2>
         <div class="related-articles__container">
             {% for post in related %}
-                <a href="" class="related-articles__box">
+                <a href="{{path('gui__article_show', {
+                    'slug': post.slug
+                })}}" class="related-articles__box">
                     <img class="related-articles__image-layer"
                          src="{{asset('img/uploads/articles-showreel/' ~ post.showreelImage.filename)}}"
                          alt="{{post.title}}">
