@@ -74,4 +74,13 @@ class ArticleController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/admin/articles/all/", name="gui__admin_all_articles")
+     */
+    public function index(): Response
+    {
+        return $this->render('admin/panels/all-articles.html.twig');
+    }
 }

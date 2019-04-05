@@ -1,0 +1,9 @@
+{% extends 'admin/main.html.twig' %}
+
+{% block panel %}
+    <h1 class="panel__page-title">Wszystkie artykuły</h1>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    {{encore_entry_script_tags('panel')}}
+{% endblock %}
