@@ -3,6 +3,7 @@
 namespace App\Controller\GUI\AdminPanel;
 
 use App\Entity\Article;
+use App\Exceptions\NotFound\AccountNotFoundException;
 use App\Exceptions\NotFound\ArticleNotFoundException;
 use App\Exceptions\NotFound\CategoryNotFoundException;
 use App\Form\ArticleFormType;
@@ -105,9 +106,22 @@ class ArticleController extends AbstractController
         }
     }
 
-    public function byAuthor()
+    /**
+     * @Route("/admin/articles/byAuthor/{authorMail}", name="gui__admin_all_byauthor")
+     * @param $authorMail
+     * @return Response
+     */
+    public function byAuthor($authorMail): Response
     {
-
+        try {
+            $articles = $this->articleService->getByAuthor($authorMail);
+            return $this->render('admin/panels/all-articles.html.twig', [
+                'articles'      => $articles,
+                'sortingMethod' => 'by author ' . $authorMail,
+            ]);
+        } catch (AccountNotFoundException $e) {
+            return $this->redirectToRoute('gui__admin_all_articles');
+        }
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Service\EntityService;
 use App\Entity\Account;
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Exceptions\NotFound\AccountNotFoundException;
 use App\Exceptions\NotFound\ArticleNotFoundException;
 use App\Exceptions\NotFound\CategoryNotFoundException;
 use App\Exceptions\StructureViolation\ArticleAlreadyExistsException;
@@ -30,6 +31,10 @@ class ArticleService extends AbstractValidationService
      */
     protected $categoryService;
     /**
+     * @var AccountService
+     */
+    protected $accountService;
+    /**
      * @var ArticleRepository
      */
     private $articleRepository;
@@ -43,12 +48,14 @@ class ArticleService extends AbstractValidationService
         EntityManagerInterface $entity,
         ArticleRepository $articleRepository,
         CategoryService $categoryService,
+        AccountService $accountService,
         SlugifyInterface $slugify
     ) {
         parent::__construct($validator, $entity);
         $this->articleRepository = $articleRepository;
         $this->slugify = $slugify;
         $this->categoryService = $categoryService;
+        $this->accountService = $accountService;
     }
 
     /**
@@ -167,6 +174,24 @@ class ArticleService extends AbstractValidationService
         $sorted = [];
         foreach ($articles as $article) {
             if ($article->getCategories()->contains($category)) {
+                $sorted[] = $article;
+            }
+        }
+        return $sorted;
+    }
+
+    /**
+     * @param $authorMail
+     * @return Article[]
+     * @throws AccountNotFoundException
+     */
+    public function getByAuthor($authorMail): array
+    {
+        $account = $this->accountService->get($authorMail);
+        $articles = $this->getAll();
+        $sorted = [];
+        foreach ($articles as $article) {
+            if ($article->getAuthors()->contains($account)) {
                 $sorted[] = $article;
             }
         }

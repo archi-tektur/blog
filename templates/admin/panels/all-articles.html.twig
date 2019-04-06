@@ -6,7 +6,12 @@
     <div class="panel__container">
         <div class="box__container box__container--wide">
             <section class="box">
-                <h2 class="box__title">Wszystkie artykuły</h2>
+                <h2 class="box__title">
+                    {% if sortingMethod is defined %}
+                        {{sortingMethod}}
+                    {% else %}
+                        Wszystkie artykuły
+                    {% endif %}</h2>
                 <table class="article-table">
                     <thead class="article-table__table-head">
                     <tr class="article-table__table-heading-row">
@@ -37,7 +42,13 @@
                                     /articles/{{article.slug}}
                                 </a>
                             </th>
-                            <th class="article-table__field">{{article.authors|join(', ')}}</th>
+                            <th class="article-table__field">
+                                {% for author in article.authors %}
+                                    <a href="{{path('gui__admin_all_byauthor', {'authorMail': author.email})}}">
+                                        {{author}},
+                                    </a>
+                                {% endfor %}
+                            </th>
                             <th class="article-table__field">
                                 {% for category in article.categories %}
                                     <a href="{{path('gui__admin_all_bycategory', {'categoryName': category})}}">
