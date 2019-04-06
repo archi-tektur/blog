@@ -2,6 +2,50 @@
 
 {% block panel %}
     <h1 class="panel__page-title">Wszystkie artykuły</h1>
+    <div class="panel__container">
+        <div class="box__container box__container--wide">
+            <section class="box">
+                <h2 class="box__title">Wszystkie artykuły</h2>
+                <table class="article-table">
+                    <thead class="article-table__table-head">
+                    <tr class="article-table__table-heading-row">
+                        <th>UID</th>
+                        <th>Obrazek</th>
+                        <th>Tytuł artykułu</th>
+                        <th>Autorzy</th>
+                        <th>Ostatnia zmiana</th>
+                    </tr>
+                    </thead>
+                    <tbody class="article-table__table-body">
+                    {% for article in articles %}
+                        <tr class="article-table__row">
+                            <th class="article-table__field">{{article.id}}</th>
+                            <th class="article-table__field article-table__field--image">
+                                <img src="{{asset('img/uploads/articles-showreel/' ~ article.showreelImage.filename)}}"
+                                     alt="{{article}}"
+                                     class="article-table__image">
+                            </th>
+                            <th class="article-table__field">
+                                <div class="article-table__title-box">
+                                    <span class="article-table__article-title">{{article}}</span>
+                                    <a href="{{path('gui__article_show', {'slug': article.slug})}}"
+                                       class="article-table__article-slug">
+                                        /articles/{{article.slug}}
+                                    </a>
+                                </div>
+                            </th>
+                            <th class="article-table__field">{{article.authors|join(',')}}</th>
+                            <th class="article-table__field">{{article.createdAt.format('m:H, d M Y')}}</th>
+                            <th class="article-table__field"><a class="article-table__link" href="">Edytuj</a></th>
+                            <th class="article-table__field"><a class="article-table__link" href="">Usuń</a></th>
+                            <th class="article-table__field"><a class="article-table__link" href="">Ukryj</a></th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
 {% endblock %}
 {% block javascripts %}
     {{parent()}}

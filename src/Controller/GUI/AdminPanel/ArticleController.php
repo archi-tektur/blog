@@ -81,6 +81,7 @@ class ArticleController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('admin/panels/all-articles.html.twig');
+        $articles = $this->articleService->getAll();
+        return $this->render('admin/panels/all-articles.html.twig', ['articles' => $articles]);
     }
 }

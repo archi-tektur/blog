@@ -25,22 +25,8 @@ export class AdminMenuSizeSwitcher {
      * Handles clicks for menu switch
      */
     public handle(): void {
-        this._clickers.addEventListener('click', this.click);
-
-    }
-
-    /**
-     * Removes click actions for menu switch
-     */
-    public unhandle(): void {
-        this._clickers.removeEventListener('click', this.click);
-
-    }
-
-    /**
-     * Action done on click
-     */
-    private click() {
-        this._navigation.classList.toggle(this.CLASS_NAME);
+        this._clickers.addEventListener('click', () => {
+            this._navigation.classList.toggle(this.CLASS_NAME);
+        });
     }
 }
