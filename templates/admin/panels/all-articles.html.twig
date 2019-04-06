@@ -1,4 +1,5 @@
 {% extends 'admin/main.html.twig' %}
+{% set prefix = 'App\\Controller\\GUI\\AdminPanel\\ArticleController::FLASH_PREFIX' %}
 
 {% block panel %}
     <h1 class="panel__page-title">Wszystkie artykuły</h1>
@@ -13,7 +14,7 @@
                         <th>Obrazek</th>
                         <th>Tytuł artykułu</th>
                         <th>Autorzy</th>
-                        <th>Ostatnia zmiana</th>
+                        <th>Data utworzenia</th>
                     </tr>
                     </thead>
                     <tbody class="article-table__table-body">
@@ -21,29 +22,51 @@
                         <tr class="article-table__row">
                             <th class="article-table__field">{{article.id}}</th>
                             <th class="article-table__field article-table__field--image">
-                                <img src="{{asset('img/uploads/articles-showreel/' ~ article.showreelImage.filename)}}"
-                                     alt="{{article}}"
-                                     class="article-table__image">
+                                <a href="{{asset('img/uploads/articles-showreel/' ~ article.showreelImage.filename)}}"
+                                   target="_blank">
+                                    <img src="{{asset('img/uploads/articles-showreel/' ~ article.showreelImage.filename)}}"
+                                         alt="{{article}}"
+                                         class="article-table__image">
+                                </a>
                             </th>
-                            <th class="article-table__field">
-                                <div class="article-table__title-box">
-                                    <span class="article-table__article-title">{{article}}</span>
-                                    <a href="{{path('gui__article_show', {'slug': article.slug})}}"
-                                       class="article-table__article-slug">
-                                        /articles/{{article.slug}}
-                                    </a>
-                                </div>
+                            <th class="article-table__field article-table__field--complex">
+                                <span class="article-table__content">{{article}}</span>
+                                <a href="{{path('gui__article_show', {'slug': article.slug})}}"
+                                   class="article-table__subcontent">
+                                    /articles/{{article.slug}}
+                                </a>
                             </th>
                             <th class="article-table__field">{{article.authors|join(',')}}</th>
-                            <th class="article-table__field">{{article.createdAt.format('m:H, d M Y')}}</th>
+                            <th class="article-table__field article-table__field--complex">
+                                <span class="article-table__content">{{article.createdAt|ago}}</span>
+                                <span class="article-table__subcontent">{{article.createdAt.format('m:H, d M Y')}}</span>
+
+                            </th>
                             <th class="article-table__field"><a class="article-table__link" href="">Edytuj</a></th>
-                            <th class="article-table__field"><a class="article-table__link" href="">Usuń</a></th>
+                            <th class="article-table__field">
+                                <a class="article-table__link"
+                                   href="{{path('gui__admin_article_delete', {'slug': article.slug})}}">
+                                    Usuń
+                                </a>
+                            </th>
                             <th class="article-table__field"><a class="article-table__link" href="">Ukryj</a></th>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </section>
+        </div>
+        <div class="box__container">
+            {% for warning in app.flashes(
+                constant('App\\Controller\\GUI\\AdminPanel\\ArticleController::FLASH_PREFIX') ~ 'error'
+                ) %}
+                <section class="box box--warning">{{warning|trans({}, 'messages')}}</section>
+            {% endfor %}
+            {% for success in app.flashes(
+                constant(prefix) ~ 'success'
+                ) %}
+                <section class="box box--success">{{success}}</section>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

@@ -3,15 +3,18 @@
 namespace App\Controller\GUI\AdminPanel;
 
 use App\Entity\Article;
+use App\Exceptions\NotFound\ArticleNotFoundException;
 use App\Form\ArticleFormType;
 use App\Service\EntityService\ArticleService;
 use App\Service\UploaderService\ArticleShowreelUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
 
 /**
  * Class ArticleController
@@ -20,6 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ArticleController extends AbstractController
 {
+    public const FLASH_PREFIX = 'article_';
 
     /**
      * @var EntityManagerInterface
@@ -83,5 +87,47 @@ class ArticleController extends AbstractController
     {
         $articles = $this->articleService->getAll();
         return $this->render('admin/panels/all-articles.html.twig', ['articles' => $articles]);
+    }
+
+    /**
+     * @Route("/admin/articles/{slug}/visibilityChange", name="gui__admin_article_vischange")
+     * @return RedirectResponse
+     */
+    public function changeVisibility($slug): RedirectResponse
+    {
+        return $this->redirectToRoute('gui__admin_all_articles');
+    }
+
+    /**
+     * @Route("/admin/articles/{slug}/details", name="gui__admin_article_details")
+     * @return RedirectResponse
+     */
+    public function details($slug): RedirectResponse
+    {
+        return $this->redirectToRoute('gui__admin_all_articles');
+    }
+
+    /**
+     * Deletes
+     *
+     * @Route("/admin/articles/{slug}/delete", name="gui__admin_article_delete")
+     * @param $slug
+     * @return RedirectResponse
+     */
+    public function delete($slug): RedirectResponse
+    {
+        try {
+            $this->articleService->delete($slug);
+            // notify about success
+            $this->addFlash(self::FLASH_PREFIX . 'success', 'OK');
+
+        } catch (ArticleNotFoundException $e) {
+            $this->addFlash(self::FLASH_PREFIX . 'error', $e->getMessage());
+        } catch (Throwable $e) {
+            // possible ORM database error
+            $this->addFlash(self::FLASH_PREFIX . 'error', $e->getMessage());
+        } finally {
+            return $this->redirectToRoute('gui__admin_all_articles');
+        }
     }
 }
