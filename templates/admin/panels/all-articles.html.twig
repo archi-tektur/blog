@@ -14,6 +14,7 @@
                         <th>Obrazek</th>
                         <th>Tytuł artykułu</th>
                         <th>Autorzy</th>
+                        <th>Kategorie</th>
                         <th>Data utworzenia</th>
                     </tr>
                     </thead>
@@ -36,7 +37,14 @@
                                     /articles/{{article.slug}}
                                 </a>
                             </th>
-                            <th class="article-table__field">{{article.authors|join(',')}}</th>
+                            <th class="article-table__field">{{article.authors|join(', ')}}</th>
+                            <th class="article-table__field">
+                                {% for category in article.categories %}
+                                    <a href="{{path('gui__admin_all_bycategory', {'categoryName': category})}}">
+                                        {{category}},
+                                    </a>
+                                {% endfor %}
+                            </th>
                             <th class="article-table__field article-table__field--complex">
                                 <span class="article-table__content">{{article.createdAt|ago}}</span>
                                 <span class="article-table__subcontent">{{article.createdAt.format('m:H, d M Y')}}</span>

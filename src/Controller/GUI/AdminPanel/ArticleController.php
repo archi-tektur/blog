@@ -4,6 +4,7 @@ namespace App\Controller\GUI\AdminPanel;
 
 use App\Entity\Article;
 use App\Exceptions\NotFound\ArticleNotFoundException;
+use App\Exceptions\NotFound\CategoryNotFoundException;
 use App\Form\ArticleFormType;
 use App\Service\EntityService\ArticleService;
 use App\Service\UploaderService\ArticleShowreelUploader;
@@ -83,10 +84,30 @@ class ArticleController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("/admin/articles/all/", name="gui__admin_all_articles")
      */
-    public function index(): Response
+    public function all(): Response
     {
         $articles = $this->articleService->getAll();
         return $this->render('admin/panels/all-articles.html.twig', ['articles' => $articles]);
+    }
+
+    /**
+     * @Route("/admin/articles/byCategory/{categoryName}", name="gui__admin_all_bycategory")
+     * @param $categoryName
+     * @return Response
+     */
+    public function byCategory($categoryName): Response
+    {
+        try {
+            $articles = $this->articleService->getByCategory($categoryName);
+            return $this->render('admin/panels/all-articles.html.twig', ['articles' => $articles]);
+        } catch (CategoryNotFoundException $e) {
+            return $this->redirectToRoute('gui__admin_all_articles');
+        }
+    }
+
+    public function byAuthor()
+    {
+
     }
 
     /**

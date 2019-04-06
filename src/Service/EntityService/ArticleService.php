@@ -6,6 +6,7 @@ use App\Entity\Account;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Exceptions\NotFound\ArticleNotFoundException;
+use App\Exceptions\NotFound\CategoryNotFoundException;
 use App\Exceptions\StructureViolation\ArticleAlreadyExistsException;
 use App\Repository\ArticleRepository;
 use App\Service\Abstracts\AbstractValidationService;
@@ -25,6 +26,10 @@ class ArticleService extends AbstractValidationService
     private const ERR_NOT_FOUND = 'Article wasn\'t found.';
     private const ERR_ALREADY_EXISTS = 'Account with this slug already exists.';
     /**
+     * @var CategoryService
+     */
+    protected $categoryService;
+    /**
      * @var ArticleRepository
      */
     private $articleRepository;
@@ -37,11 +42,13 @@ class ArticleService extends AbstractValidationService
         ValidatorInterface $validator,
         EntityManagerInterface $entity,
         ArticleRepository $articleRepository,
+        CategoryService $categoryService,
         SlugifyInterface $slugify
     ) {
         parent::__construct($validator, $entity);
         $this->articleRepository = $articleRepository;
         $this->slugify = $slugify;
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -146,5 +153,23 @@ class ArticleService extends AbstractValidationService
 
         $this->entityManager->remove($article);
         $this->entityManager->flush();
+    }
+
+    /**
+     * @param string $categoryName
+     * @return Article[]
+     * @throws CategoryNotFoundException
+     */
+    public function getByCategory(string $categoryName): array
+    {
+        $category = $this->categoryService->get($categoryName);
+        $articles = $this->getAll();
+        $sorted = [];
+        foreach ($articles as $article) {
+            if ($article->getCategories()->contains($category)) {
+                $sorted[] = $article;
+            }
+        }
+        return $sorted;
     }
 }
