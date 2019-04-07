@@ -95,9 +95,9 @@ class SecurityController extends AbstractController
                 $form['plainPassword']->getData()
             ));
 
-            if ($form['agreeTerms']->getData() === true) {
-                $account->agreeToTerms();
-            }
+//            if ($form['agreeTerms']->getData() === true) {
+//                $account->agreeToTerms();
+//            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($account);
@@ -116,10 +116,10 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/admin/summon")
+     * @Route("/admin/confirm")
      */
-    public function summon()
+    public function confirm(): Response
     {
-        return $this->render('admin/summon_screens/summon.html.twig');
+        return $this->render('admin/confirmation/confirm.html.twig');
     }
 }
