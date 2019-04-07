@@ -2,7 +2,14 @@
 {% block body %}
     <div class="confirm__container">
         <div class="confirm">
-            {% block confirmation_content %}{% endblock %}
+            <h1>{% block confirmation_heading %}{% endblock %}</h1>
+            <p>{% block confirmation_content %}{% endblock %}</p>
+            <a href="{% block confirmation_cancel_link %}{% endblock %}">
+                {% block confirmation_cancel_content %}{% endblock %}
+            </a>
+            <a href="{% block confirmation_ok_link %}{% endblock %}">
+                {% block confirmation_ok_content %}{% endblock %}
+            </a>
         </div>
     </div>
 {% endblock %}
