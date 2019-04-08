@@ -22,9 +22,9 @@
             <p class="confirm__content">
                 {% block confirmation_content %}
                     {% if config.translatable %}
-                        {{config.content|trans({}, config.translationDomain)}}
+                        {{config.content|trans({}, config.translationDomain)|nl2br}}
                     {% else %}
-                        {{config.content}}
+                        {{config.content|nl2br}}
                     {% endif %}
                 {% endblock %}
             </p>
