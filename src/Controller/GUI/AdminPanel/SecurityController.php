@@ -5,6 +5,7 @@ namespace App\Controller\GUI\AdminPanel;
 use App\DTO\ConfirmScreenConfig;
 use App\Entity\Account;
 use App\Form\RegisterFormType;
+use App\Renderers\ConfirmScreenRenderer;
 use App\Security\LoginFormAuthenticator;
 use App\Service\EntityService\AccountService;
 use Doctrine\ORM\EntityManager;
@@ -32,17 +33,26 @@ class SecurityController extends AbstractController
      * @var AccountService
      */
     protected $accountService;
+    /**
+     * @var ConfirmScreenRenderer
+     */
+    protected $confirmRenderer;
 
     /**
      * SecurityController constructor.
      *
      * @param EntityManagerInterface $entityManager
      * @param AccountService         $accountService
+     * @param ConfirmScreenRenderer  $confirmRenderer
      */
-    public function __construct(EntityManagerInterface $entityManager, AccountService $accountService)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        AccountService $accountService,
+        ConfirmScreenRenderer $confirmRenderer
+    ) {
         $this->entityManager = $entityManager;
         $this->accountService = $accountService;
+        $this->confirmRenderer = $confirmRenderer;
     }
 
     /**
@@ -122,6 +132,6 @@ class SecurityController extends AbstractController
     public function confirm(): Response
     {
         $config = new ConfirmScreenConfig();
-        return $this->render('admin/confirmation/confirm.html.twig', ['config' => $config]);
+        return $this->confirmRenderer->run($config);
     }
 }
