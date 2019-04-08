@@ -1,16 +1,16 @@
 .login
-  height: 100%
-  display: flex
-  justify-content: center
-  align-items: center
+  width: 300px
+  height: auto
+  background: #FFFFFF
+  border-radius: 5px
+  @include shadow(2)
 
   &__container
-    padding: 15px 10px
-    width: 330px
-    height: auto
     background: #F0F0F0
-    border-radius: 5px
-    @include shadow(2)
+    height: 100%
+    display: flex
+    justify-content: center
+    align-items: center
 
   &__logo
     display: block
@@ -19,57 +19,53 @@
     width: auto
 
   &__heading
-    font-size: 40px
     margin: 0 auto
     font-weight: normal
     text-align: center
     color: #FF2800
+    font-size: 2.5em
 
   &__label
     display: block
     text-align: center
     margin: 0.5em auto 0.2em
-    color: #292929
-    font-size: 1.1em
+    color: #444
     font-weight: lighter
 
   &__input
-    background: #FFFFFF
+    background: #F0F0F0
     position: relative
     width: 90%
     max-width: 300px
     margin: 0 auto
     display: block
     border: none
+    color: #444
     text-align: center
-    border-bottom: 4px #FF2800 solid
-    padding: 9px 5px 5px
-    font-size: 1.25em
-    font-family: 'Yanone Kaffeesatz', sans-serif
+    padding: 9px 5px
+    font-size: 1.1em
+    font-family: 'PT Sans Narrow', sans-serif
     border-radius: 3px
     @include shadow(1)
     @include transition(0.2s)
 
+    &:focus
+      outline: none
+      @include shadow(2)
+
     &--submit
       background: #FF2800
       color: #FFFFFF
+      width: 100%
+      border-radius: 0 0 5px 5px
 
-      &:hover
+      &:hover, &:focus
         background: darken(#FF2800, 5)
-        border-color: darken(#FF2800, 5)
         @include shadow(2)
-
-
-    &:hover
-      @include shadow(2)
-
-    &:focus
-      outline: none
-      @include shadow(3)
 
   &__input-icon
     position: absolute
-    right: 10px
+    right: 20px
     top: 30%
     color: #FFFFFF
 

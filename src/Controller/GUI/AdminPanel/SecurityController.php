@@ -106,10 +106,6 @@ class SecurityController extends AbstractController
                 $form['plainPassword']->getData()
             ));
 
-//            if ($form['agreeTerms']->getData() === true) {
-//                $account->agreeToTerms();
-//            }
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($account);
             $em->flush();
@@ -127,16 +123,13 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * Test confirm screen
      * @Route("/admin/confirm")
      */
     public function confirm(): Response
     {
         $config = new ConfirmScreenConfig();
-        $okLink = $this->generateUrl('gui__admin_summary');
-        $cancelLink = $this->generateUrl('gui__admin_article_delete', ['slug' => 'Alalala']);
-        $config->setOkButtonLink($okLink)
-               ->setCancelButtonLink($cancelLink)
-               ->setTranslatable(true);
+        $config->setTranslatable(true);
         return $this->confirmRenderer->run($config);
     }
 }

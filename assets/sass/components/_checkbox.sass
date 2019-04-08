@@ -8,6 +8,8 @@
   font-size: 1.2em
   user-select: none
   font-weight: lighter
+  border-radius: 3px
+
 
 /* Hide the browser's default checkbox */
 .checkbox .checkbox__input
@@ -16,6 +18,7 @@
   cursor: pointer
   height: 0
   width: 0
+  border-radius: 3px
 
 
 /* Create a custom checkbox */
@@ -25,16 +28,16 @@
   left: 70px
   height: 22px
   width: 22px
-  background-color: #FFFFFF
+  border-radius: 3px
+  background-color: #F0F0F0
   @include shadow(1)
 
 /* On mouse-over, add a grey background color */
 .checkbox:hover .checkbox__input ~ .checkbox__checkmark,
 .checkbox:focus .checkbox__input ~ .checkbox__checkmark
-  @include shadow(2)
+  background: lighten(#FF2800, 30)
 
-
-/* When the checkbox is checked, add a blue background */
+/* When the checkbox is checked, add a red background */
 .checkbox .checkbox__input:checked ~ .checkbox__checkmark
   background-color: #FF2800
 

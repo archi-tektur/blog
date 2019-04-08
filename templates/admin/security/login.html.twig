@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="login">
-        <section class="login__container">
+    <div class="login__container">
+        <section class="login">
             <img class="login__logo" src="{{asset('img/interface/archi_tektur-logo.svg')}}" alt="archi_tektur logo">
             <h1 class="login__heading">{% trans from 'login' %}login.login{% endtrans %}</h1>
-            <form class="login__form" method="POST">
+            <form class="login__form" id="login-form" method="POST">
                 <label class="login__label" for="email">
                     {% trans from 'login' %}login.label.email{% endtrans %}
                 </label>
@@ -35,15 +35,16 @@
                 <input type="hidden"
                        name="_csrf"
                        value="{{csrf_token('authenticate')}}">
-                <button class="login__input login__input--submit" type="submit">
-                    {% trans from 'login' %}login.input.submittext{% endtrans %}
-                    <span class="login__input-icon fas fa-chevron-right"></span>
-                </button>
+
             </form>
-            <a href="{{path('gui__admin_summary')}}" class="link">
+            {#<a href="{{path('gui__admin_summary')}}" class="link">
                 <span class="fas fa-chevron-circle-left"></span>
                 {% trans from 'login' %}login.link.backtoblog{% endtrans %}
-            </a>
+            </a>#}
+            <button form="login-form" class="login__input login__input--submit" type="submit">
+                {% trans from 'login' %}login.input.submittext{% endtrans %}
+                <span class="login__input-icon fas fa-chevron-right"></span>
+            </button>
         </section>
     </div>
 {% endblock %}
