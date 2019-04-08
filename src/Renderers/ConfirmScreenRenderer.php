@@ -19,6 +19,12 @@ class ConfirmScreenRenderer extends AbstractController
     /** @var string */
     private $twigKey = 'config';
 
+    /**
+     * Sets fields in renderer, useable when user uses it's own template
+     *
+     * @param string $templatePath
+     * @param string $twigKey
+     */
     public function setup(
         string $templatePath = 'admin/confirmation/confirm.html.twig',
         string $twigKey = 'config'

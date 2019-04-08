@@ -132,6 +132,11 @@ class SecurityController extends AbstractController
     public function confirm(): Response
     {
         $config = new ConfirmScreenConfig();
+        $okLink = $this->generateUrl('gui__admin_summary');
+        $cancelLink = $this->generateUrl('gui__admin_article_delete', ['slug' => 'Alalala']);
+        $config->setOkButtonLink($okLink)
+               ->setCancelButtonLink($cancelLink)
+               ->setTranslatable(true);
         return $this->confirmRenderer->run($config);
     }
 }

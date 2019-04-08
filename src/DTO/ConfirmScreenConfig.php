@@ -12,19 +12,19 @@ use App\DTO\Abstracts\ConfirmScreenConfigInterface;
 class ConfirmScreenConfig implements ConfirmScreenConfigInterface
 {
     /** @var string */
-    private $title = 'Confirm screen title';
+    private $title = 'confirm.title';
 
     /** @var string */
-    private $content = 'This action requires a confirmation. Proceed?';
+    private $content = 'confirm.content';
 
     /** @var string */
-    private $okButtonText = 'Proceed';
+    private $okButtonText = 'confirm.ok';
 
     /** @var string */
     private $okButtonLink = '/';
 
     /** @var string */
-    private $cancelButtonText = 'Back';
+    private $cancelButtonText = 'confirm.back';
 
     /** @var string */
     private $cancelButtonLink = '/';

@@ -1,4 +1,55 @@
-{% extends 'admin/confirmation/confirm-template.html.twig' %}
-{% block confirmation_content %}
-    {{parent()}}
+{% extends 'base.html.twig' %}
+{% block title %}
+    {% if config.translatable %}
+        {{config.title|trans({}, config.translationDomain)}}
+    {% else %}
+        {{config.title}}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="confirm__container">
+        <main class="confirm">
+            <h1 class="confirm__title">
+                {% block confirmation_heading %}
+                    {% if config.translatable %}
+                        {{config.title|trans({}, config.translationDomain)}}
+                    {% else %}
+                        {{config.title}}
+                    {% endif %}
+                {% endblock %}
+            </h1>
+            <p class="confirm__content">
+                {% block confirmation_content %}
+                    {% if config.translatable %}
+                        {{config.content|trans({}, config.translationDomain)}}
+                    {% else %}
+                        {{config.content}}
+                    {% endif %}
+                {% endblock %}
+            </p>
+            <div class="confirm__link-container">
+                <a class="confirm__link confirm__link--back"
+                   href="{% block confirmation_cancel_link %}{{config.cancelButtonLink}}{% endblock %}">
+                    {% block confirmation_cancel_content %}
+                        {% if config.translatable %}
+                            {{config.cancelButtonText|trans({}, config.translationDomain)}}
+                        {% else %}
+                            {{config.cancelButtonText}}
+                        {% endif %}
+                    {% endblock %}
+                </a>
+                <a class="confirm__link confirm__link--proceed"
+                   href="{% block confirmation_ok_link %}{{config.okButtonLink}}{% endblock %}">
+                    {% block confirmation_ok_content %}
+                        {% if config.translatable %}
+                            {{config.okButtonText|trans({}, config.translationDomain)}}
+                        {% else %}
+                            {{config.okButtonText}}
+                        {% endif %}
+                    {% endblock %}
+                </a>
+            </div>
+        </main>
+    </div>
 {% endblock %}
