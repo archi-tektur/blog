@@ -12,31 +12,31 @@
 
     {{form_start(form)}}
     <div class="form__element">
-        {{form_label(form.name)}}
+        {{form_label(form.name, 'form.label.name')}}
         {{form_widget(form.name)}}
         {{form_errors(form.name)}}
         {{form_help(form.name)}}
     </div>
     <div class="form__element">
-        {{form_label(form.surname)}}
+        {{form_label(form.surname, 'form.label.surname')}}
         {{form_widget(form.surname)}}
         {{form_errors(form.surname)}}
         {{form_help(form.surname)}}
     </div>
     <div class="form__element">
-        {{form_label(form.email)}}
+        {{form_label(form.email, 'form.label.email')}}
         {{form_widget(form.email)}}
         {{form_errors(form.email)}}
         {{form_help(form.email)}}
     </div>
     <div class="form__element">
-        {{form_label(form.plainPassword)}}
+        {{form_label(form.plainPassword, 'form.label.password')}}
         {{form_widget(form.plainPassword)}}
         {{form_errors(form.plainPassword)}}
         {{form_help(form.plainPassword)}}
     </div>
     <div class="form__element">
-        {{form_label(form.profileImage)}}
+        {{form_label(form.profileImage, 'form.label.profile-pic')}}
         {{form_widget(form.profileImage)}}
         {{form_errors(form.profileImage)}}
         {{form_help(form.profileImage)}}

@@ -5,6 +5,7 @@ namespace App\Entity;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 
 /**
  * Abstract class with automatic create and last update date
@@ -26,7 +27,7 @@ abstract class AbstractLifecycleEntity
 
     /**
      * @ORM\PrePersist()
-     * @throws \Exception
+     * @throws Exception
      */
     public function prePersist(): void
     {
@@ -35,7 +36,7 @@ abstract class AbstractLifecycleEntity
 
     /**
      * @ORM\PreUpdate()
-     * @throws \Exception
+     * @throws Exception
      */
     public function preUpdate(): void
     {

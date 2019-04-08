@@ -413,9 +413,9 @@
 
 {%- block form_errors -%}
     {%- if errors|length > 0 -%}
-        <ul>
+        <ul class="form__errors">
             {%- for error in errors -%}
-                <li>{{error.message}}</li>
+                <li class="form__error"><span class="form__error-indicator">Error</span>{{error.message}}</li>
             {%- endfor -%}
         </ul>
     {%- endif -%}

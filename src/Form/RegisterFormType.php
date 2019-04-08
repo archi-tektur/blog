@@ -22,14 +22,16 @@ class RegisterFormType extends AbstractType
                 ->add('plainPassword', PasswordType::class, [
                     'mapped'      => false,
                     'constraints' => [
-                        new NotBlank(['message' => 'Choose a password!',]),
+                        new NotBlank(['message' => 'form.errors.password.blank',]),
                         new Length([
                             'min'        => 8,
-                            'minMessage' => 'Come on, you can think of a password longer than that!',
+                            'minMessage' => 'form.errors.password.length',
                         ]),
                     ],
                 ])
-                ->add('profileImage', FileType::class);
+                ->add('profileImage', FileType::class, [
+                    'required' => false,
+                ]);
     }
 
     /** @inheritdoc */

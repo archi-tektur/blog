@@ -57,3 +57,57 @@
       &:hover, &:focus
         background: darken(#FFFFFF, 10)
         outline: none
+
+  &__element
+    margin: 0 auto
+    text-align: center
+
+  label, &__label
+    display: block
+    text-align: center
+    margin: 0.5em auto 0.2em
+    color: #444
+    font-weight: lighter
+
+  &__input
+    background: #F0F0F0
+    position: relative
+    width: 90%
+    max-width: 300px
+    margin: 0 auto
+    display: block
+    border: none
+    color: #444
+    text-align: center
+    padding: 9px 5px
+    font-size: 1.1em
+    font-family: 'PT Sans Narrow', sans-serif
+    border-radius: 3px
+    @include shadow(1)
+    @include transition(0.2s)
+
+    &--file
+      appearance: none
+
+    &:focus
+      outline: none
+      @include shadow(2)
+
+  &__error
+    text-align: left
+    color: #ff2800
+    width: 90%
+    display: block
+    margin: 5px auto
+    list-style-type: none
+
+  &__error-indicator
+    background: #ff2800
+    border-radius: 2px
+    padding: 1px 4px
+    font-weight: bold
+    font-size: 0.8em
+    user-select: none
+    margin-right: 5px
+    text-transform: uppercase
+    color: #FFFFFF
