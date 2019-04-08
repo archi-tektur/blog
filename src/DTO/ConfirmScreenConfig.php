@@ -29,6 +29,12 @@ class ConfirmScreenConfig implements ConfirmScreenConfigInterface
     /** @var string */
     private $cancelButtonLink = '/';
 
+    /** @var bool */
+    private $translatable = false;
+
+    /** @var string */
+    private $translationDomain = 'confirm-screen';
+
     /**
      * @return string
      */
@@ -134,6 +140,42 @@ class ConfirmScreenConfig implements ConfirmScreenConfigInterface
     public function setCancelButtonLink(string $cancelButtonLink): self
     {
         $this->cancelButtonLink = $cancelButtonLink;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTranslationDomain(): string
+    {
+        return $this->translationDomain;
+    }
+
+    /**
+     * @param string $translationDomain
+     * @return ConfirmScreenConfig
+     */
+    public function setTranslationDomain(string $translationDomain): self
+    {
+        $this->translationDomain = $translationDomain;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTranslatable(): bool
+    {
+        return $this->translatable;
+    }
+
+    /**
+     * @param bool $translatable
+     * @return ConfirmScreenConfig
+     */
+    public function setTranslatable(bool $translatable): self
+    {
+        $this->translatable = $translatable;
         return $this;
     }
 }

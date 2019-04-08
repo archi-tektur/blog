@@ -38,4 +38,14 @@ interface ConfirmScreenConfigInterface
      * @return string
      */
     public function getCancelButtonLink(): string;
+
+    /**
+     * @return string
+     */
+    public function getTranslationDomain(): string;
+
+    /**
+     * @return bool
+     */
+    public function isTranslatable(): bool;
 }
