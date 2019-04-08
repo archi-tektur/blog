@@ -2,9 +2,13 @@
 
 namespace App\Controller\GUI\AdminPanel;
 
+use App\Exceptions\NotFound\AccountNotFoundException;
+use App\Exceptions\StructureViolation\CannotDeleteOwnAccountException;
 use App\Service\EntityService\AccountService;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -46,5 +50,21 @@ class AccountController extends AbstractController
         return $this->render('admin/panels/users.html.twig', [
             'users' => $users,
         ]);
+    }
+
+    /**
+     * @Route("admin/users/{mail}/delete", name="gui__admin_user_delete")
+     */
+    public function delete($mail): RedirectResponse
+    {
+        // TODO enhance this
+        try {
+            $this->accountService->delete($mail, $this->getUser());
+        } catch (AccountNotFoundException $e) {
+        } catch (CannotDeleteOwnAccountException $e) {
+        } catch (ORMException $e) {
+        } finally {
+            return $this->redirectToRoute('gui__admin_users');
+        }
     }
 }

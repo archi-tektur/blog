@@ -6,8 +6,13 @@
             <div class="scene scene--card">
                 <div class="user-card">
                     <section class="user-card__face user-card__face--front">
-                        <img src="{{asset('img/uploads/profile-pics/' ~ user.profileImage)}}" alt=""
-                             class="user-card__image">
+                        {% if user.profileImage %}
+                            <img src="{{asset('img/uploads/profile-pics/' ~ user.profileImage)}}" alt=""
+                                 class="user-card__image">
+                        {% else %}
+                            <img src="{{asset('img/interface/default-profile-pic.jpeg')}}" alt=""
+                                 class="user-card__image">
+                        {% endif %}
                         <h2 class="user-card__data">{{user}}</h2>
                         <small class="user-card__undertitle">Imię i nazwisko</small>
                         <span class="user-card__data user-card__data--smaller">Administrator</span>
@@ -22,7 +27,9 @@
                         </span>
                         <small class="user-card__undertitle">Data dołączenia</small>
                         <hr class="user-card__limiter">
-                        <a href="" class="user-card__bottom-link">Artykuły użytkownika</a>
+                        <a href="{{path('gui__admin_all_byauthor', {'authorMail': user.email})}}"
+                           class="user-card__bottom-link">Artykuły
+                            użytkownika</a>
                         <button id="copyAPIKey"
                                 class="user-card__bottom-link"
                                 data-ApiKey="{{user.apiPartialKey}}">
@@ -31,27 +38,48 @@
                         <button class="user-card__reverse-button"><span class="fas fa-redo"></span></button>
                     </section>
                     <section class="user-card__face user-card__face--back">
-                        <img src="{{asset('img/uploads/profile-pics/' ~ user.profileImage)}}" alt=""
-                             class="user-card__image">
+                        {% if user.profileImage %}
+                            <img src="{{asset('img/uploads/profile-pics/' ~ user.profileImage)}}" alt=""
+                                 class="user-card__image">
+                        {% else %}
+                            <img src="{{asset('img/interface/default-profile-pic.jpeg')}}" alt=""
+                                 class="user-card__image">
+                        {% endif %}
                         <h2 class="user-card__data">{{user}}</h2>
                         <small class="user-card__undertitle">Imie i nazwisko</small>
                         <div class="user-card__reverse-icons-grid">
-                            <div class="user-card__reverse-icons">
-                                <span class="user-card__reverse-icon fas fa-trash"></span>
-                                <span class="user-card__reverse-text">Usuń</span>
-                            </div>
-                            <div class="user-card__reverse-icons">
+                            {% if user == app.user %}
+                                <span href="{{path('gui__admin_confirm_user_delete', {'mail': user.email})}}"
+                                      class="user-card__reverse-icons" disabled="disabled">
+                                    <span class="user-card__reverse-icon fas fa-trash"></span>
+                                    <span class="user-card__reverse-text">Usuń</span>
+                                </span>
+                            {% else %}
+                                <a href="{{path('gui__admin_confirm_user_delete', {'mail': user.email})}}"
+                                   class="user-card__reverse-icons">
+                                    <span class="user-card__reverse-icon fas fa-trash"></span>
+                                    <span class="user-card__reverse-text">Usuń</span>
+                                </a>
+                            {% endif %}
+                            {% if user == app.user %}
+                                <span href="" class="user-card__reverse-icons" disabled="disabled">
+                                    <span class="user-card__reverse-icon fas fa-lock"></span>
+                                    <span class="user-card__reverse-text">Zablokuj</span>
+                                </span>
+                            {% else %}
+                                <a href="" class="user-card__reverse-icons">
+                                    <span class="user-card__reverse-icon fas fa-lock"></span>
+                                    <span class="user-card__reverse-text">Zablokuj</span>
+                                </a>
+                            {% endif %}
+                            <a href="" class="user-card__reverse-icons">
                                 <span class="user-card__reverse-icon fas fa-pen"></span>
                                 <span class="user-card__reverse-text">Edytuj</span>
-                            </div>
-                            <div class="user-card__reverse-icons">
-                                <span class="user-card__reverse-icon fas fa-lock"></span>
-                                <span class="user-card__reverse-text">Zablokuj</span>
-                            </div>
-                            <div class="user-card__reverse-icons">
+                            </a>
+                            <a href="" class="user-card__reverse-icons">
                                 <span class="user-card__reverse-icon fas fa-redo"></span>
                                 <span class="user-card__reverse-text">Regeneruj API</span>
-                            </div>
+                            </a>
                         </div>
                         <button class="user-card__reverse-button user-card__reverse-button--back">
                             <span class="fas fa-undo fa-fw"></span>

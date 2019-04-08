@@ -79,4 +79,5 @@ class AccountListener
 
         $this->uploadFile($entity);
     }
+    // TODO DELETING IMAGES WHILE DELETING THE PROFILE
 }

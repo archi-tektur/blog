@@ -145,6 +145,18 @@
   &__reverse-icons
     width: 50%
     height: 50%
+    text-decoration: none
+
+    &[disabled='disabled']
+      background: #CCC
+      cursor: not-allowed
+
+      &:hover, &:focus
+        background: #CCC
+
+
+      &:hover .user-card__reverse-icon, &:focus .user-card__reverse-icon
+        color: #444
 
     &:hover, &:focus
       background: #E0E0E0
@@ -160,4 +172,5 @@
     color: #444444
 
   &__reverse-text
+    color: #ff2800
     font-weight: lighter

@@ -15,8 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CategoryConfirmationController extends AbstractController
 {
-    public const FLASH_PREFIX = 'category_';
-
     /**
      * Confirm screen texts
      */

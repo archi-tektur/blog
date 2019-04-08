@@ -6,7 +6,6 @@ use App\DTO\ConfirmScreenConfig;
 use App\Entity\Account;
 use App\Form\RegisterFormType;
 use App\Renderers\ConfirmScreenRenderer;
-use App\Security\LoginFormAuthenticator;
 use App\Service\EntityService\AccountService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,11 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
- * Class SecurityController
+ * Handling security actions on app
  *
  * @package App\Controller\GUI\AdminPanel
  */
@@ -75,9 +73,11 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * Logout path for app
+     *
      * @Route("/logout", name="gui__app-logout")
      */
-    public function logout()
+    public function logout(): void
     {
     }
 
@@ -85,16 +85,10 @@ class SecurityController extends AbstractController
      * @Route("/admin/add-new-user", name="gui__admin_add-new-user")
      * @param Request                      $request
      * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param GuardAuthenticatorHandler    $guardHandler
-     * @param LoginFormAuthenticator       $formAuthenticator
      * @return Response
      */
-    public function addNewUser(
-        Request $request,
-        UserPasswordEncoderInterface $passwordEncoder,
-        GuardAuthenticatorHandler $guardHandler,
-        LoginFormAuthenticator $formAuthenticator
-    ): Response {
+    public function addNewUser(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
         $form = $this->createForm(RegisterFormType::class);
         $form->handleRequest($request);
 
@@ -110,13 +104,7 @@ class SecurityController extends AbstractController
             $em->persist($account);
             $em->flush();
 
-            return $guardHandler->authenticateUserAndHandleSuccess(
-                $account,
-                $request,
-                $formAuthenticator,
-                'main'
-            );
-
+            return $this->redirectToRoute('gui__admin_users');
         }
 
         return $this->render('admin/forms/new-user-form.html.twig', ['form' => $form->createView()]);
@@ -126,7 +114,8 @@ class SecurityController extends AbstractController
      * Test confirm screen
      * @Route("/admin/confirm")
      */
-    public function confirm(): Response
+    public
+    function confirm(): Response
     {
         $config = new ConfirmScreenConfig();
         $config->setTranslatable(true);

@@ -4,10 +4,12 @@ namespace App\Service\EntityService;
 
 use App\Entity\Account;
 use App\Exceptions\NotFound\AccountNotFoundException;
+use App\Exceptions\StructureViolation\CannotDeleteOwnAccountException;
 use App\Repository\AccountRepository;
 use App\Service\Abstracts\AbstractValidationService;
 use App\Tools\RandomStringGenerator;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Exception;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
@@ -32,6 +34,7 @@ class AccountService extends AbstractValidationService
 
     private const ERR_NOT_FOUND = 'Account wasn\'t found.';
     private const ERR_ALREADY_EXISTS = 'Account with this e-mail already exists.';
+    private const ERR_DELETING_OWN = 'You cannot delete yourself.';
 
     public function __construct(
         AccountRepository $accountRepository,
@@ -178,13 +181,19 @@ class AccountService extends AbstractValidationService
     }
 
     /**
-     * @param string $email
+     * @param string  $email
+     * @param Account $deleter
      * @throws AccountNotFoundException
      * @throws ORMException
+     * @throws CannotDeleteOwnAccountException
+     * @throws OptimisticLockException
      */
-    public function delete(string $email): void
+    public function delete(string $email, Account $deleter): void
     {
         $account = $this->get($email);
+        if ($account === $deleter) {
+            throw new CannotDeleteOwnAccountException(self::ERR_DELETING_OWN);
+        }
         $this->entityManager->remove($account);
         $this->entityManager->flush();
     }
