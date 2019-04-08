@@ -79,5 +79,24 @@ class AccountListener
 
         $this->uploadFile($entity);
     }
-    // TODO DELETING IMAGES WHILE DELETING THE PROFILE
+
+    /**
+     * Ran each time user is removed
+     *
+     * @param LifecycleEventArgs $args
+     */
+    public function postRemove(LifecycleEventArgs $args): void
+    {
+        $entity = $args->getEntity();
+
+        if (!$entity instanceof Account) {
+            return;
+        }
+
+        // delete profile picture
+        $filepath = $this->uploader->getTargetDirectory() . DIRECTORY_SEPARATOR . $entity->getProfileImage();
+        if (is_file($filepath)) {
+            unlink($filepath);
+        }
+    }
 }
