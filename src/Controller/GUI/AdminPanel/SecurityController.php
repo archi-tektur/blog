@@ -122,9 +122,6 @@ class SecurityController extends AbstractController
     public function confirm(): Response
     {
         $config = new ConfirmScreenConfig();
-        $config->setCancelButtonLink('https://www.facebook.com')
-               ->setOkButtonLink('https://www.domain.net');
-
         return $this->render('admin/confirmation/confirm.html.twig', ['config' => $config]);
     }
 }
