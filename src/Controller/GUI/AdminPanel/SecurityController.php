@@ -82,14 +82,14 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/register/", name="gui__admin_register")
+     * @Route("/admin/add-new-user", name="gui__admin_add-new-user")
      * @param Request                      $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler    $guardHandler
      * @param LoginFormAuthenticator       $formAuthenticator
      * @return Response
      */
-    public function register(
+    public function addNewUser(
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
         GuardAuthenticatorHandler $guardHandler,
@@ -119,7 +119,7 @@ class SecurityController extends AbstractController
 
         }
 
-        return $this->render('admin/security/register.html.twig', ['form' => $form->createView()]);
+        return $this->render('admin/forms/new-user-form.html.twig', ['form' => $form->createView()]);
     }
 
     /**

@@ -1,0 +1,46 @@
+{% extends 'admin/forms/default-form.html.twig' %}
+
+{% block form_title %}Nowy użytkownik{% endblock %}
+
+{% block form_back_text %}Wróć{% endblock %}
+
+{% block form_submit_text %}Dodaj{% endblock %}
+
+{% block form_back_link %}{{path('gui__admin_users')}}{% endblock %}
+
+{% block form %}
+
+    {{form_start(form)}}
+    <div class="form__element">
+        {{form_label(form.name)}}
+        {{form_widget(form.name)}}
+        {{form_errors(form.name)}}
+        {{form_help(form.name)}}
+    </div>
+    <div class="form__element">
+        {{form_label(form.surname)}}
+        {{form_widget(form.surname)}}
+        {{form_errors(form.surname)}}
+        {{form_help(form.surname)}}
+    </div>
+    <div class="form__element">
+        {{form_label(form.email)}}
+        {{form_widget(form.email)}}
+        {{form_errors(form.email)}}
+        {{form_help(form.email)}}
+    </div>
+    <div class="form__element">
+        {{form_label(form.plainPassword)}}
+        {{form_widget(form.plainPassword)}}
+        {{form_errors(form.plainPassword)}}
+        {{form_help(form.plainPassword)}}
+    </div>
+    <div class="form__element">
+        {{form_label(form.profileImage)}}
+        {{form_widget(form.profileImage)}}
+        {{form_errors(form.profileImage)}}
+        {{form_help(form.profileImage)}}
+    </div>
+    {{parent()}}
+    {{form_end(form)}}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="form__container">
+        <section class="form">
+            <h1 class="form__title">{% block form_title %}form.title{% endblock %}</h1>
+            {% block form %}
+                <div class="form__bottom-buttons">
+                    <a class="form__bottom-button form__bottom-button--back"
+                       href="{% block form_back_link %}/{% endblock %}">
+                        {% block form_back_text %}form.back{% endblock %}
+                    </a>
+                    <button class="form__bottom-button form__bottom-button--submit" type="submit">
+                        {% block form_submit_text %}form.submit{% endblock %}
+                    </button>
+                </div>
+            {% endblock %}
+        </section>
+    </div>
+{% endblock %}
