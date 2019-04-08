@@ -2,12 +2,14 @@
 
 namespace App\DTO;
 
+use App\DTO\Abstracts\ConfirmScreenConfigInterface;
+
 /**
  * Object holding config screen details in detailed way
  *
  * @package App\DTO
  */
-class ConfirmScreenConfig
+class ConfirmScreenConfig implements ConfirmScreenConfigInterface
 {
     /** @var string */
     private $title = 'Confirm screen title';
@@ -19,13 +21,13 @@ class ConfirmScreenConfig
     private $okButtonText = 'Proceed';
 
     /** @var string */
-    private $okButtonLink;
+    private $okButtonLink = '/';
 
     /** @var string */
     private $cancelButtonText = 'Back';
 
     /** @var string */
-    private $cancelButtonLink;
+    private $cancelButtonLink = '/';
 
     /**
      * @return string
