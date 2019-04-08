@@ -4,6 +4,30 @@
   margin: 10px
   perspective: 600px
 
+  &--add-new
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    background: #ff2800
+    cursor: pointer
+    text-decoration: none
+    @include shadow(1)
+    @include transition(0.1s)
+
+    &:hover, &:focus
+      background: darken(#FF2800, 10)
+
+  &__new-user-icon
+    font-size: 4em
+    margin: 10px
+    color: #FFFFFF
+
+  &__new-user-text
+    margin: 10px
+    font-size: 1.75em
+    color: #FFFFFF
+
 .cont
   display: flex
   flex-direction: row
