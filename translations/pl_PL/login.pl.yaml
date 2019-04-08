@@ -1,9 +1,9 @@
 "login.login": "Zaloguj się"
 "login.label.email": "Wprowadź swój email..."
 "login.label.password": "...i hasło"
-"login.label.rememberme": "Zapamiętaj mnie"
-"login.input.submittext": "Zaloguj się"
-"login.link.backtoblog": "Powrót do bloga"
+"login.label.remember-me": "Zapamiętaj mnie"
+"login.input.submit-text": "Zaloguj się"
+"login.link.back-to-blog": "Powrót do bloga"
 
 "login.error.user-not-found": "Użytkownik nie istnieje."
 "login.error.incorrect-password": "Podane hasło jest nieprawidłowe."

@@ -23,7 +23,7 @@
                        required
                        type="password">
                 <label class="checkbox login__checkbox">
-                    {% trans from 'login' %}login.label.rememberme{% endtrans %}
+                    {% trans from 'login' %}login.label.remember-me{% endtrans %}
                     <input class="checkbox__input"
                            type="checkbox"
                            name="_remember_me">
@@ -39,7 +39,7 @@
             </form>
 
             <button form="login-form" class="login__input login__input--submit" type="submit">
-                {% trans from 'login' %}login.input.submittext{% endtrans %}
+                {% trans from 'login' %}login.input.submit-text{% endtrans %}
                 <span class="login__input-icon fas fa-chevron-right"></span>
             </button>
         </section>
@@ -51,7 +51,7 @@
             <aside class="login login--linkbox">
                 <a href="{{path('gui__admin_summary')}}" class="login__link">
                     <span class="login__box-icon fas fa-chevron-left"></span>
-                    <span>{% trans from 'login' %}login.link.backtoblog{% endtrans %}</span>
+                    <span>{% trans from 'login' %}login.link.back-to-blog{% endtrans %}</span>
                 </a>
             </aside>
         {% endif %}
