@@ -5,7 +5,6 @@ namespace App\Controller\GUI\AdminPanel;
 use App\Entity\Category;
 use App\Exceptions\NotFound\CategoryNotFoundException;
 use App\Form\CategoryFormType;
-use App\Renderers\ConfirmScreenRenderer;
 use App\Service\EntityService\CategoryService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
@@ -32,19 +31,13 @@ class CategoryController extends AbstractController
      * @var EntityManagerInterface
      */
     protected $entityManager;
-    /**
-     * @var ConfirmScreenRenderer
-     */
-    protected $confirmScreenRenderer;
 
     public function __construct(
         CategoryService $categoryService,
-        EntityManagerInterface $entityManager,
-        ConfirmScreenRenderer $confirmScreenRenderer
+        EntityManagerInterface $entityManager
     ) {
         $this->categoryService = $categoryService;
         $this->entityManager = $entityManager;
-        $this->confirmScreenRenderer = $confirmScreenRenderer;
     }
 
     /**
@@ -75,29 +68,6 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * Renderless method to delete a category
-     *
-     * @Route("/admin/categories/{name}/delete", name="gui__admin_categories_delete")
-     * @param string $name
-     * @return Response
-     */
-    public function delete(string $name): Response
-    {
-        try {
-            // try to delete
-            $this->categoryService->delete($name);
-        } catch (CategoryNotFoundException $e) {
-            // when category is not found
-            $this->addFlash(self::FLASH_PREFIX . 'warning', 'Category not found!');
-        } catch (ORMException $e) {
-            $this->addFlash('warning', 'Database problem occured');
-        } finally {
-            return $this->redirectToRoute('gui__admin_categories_index');
-        }
-
-    }
-
-    /**
      * Adds category or adds error
      *
      * @param FormInterface $addForm
@@ -120,5 +90,34 @@ class CategoryController extends AbstractController
                 $this->addFlash(self::FLASH_PREFIX . 'warning', $error->getMessage());
             }
         }
+    }
+
+    public function edit(): Response
+    {
+        // TODO
+        return new Response('soon');
+    }
+
+    /**
+     * Renderless method to delete a category
+     *
+     * @Route("/admin/categories/{name}/delete", name="gui__admin_categories_delete")
+     * @param string $name
+     * @return Response
+     */
+    public function delete(string $name): Response
+    {
+        try {
+            // try to delete
+            $this->categoryService->delete($name);
+        } catch (CategoryNotFoundException $e) {
+            // when category is not found
+            $this->addFlash(self::FLASH_PREFIX . 'warning', 'Category not found!');
+        } catch (ORMException $e) {
+            $this->addFlash('warning', 'Database problem occured');
+        } finally {
+            return $this->redirectToRoute('gui__admin_categories_index');
+        }
+
     }
 }
