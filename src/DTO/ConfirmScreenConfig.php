@@ -10,19 +10,19 @@ namespace App\DTO;
 class ConfirmScreenConfig
 {
     /** @var string */
-    private $title;
+    private $title = 'Confirm screen title';
 
     /** @var string */
-    private $content;
+    private $content = 'This action requires a confirmation. Proceed?';
 
     /** @var string */
-    private $okButtonText;
+    private $okButtonText = 'Proceed';
 
     /** @var string */
     private $okButtonLink;
 
     /** @var string */
-    private $cancelButtonText;
+    private $cancelButtonText = 'Back';
 
     /** @var string */
     private $cancelButtonLink;

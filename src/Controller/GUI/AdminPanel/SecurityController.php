@@ -2,6 +2,7 @@
 
 namespace App\Controller\GUI\AdminPanel;
 
+use App\DTO\ConfirmScreenConfig;
 use App\Entity\Account;
 use App\Form\RegisterFormType;
 use App\Security\LoginFormAuthenticator;
@@ -120,6 +121,10 @@ class SecurityController extends AbstractController
      */
     public function confirm(): Response
     {
-        return $this->render('admin/confirmation/confirm.html.twig');
+        $config = new ConfirmScreenConfig();
+        $config->setCancelButtonLink('https://www.facebook.com')
+               ->setOkButtonLink('https://www.domain.net');
+
+        return $this->render('admin/confirmation/confirm.html.twig', ['config' => $config]);
     }
 }
