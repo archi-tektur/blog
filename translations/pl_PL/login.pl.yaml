@@ -4,3 +4,7 @@
 "login.label.rememberme": "Zapamiętaj mnie"
 "login.input.submittext": "Zaloguj się"
 "login.link.backtoblog": "Powrót do bloga"
+
+"login.error.user-not-found": "Użytkownik nie istnieje."
+"login.error.incorrect-password": "Podane hasło jest nieprawidłowe."
+"login.error.csrf-error": "Wystąpił błąd tokenu CSRF."

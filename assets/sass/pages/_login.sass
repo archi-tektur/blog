@@ -1,22 +1,57 @@
 .login
   width: 300px
   height: auto
+  margin: 5px
   background: #FFFFFF
   border-radius: 5px
   @include shadow(2)
+
+  &--incorrect-data
+    font-family: "PT Sans Narrow", sans-serif
+    background: #ff2800
+    color: #FFFFFF
+    padding: 10px
+    font-size: 1.1em
+    text-align: center
+
+  &--linkbox
+    position: relative
+
+  &__link
+    font-family: "PT Sans Narrow", sans-serif
+    font-size: 1.1em
+    color: #FF2800
+    text-decoration: none
+    text-align: center
+    padding: 10px
+    display: block
+
+    &:hover
+      color: darken(#FF2800, 15x)
+
+    &:focus
+      outline: none
+      color: darken(#FF2800, 15x)
 
   &__container
     background: #F0F0F0
     height: 100%
     display: flex
+    flex-direction: column
     justify-content: center
     align-items: center
 
   &__logo
     display: block
-    margin: 0 auto
+    margin: 1em auto 0
     height: 200px
     width: auto
+
+  &__box-icon
+    position: absolute
+    left: 20px
+    top: 12px
+    color: #ff2800
 
   &__heading
     margin: 0 auto
@@ -57,17 +92,22 @@
       background: #FF2800
       color: #FFFFFF
       width: 100%
+      font-size: 1.2em
       border-radius: 0 0 5px 5px
+      @include shadow(0)
+      cursor: pointer
 
       &:hover, &:focus
+        @include shadow(0)
         background: darken(#FF2800, 5)
-        @include shadow(2)
 
   &__input-icon
     position: absolute
     right: 20px
-    top: 30%
+    top: 11px
     color: #FFFFFF
 
   &__checkbox
     display: block
+    color: #444
+    font-size: 1.1em

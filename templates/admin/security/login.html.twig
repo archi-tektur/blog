@@ -37,14 +37,23 @@
                        value="{{csrf_token('authenticate')}}">
 
             </form>
-            {#<a href="{{path('gui__admin_summary')}}" class="link">
-                <span class="fas fa-chevron-circle-left"></span>
-                {% trans from 'login' %}login.link.backtoblog{% endtrans %}
-            </a>#}
+
             <button form="login-form" class="login__input login__input--submit" type="submit">
                 {% trans from 'login' %}login.input.submittext{% endtrans %}
                 <span class="login__input-icon fas fa-chevron-right"></span>
             </button>
         </section>
+        {% if error %}
+            <aside class="login login--incorrect-data">
+                <span>{{error.message|trans({}, 'login')}}</span>
+            </aside>
+        {% else %}
+            <aside class="login login--linkbox">
+                <a href="{{path('gui__admin_summary')}}" class="login__link">
+                    <span class="login__box-icon fas fa-chevron-left"></span>
+                    <span>{% trans from 'login' %}login.link.backtoblog{% endtrans %}</span>
+                </a>
+            </aside>
+        {% endif %}
     </div>
 {% endblock %}

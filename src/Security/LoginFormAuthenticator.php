@@ -39,9 +39,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /**
      * Error messages
      */
-    private const ENTITY_NOT_FOUND = 'User with this e-mail not found.';
-    private const PSWD_WRONG = 'Password is incorrect.';
-    private const CSRF_FAILURE = 'Invalid CSRF token provided.';
+    private const ENTITY_NOT_FOUND = 'login.error.user-not-found';
+    private const PSWD_WRONG = 'login.error.incorrect-password';
+    private const CSRF_FAILURE = 'login.error.csrf-error';
 
     private $entityManager;
     private $urlGenerator;
