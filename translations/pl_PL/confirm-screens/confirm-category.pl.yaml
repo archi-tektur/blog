@@ -1,0 +1,9 @@
+"category.delete.confirm.title": "Kategoria zostanie usunięta."
+"category.delete.confirm.content": "Zamierzasz usunąć kategorię. Jeżeli to zrobisz, każdy artykuł straci tą kategorię. Tej operacji nie można cofnąć. Jesteś pewien?"
+"category.delete.confirm.back-text": "Wróć"
+"category.delete.confirm.ok-text": "Usuń"
+
+"category.edit.confirm.title": "Kategoria zostanie usunięta."
+"category.edit.confirm.content": "Zamierzasz usunąć kategorię. Jeżeli to zrobisz, każdy artykuł straci tą kategorię. Tej operacji nie można cofnąć. Jesteś pewien?"
+"category.edit.confirm.back-text": "Wróć"
+"category.edit.confirm.ok-text": "Usuń"

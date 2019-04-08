@@ -1,4 +1,5 @@
 {% extends 'admin/main.html.twig' %}
+{% set prefix = constant('App\\Controller\\GUI\\AdminPanel\\CategoryController::FLASH_PREFIX') %}
 {% block panel %}
     <h1 class="panel__page-title">{% trans from 'categories' %}category.title{% endtrans %}</h1>
     <div class="panel__container">
@@ -18,7 +19,7 @@
                                         {% trans from 'categories' %}categorylist.edit{% endtrans %}
                                     </a>
                                     <a class="category__link"
-                                       href="{{path('gui__admin_categories_delete',{'name': category.name})}}">
+                                       href="{{path('gui__admin_confirm_categories_delete',{'name': category.name})}}">
                                         {% trans from 'categories' %}categorylist.delete{% endtrans %}
                                     </a>
                                     <span class="category__amount" title="Ilość artykułów w tej kategorii">
@@ -64,14 +65,10 @@
                 {{form_end(addCategoryForm)}}
             </section>
 
-            {% for warning in app.flashes(
-                constant('App\\Controller\\GUI\\AdminPanel\\CategoryController::FLASH_PREFIX') ~ 'warning'
-                ) %}
+            {% for warning in app.flashes(prefix ~ 'warning') %}
                 <section class="box box--warning">{{warning|trans({}, 'messages')}}</section>
             {% endfor %}
-            {% for success in app.flashes(
-                constant('App\\Controller\\GUI\\AdminPanel\\CategoryController::FLASH_PREFIX') ~ 'success'
-                ) %}
+            {% for success in app.flashes(prefix ~ 'success') %}
                 <section class="box box--success">{{success}}</section>
             {% endfor %}
         </div>

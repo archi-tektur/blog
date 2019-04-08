@@ -1,0 +1,9 @@
+"category.delete.confirm.title": "Category is being deleted"
+"category.delete.confirm.content": "You are going to delete category. When proceed, all articles assigned to this category will loose it. This operation is unrecoverable. Are you sure?"
+"category.delete.confirm.back-text": "Back"
+"category.delete.confirm.ok-text": "Delete"
+
+"category.edit.confirm.title": "Category is being renamed"
+"category.edit.confirm.content": "You are going to rename category. When proceed, all links related to this category will be dead. You can rename it back anytime. Are you sure?"
+"category.edit.confirm.back-text": "Back"
+"category.edit.confirm.ok-text": "Rename"
