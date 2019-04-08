@@ -82,7 +82,7 @@
       font-size: 20px
 
     &--clickable
-      &:hover
+      &:hover, &:focus
         color: #FF2800
         @include transition(0.1s)
 
@@ -109,7 +109,7 @@
     padding: 3px
     cursor: pointer
 
-    &:hover
+    &:hover, &:focus
       color: darken(#FF2800, 20)
       @include transition(0.1s)
 
@@ -125,10 +125,10 @@
     user-select: none
     outline: 0
 
-    &:hover
+    &:hover, &:focus
       transform: rotate(180deg)
 
-    &--back:hover
+    &--back:hover, &--back:focus
       transform: rotate(-180deg)
 
   &__reverse-icons-grid
@@ -146,10 +146,10 @@
     width: 50%
     height: 50%
 
-    &:hover
+    &:hover, &:focus
       background: #E0E0E0
 
-    &:hover .user-card__reverse-icon
+    &:hover .user-card__reverse-icon, &:focus .user-card__reverse-icon
       color: #FF2800
       @include transition(0.1s)
 

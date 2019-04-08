@@ -24,7 +24,7 @@
     color: #444
     @include transition(0.05s)
 
-    &:hover
+    &:hover, &:focus
       background: darken(#f0f0f0, 5)
 
   .nav__a
@@ -34,7 +34,7 @@
     padding: 5px 20px
     @include transition(0.2s)
 
-    &:hover .nav__link-icon
+    &:hover .nav__link-icon, &:focus .nav__link-icon
       fill: currentColor
       color: darken(#ff2800, 5)
 
@@ -72,7 +72,7 @@
     color: #444
     @include transition(0.05s)
 
-    &:hover
+    &:hover, &:focus
       background: darken(#f0f0f0, 5)
 
   .nav__a
@@ -83,7 +83,7 @@
     padding: 20px
     @include transition(0.2s)
 
-    &:hover .nav__link-icon
+    &:hover .nav__link-icon, &:focus .nav__link-icon
       fill: currentColor
       color: darken(#ff2800, 5)
 
