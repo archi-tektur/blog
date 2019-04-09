@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Abstracts\AbstractLifecycleEntity;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
