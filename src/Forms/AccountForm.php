@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Form;
+namespace App\Forms;
 
 use App\Entity\Account;
 use Symfony\Component\Form\AbstractType;
@@ -11,7 +11,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegisterFormType extends AbstractType
+/**
+ * Representation of form for Account creation
+ *
+ * @package App\Form
+ */
+class AccountForm extends AbstractType
 {
     /** @inheritdoc */
     public function buildForm(FormBuilderInterface $builder, array $options): void

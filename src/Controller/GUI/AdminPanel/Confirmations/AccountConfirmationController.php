@@ -75,6 +75,6 @@ class AccountConfirmationController extends AbstractController
                ->setTranslationDomain(self::TRANSLATION_DOMAIN)
                ->setTranslatable(true);
 
-        return $this->confirmScreenRenderer->run($config);
+        return $this->confirmScreenRenderer->renderConfirmScreen($config);
     }
 }

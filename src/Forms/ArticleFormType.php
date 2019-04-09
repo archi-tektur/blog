@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Form;
+namespace App\Forms;
 
 use App\Entity\Article;
 use App\Entity\Category;

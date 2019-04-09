@@ -4,7 +4,7 @@ namespace App\Controller\GUI\AdminPanel;
 
 use App\Entity\Category;
 use App\Exceptions\NotFound\CategoryNotFoundException;
-use App\Form\CategoryFormType;
+use App\Forms\CategoryFormType;
 use App\Service\EntityService\CategoryService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;

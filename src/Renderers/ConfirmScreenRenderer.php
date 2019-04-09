@@ -39,7 +39,7 @@ class ConfirmScreenRenderer extends AbstractController
      * @param ConfirmScreenConfigInterface $confirmScreenConfig
      * @return Response
      */
-    public function run(ConfirmScreenConfigInterface $confirmScreenConfig): Response
+    public function renderConfirmScreen(ConfirmScreenConfigInterface $confirmScreenConfig): Response
     {
         return $this->render($this->templatePath, [
             $this->twigKey => $confirmScreenConfig,

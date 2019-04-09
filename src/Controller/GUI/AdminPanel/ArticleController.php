@@ -6,7 +6,7 @@ use App\Entity\Article;
 use App\Exceptions\NotFound\AccountNotFoundException;
 use App\Exceptions\NotFound\ArticleNotFoundException;
 use App\Exceptions\NotFound\CategoryNotFoundException;
-use App\Form\ArticleFormType;
+use App\Forms\ArticleFormType;
 use App\Service\EntityService\ArticleService;
 use App\Service\UploaderService\ArticleShowreelUploader;
 use Doctrine\ORM\EntityManagerInterface;
