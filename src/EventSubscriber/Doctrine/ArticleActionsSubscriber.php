@@ -1,26 +1,40 @@
 <?php declare(strict_types=1);
 
-namespace App\EventListener\Doctrine;
+namespace App\EventSubscriber\Doctrine;
 
 use App\Entity\Article;
 use App\Service\UploaderService\ArticleShowreelUploader as Uploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Events as DoctrineEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Listens when Article entity is uploaded
  *
- * @package App\EventListener
+ * @package App\EventSubscriber
  */
-class ArticleListener
+class ArticleActionsSubscriber implements EventSubscriberInterface
 {
+    /** @var Uploader */
     private $uploader;
 
     public function __construct(Uploader $uploader)
     {
         $this->uploader = $uploader;
+    }
+
+    /** @inheritDoc */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            DoctrineEvents::prePersist => 'prePersist',
+            DoctrineEvents::preUpdate  => 'preUpdate',
+            DoctrineEvents::postLoad   => 'postLoad',
+            DoctrineEvents::postRemove => 'postRemove',
+        ];
     }
 
     /**
@@ -58,12 +72,13 @@ class ArticleListener
     /**
      * Ran each time after entity is loaded to memory, changes file path to file object
      *
-     * @see File
      * @param LifecycleEventArgs $args
+     * @see File
      */
     public function postLoad(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
+        dd('WORKING');
 
         if (!$entity instanceof Article) {
             return;
@@ -78,8 +93,8 @@ class ArticleListener
     /**
      * Ran each time an article is deleted, delete related image then
      *
-     * @see File
      * @param LifecycleEventArgs $args
+     * @see File
      */
     public function postRemove(LifecycleEventArgs $args): void
     {

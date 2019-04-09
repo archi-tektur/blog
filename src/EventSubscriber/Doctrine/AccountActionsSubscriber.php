@@ -1,26 +1,42 @@
 <?php declare(strict_types=1);
 
-namespace App\EventListener\Doctrine;
+namespace App\EventSubscriber\Doctrine;
 
 use App\Entity\Account;
 use App\Service\UploaderService\AccountProfilePictureUploader as Uploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Events as DoctrineEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Listens when Account entity is changing
  *
- * @package App\EventListener
+ * @package App\EventSubscriber
  */
-class AccountListener
+class AccountActionsSubscriber implements EventSubscriberInterface
 {
+    /** @var Uploader */
     private $uploader;
 
+    /**
+     * @param Uploader $uploader
+     */
     public function __construct(Uploader $uploader)
     {
         $this->uploader = $uploader;
+    }
+
+    /** @inheritDoc */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            DoctrineEvents::prePersist => 'prePersist',
+            DoctrineEvents::preUpdate  => 'preUpdate',
+            DoctrineEvents::postRemove => 'postRemove',
+        ];
     }
 
     /**
@@ -37,31 +53,6 @@ class AccountListener
         }
 
         $this->uploadFile($entity);
-    }
-
-    /**
-     * Uploads file automatically
-     *
-     * @param $entity
-     */
-    private function uploadFile($entity): void
-    {
-        // upload only works for Product entities
-        if (!$entity instanceof Account) {
-            return;
-        }
-
-        /** @var UploadedFile $file */
-        $file = $entity->getProfileImage();
-        // only upload new files
-        if ($file instanceof UploadedFile) {
-            $fileName = $this->uploader->upload($file, $entity);
-            $entity->setProfileImage($fileName);
-        } elseif ($file instanceof File) {
-            // prevents the full file path being saved on updates
-            // as the path is set on the postLoad listener
-            $entity->setProfileImage($file->getFilename());
-        }
     }
 
     /**
@@ -97,6 +88,30 @@ class AccountListener
         $filepath = $this->uploader->getTargetDirectory() . DIRECTORY_SEPARATOR . $entity->getProfileImage();
         if (is_file($filepath)) {
             unlink($filepath);
+        }
+    }
+
+    /**
+     * Uploads file automatically
+     *
+     * @param $entity
+     */
+    private function uploadFile($entity): void
+    {
+        // upload only works for Product entities
+        if (!$entity instanceof Account) {
+            return;
+        }
+
+        /** @var UploadedFile $file */
+        $file = $entity->getProfileImage();
+        // only upload new files
+        if ($file instanceof UploadedFile) {
+            $fileName = $this->uploader->upload($file, $entity);
+            $entity->setProfileImage($fileName);
+        } elseif ($file instanceof File) {
+            // prevents the full file path being saved on updates
+            $entity->setProfileImage($file->getFilename());
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\EventListener\FOSUserBundle;
+namespace App\EventSubscriber\FOSUserBundle;
 
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\FOSUserEvents;
@@ -11,7 +11,7 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * Redirecting user to users panel after successful registration
  *
- * @package App\EventListener\FOSUserBundle
+ * @package App\EventSubscriber\FOSUserBundle
  */
 class RedirectAfterRegistrationSubscriber implements EventSubscriberInterface
 {
