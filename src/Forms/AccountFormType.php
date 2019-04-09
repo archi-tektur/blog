@@ -2,7 +2,7 @@
 
 namespace App\Forms;
 
-use App\Entity\User;
+use App\Entity\Account;
 use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @package App\Form
  */
-class UserFormType extends AbstractType
+class AccountFormType extends AbstractType
 {
     /**
      * Valid translation domain
@@ -35,7 +35,7 @@ class UserFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class'         => User::class,
+            'data_class'         => Account::class,
             'translation_domain' => self::TRANSLATION_DOMAIN,
         ]);
     }

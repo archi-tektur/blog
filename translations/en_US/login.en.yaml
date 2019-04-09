@@ -5,6 +5,6 @@
 "login.input.submit-text": "Log in"
 "login.link.back-to-blog": "Back to blog"
 
-"login.error.user-not-found": "User with this e-mail not found."
+"login.error.user-not-found": "Account with this e-mail not found."
 "login.error.incorrect-password": "Password is incorrect."
 "login.error.csrf-error": "CSRF token error occured."

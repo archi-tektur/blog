@@ -48,53 +48,6 @@ class AccountService extends AbstractValidationService
     }
 
     /**
-     * Adds account to database
-     *
-     * @param string $name
-     * @param string $surname
-     * @param string $email
-     * @param string $profilePath
-     * @param string $password
-     * @param bool   $agreedTerms
-     * @return Account
-     * @throws ORMException
-     * @throws Exception
-     */
-    public function add(
-        string $name,
-        string $surname,
-        string $email,
-        string $profilePath,
-        string $password,
-        bool $agreedTerms
-    ): Account {
-        $account = new Account();
-
-        $encodedPassword = $this->encoder->encodePassword($account, $password);
-        $apiKey = $this->generateApiPartialKey();
-
-        // TODO: check if path is correct
-
-        $account->setName($name)
-                ->setSurname($surname)
-                ->setProfileImage($profilePath)
-                ->setEmail($email)
-                ->setPassword($encodedPassword)
-                ->setApiPartialKey($apiKey);
-
-        if ($agreedTerms) {
-            $account->agreeToTerms();
-        }
-
-        $this->validate($account);
-
-        $this->entityManager->persist($account);
-        $this->entityManager->flush();
-
-        return $account;
-    }
-
-    /**
      * Get information about account
      *
      * @param string $email
@@ -207,7 +160,7 @@ class AccountService extends AbstractValidationService
     private function generateApiPartialKey(): string
     {
         do {
-            $apiKey = RandomStringGenerator::generate(64);
+            $apiKey = RandomStringGenerator::generate(32);
         } while ($this->accountRepository->count(['apiPartialKey' => $apiKey]) !== 0);
 
         return $apiKey;
