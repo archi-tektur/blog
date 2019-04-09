@@ -6,6 +6,8 @@ use App\Entity\Account;
 use App\Service\UploaderService\AccountProfilePictureUploader as Uploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Events as DoctrineEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -14,10 +16,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @package App\EventListener
  */
-class AccountListener
+class AccountActionsSubscriber implements EventSubscriberInterface
 {
+    /** @var Uploader */
     private $uploader;
 
+    /**
+     * @param Uploader $uploader
+     */
     public function __construct(Uploader $uploader)
     {
         $this->uploader = $uploader;
@@ -59,7 +65,6 @@ class AccountListener
             $entity->setProfileImage($fileName);
         } elseif ($file instanceof File) {
             // prevents the full file path being saved on updates
-            // as the path is set on the postLoad listener
             $entity->setProfileImage($file->getFilename());
         }
     }
@@ -98,5 +103,15 @@ class AccountListener
         if (is_file($filepath)) {
             unlink($filepath);
         }
+    }
+
+    /** @inheritDoc */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            DoctrineEvents::prePersist => 'prePersist',
+            DoctrineEvents::preUpdate  => 'preUpdate',
+            DoctrineEvents::postRemove => 'postRemove',
+        ];
     }
 }

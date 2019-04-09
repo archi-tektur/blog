@@ -34,27 +34,6 @@ services:
     arguments:
       $targetDirectory: '%profile_pic_dir%'
 
-
-  ###################
-  # EVENT LISTENERS
-  ###################
-  App\EventListener\Doctrine\AccountListener:
-    tags:
-      - { name: doctrine.event_listener, event: prePersist }
-      - { name: doctrine.event_listener, event: preUpdate }
-      - { name: doctrine.event_listener, event: postRemove }
-
   App\Service\UploaderService\ArticleShowreelUploader:
     arguments:
       $targetDirectory: '%article_showreel_dir%'
-
-  App\EventListener\Doctrine\ArticleListener:
-    tags:
-      - { name: doctrine.event_listener, event: prePersist }
-      - { name: doctrine.event_listener, event: preUpdate }
-      - { name: doctrine.event_listener, event: postLoad }
-      - { name: doctrine.event_listener, event: postRemove }
-
-  ###################
-  # FORMS
-  ###################

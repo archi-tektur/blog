@@ -19,7 +19,8 @@ security:
     main:
       anonymous: ~
       logout:
-        path: /account/logout
+        path:   /logout
+        target: /
       form_login:
         csrf_token_generator: security.csrf.token_manager
 
