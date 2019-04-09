@@ -7,6 +7,7 @@
     "ext-iconv": "*",
     "cocur/slugify": "^3.2",
     "doctrine/doctrine-fixtures-bundle": "^3.1",
+    "friendsofsymfony/user-bundle": "^2.1",
     "knplabs/knp-time-bundle": "^1.9",
     "sensio/framework-extra-bundle": "^5.2",
     "symfony/asset": "4.2.*",
