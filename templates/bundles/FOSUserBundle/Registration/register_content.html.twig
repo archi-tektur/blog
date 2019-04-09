@@ -1,8 +1,37 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {{form_start(form)}}
-    {{form_widget(form)}}
-<div>
-    <input type="submit" value="{{'registration.submit'|trans}}"/>
-</div>
+    {{form_label(form.name)}}
+    {{form_widget(form.name)}}
+    {{form_errors(form.name)}}
+    {{form_help(form.name)}}
+
+    {{form_label(form.surname)}}
+    {{form_widget(form.surname)}}
+    {{form_errors(form.surname)}}
+    {{form_help(form.surname)}}
+
+    {{form_label(form.email)}}
+    {{form_widget(form.email)}}
+    {{form_errors(form.email)}}
+    {{form_help(form.email)}}
+
+    {{form_label(form.username)}}
+    {{form_widget(form.username)}}
+    {{form_errors(form.username)}}
+    {{form_help(form.username)}}
+
+    {{form_widget(form.plainPassword)}}
+
+    {{form_label(form.profileImage)}}
+    {{form_widget(form.profileImage)}}
+    {{form_errors(form.profileImage)}}
+    {{form_help(form.profileImage)}}
+<button id="_submit"
+        name="_submit"
+        type="submit"
+        class="login__input login__input--submit">
+    {% trans from 'login' %}login.input.submit-text{% endtrans %}
+    <span class="login__input-icon fas fa-chevron-right"></span>
+</button>
 {{form_end(form)}}
