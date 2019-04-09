@@ -62,7 +62,7 @@
                                 </a>
                             {% endif %}
                             {% if user == app.user %}
-                                <span href="" class="user-card__reverse-icons" disabled="disabled">
+                                <span class="user-card__reverse-icons" disabled="disabled">
                                     <span class="user-card__reverse-icon fas fa-lock"></span>
                                     <span class="user-card__reverse-text">Zablokuj</span>
                                 </span>
@@ -88,7 +88,7 @@
                 </div>
             </div>
         {% endfor %}
-        <a href="{{path('gui__admin_add-new-user')}}" class="scene scene--card scene--add-new">
+        <a href="{{path('fos_user_registration_register')}}" class="scene scene--card scene--add-new">
             <span class="scene__new-user-icon fas fa-user-plus"></span>
             <span class="scene__new-user-text">Dodaj użytkownika</span>
         </a>

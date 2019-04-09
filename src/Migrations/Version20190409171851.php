@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190409153402 extends AbstractMigration
+final class Version20190409171851 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -23,7 +23,8 @@ final class Version20190409153402 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql',
             'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE fos_user ADD name VARCHAR(16) NOT NULL, ADD surname VARCHAR(32) NOT NULL, ADD profile_image VARCHAR(255) DEFAULT NULL');
+        $this->addSql('DROP TABLE comment');
+        $this->addSql('ALTER TABLE fos_user ADD created_at DATETIME NOT NULL');
     }
 
     public function down(Schema $schema): void
@@ -32,6 +33,7 @@ final class Version20190409153402 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql',
             'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE fos_user DROP name, DROP surname, DROP profile_image');
+        $this->addSql('CREATE TABLE comment (id INT AUTO_INCREMENT NOT NULL, author_id INT NOT NULL, liked_by_id INT DEFAULT NULL, article_id INT NOT NULL, content VARCHAR(255) NOT NULL COLLATE utf8mb4_unicode_ci, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, INDEX IDX_9474526CF675F31B (author_id), INDEX IDX_9474526C7294869C (article_id), INDEX IDX_9474526CB4622EC2 (liked_by_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB COMMENT = \'\' ');
+        $this->addSql('ALTER TABLE fos_user DROP created_at');
     }
 }
