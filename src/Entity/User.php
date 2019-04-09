@@ -33,12 +33,6 @@ class User extends BaseUser
      */
     private $profileImage;
 
-    public function __construct()
-    {
-        parent::__construct();
-        // your own logic
-    }
-
     public function getName(): ?string
     {
         return $this->name;
