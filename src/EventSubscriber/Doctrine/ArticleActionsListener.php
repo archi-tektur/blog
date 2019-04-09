@@ -6,8 +6,6 @@ use App\Entity\Article;
 use App\Service\UploaderService\ArticleShowreelUploader as Uploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
-use Doctrine\ORM\Events as DoctrineEvents;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -16,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @package App\EventSubscriber
  */
-class ArticleActionsSubscriber implements EventSubscriberInterface
+class ArticleActionsListener
 {
     /** @var Uploader */
     private $uploader;
@@ -24,17 +22,6 @@ class ArticleActionsSubscriber implements EventSubscriberInterface
     public function __construct(Uploader $uploader)
     {
         $this->uploader = $uploader;
-    }
-
-    /** @inheritDoc */
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            DoctrineEvents::prePersist => 'prePersist',
-            DoctrineEvents::preUpdate  => 'preUpdate',
-            DoctrineEvents::postLoad   => 'postLoad',
-            DoctrineEvents::postRemove => 'postRemove',
-        ];
     }
 
     /**
@@ -78,7 +65,6 @@ class ArticleActionsSubscriber implements EventSubscriberInterface
     public function postLoad(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
-        dd('WORKING');
 
         if (!$entity instanceof Article) {
             return;

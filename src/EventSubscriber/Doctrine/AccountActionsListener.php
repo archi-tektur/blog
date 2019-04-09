@@ -6,8 +6,6 @@ use App\Entity\Account;
 use App\Service\UploaderService\AccountProfilePictureUploader as Uploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
-use Doctrine\ORM\Events as DoctrineEvents;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -16,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @package App\EventSubscriber
  */
-class AccountActionsSubscriber implements EventSubscriberInterface
+class AccountActionsListener
 {
     /** @var Uploader */
     private $uploader;
@@ -27,16 +25,6 @@ class AccountActionsSubscriber implements EventSubscriberInterface
     public function __construct(Uploader $uploader)
     {
         $this->uploader = $uploader;
-    }
-
-    /** @inheritDoc */
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            DoctrineEvents::prePersist => 'prePersist',
-            DoctrineEvents::preUpdate  => 'preUpdate',
-            DoctrineEvents::postRemove => 'postRemove',
-        ];
     }
 
     /**
