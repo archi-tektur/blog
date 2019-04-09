@@ -49,13 +49,12 @@
                         <small class="user-card__undertitle">Imie i nazwisko</small>
                         <div class="user-card__reverse-icons-grid">
                             {% if user == app.user %}
-                                <span href="{{path('gui__admin_confirm_user_delete', {'mail': user.email})}}"
-                                      class="user-card__reverse-icons" disabled="disabled">
+                                <span class="user-card__reverse-icons" disabled="disabled">
                                     <span class="user-card__reverse-icon fas fa-trash"></span>
                                     <span class="user-card__reverse-text">Usuń</span>
                                 </span>
                             {% else %}
-                                <a href="{{path('gui__admin_confirm_user_delete', {'mail': user.email})}}"
+                                <a href="{{path('gui__admin_confirm_user_delete', {'login': user.username})}}"
                                    class="user-card__reverse-icons">
                                     <span class="user-card__reverse-icon fas fa-trash"></span>
                                     <span class="user-card__reverse-text">Usuń</span>
@@ -76,7 +75,8 @@
                                 <span class="user-card__reverse-icon fas fa-pen"></span>
                                 <span class="user-card__reverse-text">Edytuj</span>
                             </a>
-                            <a href="" class="user-card__reverse-icons">
+                            <a href="{{path('gui__admin_user_regenerate', {'login': user.username})}}"
+                               class="user-card__reverse-icons">
                                 <span class="user-card__reverse-icon fas fa-redo"></span>
                                 <span class="user-card__reverse-text">Regeneruj API</span>
                             </a>

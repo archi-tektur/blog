@@ -50,13 +50,13 @@ class AccountService extends AbstractValidationService
     /**
      * Get information about account
      *
-     * @param string $email
+     * @param string $login
      * @return Account
      * @throws AccountNotFoundException
      */
-    public function get(string $email): Account
+    public function get(string $login): Account
     {
-        $account = $this->accountRepository->findOneBy(['email' => $email]);
+        $account = $this->accountRepository->findOneBy(['username' => $login]);
         if (!$account instanceof Account) {
             throw new AccountNotFoundException(self::ERR_NOT_FOUND);
         }
@@ -134,14 +134,14 @@ class AccountService extends AbstractValidationService
     }
 
     /**
-     * @param string  $email
+     * @param string  $login
      * @param Account $deleter
      * @throws AccountNotFoundException
      * @throws ORMException
      * @throws CannotDeleteOwnAccountException
      * @throws OptimisticLockException
      */
-    public function delete(string $email, Account $deleter): void
+    public function delete(string $login, Account $deleter): void
     {
         $account = $this->get($email);
         if ($account === $deleter) {
@@ -160,7 +160,7 @@ class AccountService extends AbstractValidationService
     private function generateApiPartialKey(): string
     {
         do {
-            $apiKey = RandomStringGenerator::generate(32);
+            $apiKey = RandomStringGenerator::generate(64);
         } while ($this->accountRepository->count(['apiPartialKey' => $apiKey]) !== 0);
 
         return $apiKey;

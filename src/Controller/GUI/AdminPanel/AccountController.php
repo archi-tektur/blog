@@ -2,8 +2,11 @@
 
 namespace App\Controller\GUI\AdminPanel;
 
+use App\Exceptions\NotFound\AccountNotFoundException;
 use App\Service\EntityService\AccountService;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\ORMException;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,15 +54,35 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("admin/users/{mail}/delete", name="gui__admin_user_delete")
+     * @Route("admin/users/{login}/delete", name="gui__admin_user_delete")
      */
-    public function delete($mail): RedirectResponse
+    public function delete($login): RedirectResponse
     {
         // TODO enhance this
         try {
-            $this->accountService->delete($mail, $this->getUser());
+            $this->accountService->delete($login, $this->getUser());
         } catch (Throwable $e) {
             dd($e->getMessage());
+        } finally {
+            return $this->redirectToRoute('gui__admin_users');
+        }
+    }
+
+    /**
+     * Regenerates api key on user
+     *
+     * @param string $login
+     * @return RedirectResponse
+     * @Route("admin/users/{login}/regenerate-api-key", name="gui__admin_user_regenerate")
+     * @throws Exception
+     */
+    public function regenerate(string $login): RedirectResponse
+    {
+        try {
+            $this->accountService->regenerateApiKey($login);
+        } catch (AccountNotFoundException $e) {
+        } catch (ORMException $e) {
+        } catch (Exception $e) {
         } finally {
             return $this->redirectToRoute('gui__admin_users');
         }

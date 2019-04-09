@@ -55,14 +55,14 @@ class AccountConfirmationController extends AbstractController
     /**
      * Renders warning screen before removing an account
      *
-     * @Route("admin/confirm/categories/{mail}/delete", name="gui__admin_confirm_user_delete")
-     * @param string $mail
+     * @Route("admin/confirm/categories/{login}/delete", name="gui__admin_confirm_user_delete")
+     * @param string $login
      * @return Response
      */
-    public function delete(string $mail): Response
+    public function delete(string $login): Response
     {
         $cancelLink = $this->generateUrl('gui__admin_users');
-        $okLink = $this->generateUrl('gui__admin_user_delete', ['mail' => $mail]);
+        $okLink = $this->generateUrl('gui__admin_user_delete', ['login' => $login]);
 
         $config = new ConfirmScreenConfig();
         $config->setTitle(self::DELETE_CS_TITLE)
