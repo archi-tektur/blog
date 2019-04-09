@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -35,6 +36,12 @@ class Account extends AbstractLifecycleAccountEntity
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
+     * @Assert\File(
+     *     maxSize="2048k",
+     *     mimeTypes={"image/jpeg", "image/bmp", "image/png"},
+     *     mimeTypesMessage="error.mimeTypesMessage",
+     *     maxSizeMessage="error.maxSiseMessage",
+     * )
      */
     private $profileImage;
 
@@ -78,12 +85,12 @@ class Account extends AbstractLifecycleAccountEntity
         return $this;
     }
 
-    public function getProfileImage(): ?string
+    public function getProfileImage()
     {
         return $this->profileImage;
     }
 
-    public function setProfileImage(?string $profileImage): self
+    public function setProfileImage($profileImage): self
     {
         $this->profileImage = $profileImage;
 

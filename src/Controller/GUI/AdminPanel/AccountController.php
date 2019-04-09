@@ -55,8 +55,10 @@ class AccountController extends AbstractController
 
     /**
      * @Route("admin/users/{login}/delete", name="gui__admin_user_delete")
+     * @param $login
+     * @return RedirectResponse
      */
-    public function delete($login): RedirectResponse
+    public function delete(string $login): RedirectResponse
     {
         // TODO enhance this
         try {

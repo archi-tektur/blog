@@ -4,7 +4,6 @@ namespace App\Service\UploaderService;
 
 use App\Entity\Account;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AccountProfilePictureUploader implements UploaderInterface
 {
@@ -17,14 +16,14 @@ class AccountProfilePictureUploader implements UploaderInterface
     }
 
     /** @inheritdoc */
-    public function upload(UploadedFile $file, $account): ?string
+    public function upload($file, $account): ?string
     {
         /** @var Account $account */
         $fileName = getenv('ACCOUNT_IMG_PREFIX') . $account->getUsername() . '.' . $file->guessExtension();
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
-
+            dd($e);
         }
         return $fileName;
     }

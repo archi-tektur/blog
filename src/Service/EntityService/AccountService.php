@@ -143,7 +143,7 @@ class AccountService extends AbstractValidationService
      */
     public function delete(string $login, Account $deleter): void
     {
-        $account = $this->get($email);
+        $account = $this->get($login);
         if ($account === $deleter) {
             throw new CannotDeleteOwnAccountException(self::ERR_DELETING_OWN);
         }

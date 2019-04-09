@@ -27,7 +27,8 @@ class AccountFormType extends AbstractType
         $builder->add('name')
                 ->add('surname')
                 ->add('profileImage', FileType::class, [
-                    'required' => false,
+                    'property_path' => 'profileImage',
+                    'required'      => false,
                 ]);
     }
 
