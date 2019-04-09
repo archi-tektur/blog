@@ -8,3 +8,6 @@ fos_user:
     address: "%env(MAILER_SENDER_ADDRESS)%"
     sender_name: "%env(MAILER_SENDER_NAME)%"
 
+  registration:
+    form:
+      type: App\Forms\UserFormType

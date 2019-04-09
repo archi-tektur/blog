@@ -34,6 +34,10 @@ services:
     arguments:
       $targetDirectory: '%profile_pic_dir%'
 
+
+  ###################
+  # EVENT LISTENERS
+  ###################
   App\EventListener\Doctrine\AccountListener:
     tags:
       - { name: doctrine.event_listener, event: prePersist }
@@ -50,3 +54,7 @@ services:
       - { name: doctrine.event_listener, event: preUpdate }
       - { name: doctrine.event_listener, event: postLoad }
       - { name: doctrine.event_listener, event: postRemove }
+
+  ###################
+  # FORMS
+  ###################

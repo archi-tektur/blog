@@ -4,7 +4,7 @@ namespace App\Controller\GUI\AdminPanel;
 
 use App\DTO\ConfirmScreenConfig;
 use App\Entity\Account;
-use App\Forms\AccountForm;
+use App\Forms\UserFormType;
 use App\Renderers\ConfirmScreenRenderer;
 use App\Service\EntityService\AccountService;
 use Doctrine\ORM\EntityManager;
@@ -79,7 +79,7 @@ class SecurityController extends AbstractController
      */
     public function addNewUser(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $form = $this->createForm(AccountForm::class);
+        $form = $this->createForm(UserFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
