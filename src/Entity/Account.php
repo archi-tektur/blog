@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -42,6 +44,7 @@ class Account extends AbstractLifecycleAccountEntity
      *     mimeTypesMessage="error.mimeTypesMessage",
      *     maxSizeMessage="error.maxSiseMessage",
      * )
+     * @Assert\Image()
      */
     private $profileImage;
 
@@ -52,6 +55,12 @@ class Account extends AbstractLifecycleAccountEntity
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\Length(
+     *     min="64",
+     *     max="64",
+     *     minMessage="form.apikey.length.too-short",
+     *     max="form.apikey.length.too-long"
+     *     )
      */
     private $apiPartialKey;
 
@@ -85,6 +94,9 @@ class Account extends AbstractLifecycleAccountEntity
         return $this;
     }
 
+    /**
+     * @return File|UploadedFile|string
+     */
     public function getProfileImage()
     {
         return $this->profileImage;

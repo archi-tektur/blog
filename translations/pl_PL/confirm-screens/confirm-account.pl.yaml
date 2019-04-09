@@ -1,9 +1,14 @@
-"category.delete.confirm.title": "Kategoria zostanie usunięta."
-"category.delete.confirm.content": "Zamierzasz usunąć kategorię. Jeżeli to zrobisz, każdy artykuł straci tą kategorię. Tej operacji nie można cofnąć. Jesteś pewien?"
-"category.delete.confirm.back-text": "Wróć"
-"category.delete.confirm.ok-text": "Usuń"
+"account":
+  "delete":
+    "confirm":
+      "title": "Użytkownik może zostanie usunięty!"
+      "content": "Zamierzasz usunąć konto użytkownika. Jeżeli to zrobisz, wszystkie artykuły tego użytkownika zostaną usunięte. Ta operacja jest nieodwracalna. Jesteś pewien że chcesz to zrobić?"
+      "back-text": "Wróć"
+      "ok-text": "Usuń"
 
-"category.edit.confirm.title": "Kategoria zostanie usunięta."
-"category.edit.confirm.content": "Zamierzasz usunąć kategorię. Jeżeli to zrobisz, każdy artykuł straci tą kategorię. Tej operacji nie można cofnąć. Jesteś pewien?"
-"category.edit.confirm.back-text": "Wróć"
-"category.edit.confirm.ok-text": "Usuń"
+  "edit":
+    "confirm":
+      "title": "Category is being renamed"
+      "content": "You are going to rename category. When proceed, all links related to this category will be dead. You can rename it back anytime. Are you sure?"
+      "back-text": "Back"
+      "ok-text": "Rename"
