@@ -37,3 +37,16 @@ services:
   App\Service\UploaderService\ArticleShowreelUploader:
     arguments:
       $targetDirectory: '%article_showreel_dir%'
+
+  App\EventSubscriber\Doctrine\AccountActionsListener:
+    tags:
+      - { name: doctrine.event_listener, event: prePersist }
+      - { name: doctrine.event_listener, event: preUpdate }
+      - { name: doctrine.event_listener, event: postRemove }
+      -
+  App\EventSubscriber\Doctrine\ArticleActionsListener:
+    tags:
+      - { name: doctrine.event_listener, event: prePersist }
+      - { name: doctrine.event_listener, event: preUpdate }
+      - { name: doctrine.event_listener, event: postLoad }
+      - { name: doctrine.event_listener, event: postRemove }
