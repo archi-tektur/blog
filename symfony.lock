@@ -96,6 +96,20 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "friendsofsymfony/user-bundle": {
+        "version": "2.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.1",
+            "ref": "55fbe103bb5511f46a3bce047f729a89fc4d5237"
+        },
+        "files": [
+            "config/packages/fos_user.yaml",
+            "config/routes/fos_user.yaml",
+            "src/Entity/User.php"
+        ]
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },

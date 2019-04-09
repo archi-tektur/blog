@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="form__container">
+        <section class="form">
+            <img class="login__logo" src="{{asset('img/interface/archi_tektur-logo.svg')}}" alt="archi_tektur logo">
+            <h1 class="login__heading">{% trans from "login" %}login.login{% endtrans %}</h1>
+            {% block fos_user_content %}
+            {% endblock %}
+        </section>
+
+        <aside class="login login--linkbox">
+            <a href="{{path('gui__admin_summary')}}" class="login__link">
+                <span class="login__box-icon fas fa-chevron-left"></span>
+                <span>{% trans from 'login' %}login.link.back-to-blog{% endtrans %}</span>
+            </a>
+        </aside>
+    </div>
+{% endblock %}

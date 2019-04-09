@@ -3,44 +3,27 @@ security:
     App\Entity\Account:
       algorithm: bcrypt
 
+    App\Entity\User:
+      algorithm: bcrypt
 
   # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
   providers:
-    # used to reload user from session & other features (e.g. switch_user)
-    gui_provider:
-      entity:
-        class: App\Entity\Account
-        property: email
+    fos_userbundle:
+      id: fos_user.user_provider.username_email
     # used to reload user from session & other features (e.g. switch_user)
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|ts)/
       security: false
 
-    #    main:
-    #      anonymous: true
+    main:
+      anonymous: ~
+      logout: ~
+      form_login:
+        csrf_token_generator: security.csrf.token_manager
 
-    secure:
-      anonymous: true
       remember_me:
-        secret:   '%kernel.secret%'
-        lifetime: 604800 # 1 week in seconds
-        path:     /
-
-      logout:
-        path: /logout
-
-      guard:
-        authenticators:
-          - App\Security\LoginFormAuthenticator
-
-      # activate different ways to authenticate
-
-      # http_basic: true
-      # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-      # form_login: true
-      # https://symfony.com/doc/current/security/form_login_setup.html
+        secret: '%env(APP_SECRET)%'
 
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
