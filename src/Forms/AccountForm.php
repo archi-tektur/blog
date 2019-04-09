@@ -18,6 +18,11 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  */
 class AccountForm extends AbstractType
 {
+    /**
+     * Valid translation domain
+     */
+    private const TRANSLATION_DOMAIN = 'new-user-form';
+
     /** @inheritdoc */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -43,7 +48,8 @@ class AccountForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Account::class,
+            'data_class'         => Account::class,
+            'translation_domain' => self::TRANSLATION_DOMAIN,
         ]);
     }
 }

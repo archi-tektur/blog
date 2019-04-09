@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AccountConfirmationController extends AbstractController
 {
-
     /**
      * Confirm screen texts
      */
