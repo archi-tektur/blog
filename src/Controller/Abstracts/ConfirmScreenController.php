@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Renderers;
+namespace App\Controller\Abstracts;
 
 use App\DTO\Abstracts\ConfirmScreenConfigInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package App\Controller\GUI
  */
-class ConfirmScreenRenderer extends AbstractController
+class ConfirmScreenController extends AbstractController
 {
     /** @var string */
     private $templatePath = 'admin/confirmation/confirm.html.twig';
@@ -39,7 +39,7 @@ class ConfirmScreenRenderer extends AbstractController
      * @param ConfirmScreenConfigInterface $confirmScreenConfig
      * @return Response
      */
-    public function renderConfirmScreen(ConfirmScreenConfigInterface $confirmScreenConfig): Response
+    public function confirm(ConfirmScreenConfigInterface $confirmScreenConfig): Response
     {
         return $this->render($this->templatePath, [
             $this->twigKey => $confirmScreenConfig,

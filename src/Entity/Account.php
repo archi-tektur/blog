@@ -114,13 +114,6 @@ class Account extends AbstractLifecycleAccountEntity
         return $this->apiPartialKey;
     }
 
-    public function setApiPartialKey(string $apiPartialKey): self
-    {
-        $this->apiPartialKey = $apiPartialKey;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Article[]
      */

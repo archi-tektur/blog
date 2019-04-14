@@ -2,9 +2,8 @@
 
 namespace App\Controller\GUI\AdminPanel\Confirmations;
 
+use App\Controller\Abstracts\ConfirmScreenController;
 use App\DTO\ConfirmScreenConfig;
-use App\Renderers\ConfirmScreenRenderer;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @package App\Controller\GUI\AdminPanel
  */
-class CategoryConfirmationController extends AbstractController
+class CategoryConfirmationController extends ConfirmScreenController
 {
     /**
      * Confirm screen texts
@@ -29,16 +28,6 @@ class CategoryConfirmationController extends AbstractController
     private const DELETE_CS_OK_TEXT = 'category.delete.confirm.ok-text';
 
     private const TRANSLATION_DOMAIN = 'confirm-category';
-
-    /**
-     * @var ConfirmScreenRenderer
-     */
-    protected $confirmScreenRenderer;
-
-    public function __construct(ConfirmScreenRenderer $confirmScreenRenderer)
-    {
-        $this->confirmScreenRenderer = $confirmScreenRenderer;
-    }
 
     /**
      * Renders warning screen before removing category
@@ -63,7 +52,7 @@ class CategoryConfirmationController extends AbstractController
                ->setTranslationDomain(self::TRANSLATION_DOMAIN)
                ->setTranslatable(true);
 
-        return $this->confirmScreenRenderer->renderConfirmScreen($config);
+        return $this->confirm($config);
     }
 
     /**
@@ -88,6 +77,6 @@ class CategoryConfirmationController extends AbstractController
                ->setTranslationDomain(self::TRANSLATION_DOMAIN)
                ->setTranslatable(true);
 
-        return $this->confirmScreenRenderer->renderConfirmScreen($config);
+        return $this->confirm($config);
     }
 }

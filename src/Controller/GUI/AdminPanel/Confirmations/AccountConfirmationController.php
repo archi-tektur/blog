@@ -2,9 +2,8 @@
 
 namespace App\Controller\GUI\AdminPanel\Confirmations;
 
+use App\Controller\Abstracts\ConfirmScreenController;
 use App\DTO\ConfirmScreenConfig;
-use App\Renderers\ConfirmScreenRenderer;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @package App\Controller\GUI\AdminPanel
  */
-class AccountConfirmationController extends AbstractController
+class AccountConfirmationController extends ConfirmScreenController
 {
     /**
      * Confirm screen texts
@@ -30,14 +29,8 @@ class AccountConfirmationController extends AbstractController
 
     private const TRANSLATION_DOMAIN = 'confirm-account';
 
-    /**
-     * @var ConfirmScreenRenderer
-     */
-    protected $confirmScreenRenderer;
-
-    public function __construct(ConfirmScreenRenderer $confirmScreenRenderer)
+    public function __construct()
     {
-        $this->confirmScreenRenderer = $confirmScreenRenderer;
     }
 
     /**
@@ -74,6 +67,6 @@ class AccountConfirmationController extends AbstractController
                ->setTranslationDomain(self::TRANSLATION_DOMAIN)
                ->setTranslatable(true);
 
-        return $this->confirmScreenRenderer->renderConfirmScreen($config);
+        return $this->confirm($config);
     }
 }
